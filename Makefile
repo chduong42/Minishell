@@ -6,7 +6,7 @@
 #    By: chduong <chduong@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/01/25 19:27:08 by chduong          ###   ########.fr        #
+#    Updated: 2022/01/27 15:42:17 by chduong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,19 +41,21 @@ BOLD       =   $'\033[1m
 #########################################
 #			FLAGS COMPILATION			#
 #########################################
-CFLAGS		=	-Wall -Wextra -Werror 
-DEBUG		=	-fsanitize=adress -g3
-INC			= 	-I includes
+CFLAGS		=	-Wall -Wextra -Werror
+DEBUG		=	-fsanitize=address -g3
 
-LINK		=	$(LINK_LFT)
-LINK_LFT	=	-L ./libft
+INC			= 	-I includes $(INC_LFT)
+INC_LFT		=	-I libft/inc
+
+LINK		=	$(LINK_LFT) -lreadline
+LINK_LFT	=	-L ./libft -lft
 
 #########################################
 #			DIRECTORIES					#
 #########################################
 SRC_DIR		=	srcs/
 OBJ_DIR		=	obj/
-LIBFT_DIR	=	Libft/
+LIBFT_DIR	=	libft/
 
 #########################################
 #			LIBRARIES					#
@@ -63,7 +65,7 @@ LIBFT		=	$(LIBFT_DIR)libft.a
 #########################################
 #			SOURCES	FILES				#
 #########################################
-MS_SRC		=	main.c
+MS_SRC		=	main.c		parsing.c
 
 #########################################
 #            OBJECT FILES    	        #
@@ -76,13 +78,14 @@ MS_OBJ		:=	$(addprefix $(OBJ_DIR), $(MS_OBJ))
 #########################################
 all: $(NAME)
 
-$(NAME): $(OBJ_DIR) $(MS_OBJ)
+$(NAME): $(OBJ_DIR) $(MS_OBJ) $(LIBFT)
 	@echo "> $(CYAN)Generate objects$(END) : \t\t[$(GREEN)OK$(END)]"
-	@$(CC) $(LINK) -o $@ $(MS_OBJ)
+	@$(CC) $(LINK) -o $@ $(MS_OBJ) $(LIBFT)
 	@echo "> $(WHITE)$(BOLD)MiniShell Compilation$(END) : \t[$(YELLOW)COMPLETE$(END)]"
 
 $(LIBFT):
-	@make -C $(LIBFT_DIR)
+	@make -s -C $(LIBFT_DIR)
+	@make -s -C $(LIBFT_DIR) clean
 	@echo "> $(CYAN)Libft Compilation$(END) : \t\t[$(GREEN)OK$(END)]"
 
 ${OBJ_DIR}%.o:	${SRC_DIR}%.c
@@ -96,7 +99,6 @@ bonus :
 	
 clean:
 	@$(RM) $(OBJ_DIR)
-	@make -s -C $(LIBFT_DIR) clean
 	@echo "> $(PURPLE)Clean objects$(END) : \t\t[$(GREEN)OK$(END)]"
 	
 fclean: clean
