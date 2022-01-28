@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 20:17:23 by chduong           #+#    #+#             */
-/*   Updated: 2022/01/27 15:20:38 by chduong          ###   ########.fr       */
+/*   Updated: 2022/01/28 17:27:28 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,17 @@
 ◦ env with no options or arguments
 ◦ exit with no options*/
 
-
-
-int	parse_line(const char *line)
+int	exec_cmd(char **arg, char *path)
 {
-	char **arg;
+	
+}
+
+int	parse_line(const char *line, char *path)
+{
+	char	**arg;
 
 	arg = ft_split(line, ' ');
 	if (ft_strncmp(arg[0], "exit", 5) == 0)
-	{
-		
+		exit_shell(arg);
 	return (0);
 }

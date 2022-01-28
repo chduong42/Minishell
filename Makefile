@@ -6,7 +6,7 @@
 #    By: chduong <chduong@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/01/27 15:42:17 by chduong          ###   ########.fr        #
+#    Updated: 2022/01/28 16:08:45 by chduong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,7 @@ LIBFT		=	$(LIBFT_DIR)libft.a
 #########################################
 #			SOURCES	FILES				#
 #########################################
-MS_SRC		=	main.c		parsing.c
+MS_SRC		=	main.c		parsing.c		exit.c		utils.c
 
 #########################################
 #            OBJECT FILES    	        #
@@ -113,6 +113,6 @@ norm:
 	@norminette ${SRC_DIR} ${INC_DIR} | grep 'Error' ; true
 
 leak:
-	valgrind ./${NAME}
+	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --suppressions=ignorereadline ./${NAME}
 
 .PHONY: all clean fclean re

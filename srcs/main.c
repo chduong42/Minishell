@@ -6,11 +6,25 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/01/27 14:59:37 by chduong          ###   ########.fr       */
+/*   Updated: 2022/01/28 17:22:01 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*grep_path(char **env)
+{
+	int	i;
+	
+	i = 0;
+	while (env[i])
+	{
+		if (ft_strncmp(env[i], "PATH=", 5) == 0)
+			return (env[i]);
+		++i;
+	}
+	return (NULL);
+}
 
 void	clear_memory(char *line)
 {
@@ -25,9 +39,10 @@ void	clear_memory(char *line)
 int	main(int ac, char **av, char **env)
 {
 	char	*line;
+	char	*path;
 	
-	(void)env;
 	line = NULL;
+	path = grep_path(env);
 	if (ac == 1)
 	{
 		while (1)
@@ -35,7 +50,7 @@ int	main(int ac, char **av, char **env)
 			line = readline("MiniShell >: ");
 			if (line && *line)
         		add_history(line);
-			if (parse_line(line))
+			if (parse_line(line, path))
 				break ;
 			free(line);
 		}

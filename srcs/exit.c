@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:08:07 by chduong           #+#    #+#             */
-/*   Updated: 2022/01/27 15:50:14 by chduong          ###   ########.fr       */
+/*   Updated: 2022/01/28 15:19:40 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	exit_shell(char **arg)
 			exit(ft_atoi(arg[1]));
 		else
 		{
-			printf("minishell: exit: %s: numeric argument required\n");
+			printf("minishell: exit: %s: numeric argument required\n", arg[1]);
 			exit(EXIT_SUCCESS);
 		}
 	}
