@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/01/28 15:19:15 by chduong          ###   ########.fr       */
+/*   Updated: 2022/01/28 17:39:36 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <readline/history.h>
 # include "libft.h"
 
-int		parse_line(const char *line, char **env);
+int		parse_line(const char *line, char *path);
 int		count_arg(char **arg);
 
 void	exit_shell(char **arg);
