@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/01/31 15:51:01 by chduong          ###   ########.fr       */
+/*   Updated: 2022/01/31 16:49:19 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 int		parse_line(const char *line, char *path, char **env);
 int		count_arg(char **arg);
 
+void	exec_cmd(char **arg, char *path, char **env);
 void	exit_shell(char **arg);
 
 #endif

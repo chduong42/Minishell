@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/01/31 15:56:55 by chduong          ###   ########.fr       */
+/*   Updated: 2022/01/31 16:58:12 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,10 @@ char	*path_join(char *path, char *cmd)
 	ft_strlcpy(p, path, len1 + 1);
 	ft_strlcat(p, "/", len1 + 2);
 	ft_strlcat(p, cmd, len1 + len2 + 2);
-	printf("%s\n", p);
 	return (p);
 }
 
-int	exec_cmd(char **arg, char *path, char **env)
+void	exec_cmd(char **arg, char *path, char **env)
 {
 	char	**paths;
 	char	*cmd;
@@ -42,9 +41,10 @@ int	exec_cmd(char **arg, char *path, char **env)
 	i = 0;
 	while (paths[i])
 	{
-		if(access(paths[i], X_OK) == 0)
+		cmd = path_join(paths[i], arg[0]);
+		if(access(cmd, X_OK) == 0)
 			execve(path, arg, env);
-		else
-			perror(strerror(errno));
+		++i;
 	}
+	perror("Error");
 }
