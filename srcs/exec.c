@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/01/31 16:58:12 by chduong          ###   ########.fr       */
+/*   Updated: 2022/01/31 17:04:32 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	exec_cmd(char **arg, char *path, char **env)
 	while (paths[i])
 	{
 		cmd = path_join(paths[i], arg[0]);
-		if(access(cmd, X_OK) == 0)
-			execve(path, arg, env);
+		if (access(cmd, X_OK) == 0)
+			execve(cmd, arg, env);
 		++i;
 	}
 	perror("Error");
