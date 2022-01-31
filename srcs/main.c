@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/01/28 17:41:15 by chduong          ###   ########.fr       */
+/*   Updated: 2022/01/31 15:41:18 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	main(int ac, char **av, char **env)
 			line = readline("MiniShell >: ");
 			if (line && *line)
         		add_history(line);
-			if (parse_line(line, path))
+			if (parse_line(line, path, env))
 				break ;
 			free(line);
 		}
