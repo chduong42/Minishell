@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/01/31 16:49:19 by chduong          ###   ########.fr       */
+/*   Updated: 2022/02/01 13:52:49 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,15 @@
 # include <stdlib.h>
 # include <string.h>
 # include <signal.h>
+# include <stdint.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft.h"
+
+/* Boolean type definition */
+typedef uint8_t	t_bool;
+# define TRUE 1
+# define FALSE 0
 
 int		parse_line(const char *line, char *path, char **env);
 int		count_arg(char **arg);
