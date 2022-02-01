@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/01/31 17:04:32 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/02/01 16:49:30 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*path_join(char *path, char *cmd)
+static char	*path_join(char *path, char *cmd)
 {
 	char	*p;
 	int		len1;
@@ -31,19 +31,18 @@ char	*path_join(char *path, char *cmd)
 	return (p);
 }
 
-void	exec_cmd(char **arg, char *path, char **env)
+void	exec_cmd(char **arg, char **path, char **env)
 {
-	char	**paths;
 	char	*cmd;
 	int		i;
 
-	paths = ft_split(path, ':');
 	i = 0;
-	while (paths[i])
+	while (path[i])
 	{
-		cmd = path_join(paths[i], arg[0]);
+		cmd = path_join(path[i], arg[0]);
 		if (access(cmd, X_OK) == 0)
 			execve(cmd, arg, env);
+		free(cmd);
 		++i;
 	}
 	perror("Error");

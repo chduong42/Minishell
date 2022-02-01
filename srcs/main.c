@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/01/31 15:41:18 by chduong          ###   ########.fr       */
+/*   Updated: 2022/02/01 16:40:41 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,37 +26,26 @@ char	*grep_path(char **env)
 	return (NULL);
 }
 
-void	clear_memory(char *line)
-{
-	if (line)
-	{
-		free(line);
-		line = NULL;
-	}
-	clear_history();
-}
-
 int	main(int ac, char **av, char **env)
 {
 	char	*line;
-	char	*path;
+	char	**path;
 	
 	line = NULL;
-	path = grep_path(env);
 	if (ac == 1)
 	{
+		path = ft_split(grep_path(env), ':');
 		while (1)
 		{
-			line = readline("MiniShell >: ");
+			line = readline("Minishell$> ");
 			if (line && *line)
         		add_history(line);
-			if (parse_line(line, path, env))
-				break ;
+			parse_line(line, path, env);
 			free(line);
 		}
+		clear_memory(line, path);
 	}
 	else
 		printf("\e[1;37mUsage:\e[0m %s runs without any argument\n", av[0]);
-	clear_memory(line);
 	return (0);
 }
