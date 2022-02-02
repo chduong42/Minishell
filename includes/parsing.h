@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:31:10 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/02 14:28:54 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/02/02 19:11:41 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef enum e_token_type
 }	t_token_type;
 
 # define SPECIAL_CHARS "<>|\"\'"
+# define TERM_CHARS " <>|"
 
 typedef enum e_abstract_type
 {
@@ -53,6 +54,7 @@ typedef struct s_token
 
 /* Prototypes */
 t_bool	lexer(char *input, t_token *token_list);
-
+int		free_toklist(t_token *list);
+t_bool	categorizer(char *str, t_token *token_list, size_t *i);
 
 #endif
