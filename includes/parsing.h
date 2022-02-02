@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:31:10 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/01 13:43:45 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/02/02 12:48:40 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "minishell.h"
 
+/* Data structures */
 typedef enum e_token_type
 {
 	NONE,
@@ -26,7 +27,6 @@ typedef enum e_token_type
 	GREAT,
 	DLESS,
 	DGREAT,
-	ENVAR,
 	END
 }	t_token_type;
 
@@ -48,5 +48,9 @@ typedef struct s_token
 	struct s_token	*previous;
 	struct s_token	*next;
 }	t_token;
+
+/* Prototypes */
+t_bool	lexer(char *input);
+
 
 #endif
