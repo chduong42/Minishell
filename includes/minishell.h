@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/02/01 16:45:48 by chduong          ###   ########.fr       */
+/*   Updated: 2022/02/02 17:02:22 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <signal.h>
+# include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft.h"

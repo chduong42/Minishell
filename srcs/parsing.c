@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 20:17:23 by chduong           #+#    #+#             */
-/*   Updated: 2022/02/01 17:45:33 by chduong          ###   ########.fr       */
+/*   Updated: 2022/02/02 17:03:18 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,17 @@
 void	parse_line(char *line, char **path, char **env)
 {
 	char	**arg;
+	pid_t	pid;
 
 	arg = ft_split(line, ' ');
 	if (ft_strncmp(arg[0], "exit", 5) == 0)
 		exit_shell(arg, line, path);
 	else
-		exec_cmd(arg, path, env);
+	{
+		pid = fork();
+		if (pid == 0)
+			exec_cmd(arg, path, env);
+		else
+			wait(0);	
+	}
 }

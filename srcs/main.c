@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/02/01 16:40:41 by chduong          ###   ########.fr       */
+/*   Updated: 2022/02/02 14:01:21 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	main(int ac, char **av, char **env)
 		path = ft_split(grep_path(env), ':');
 		while (1)
 		{
-			line = readline("Minishell$> ");
+			line = readline("\e[1;35mMiniShell >: \e[0m");
 			if (line && *line)
         		add_history(line);
 			parse_line(line, path, env);
