@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/02/02 12:52:42 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/02/02 14:41:49 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 typedef uint8_t	t_bool;
 # define TRUE 1
 # define FALSE 0
+
+t_bool	is_in_charset(char c, char *charset);
 
 int		parse_line(const char *line, char *path, char **env);
 int		count_arg(char **arg);
