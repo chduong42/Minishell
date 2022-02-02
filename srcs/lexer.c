@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:48:39 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/02 18:40:27 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/02/02 19:41:30 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	add_token(t_token *list, t_token *token)
 	}
 }
 
-static t_bool	*create_token(t_token_type type, char *data, t_token *list)
+t_bool	create_token(t_token_type type, char *data, t_token *list)
 {
 	t_token	*token;
 
@@ -62,10 +62,10 @@ static t_bool	*create_token(t_token_type type, char *data, t_token *list)
 }
 
 /*
-Will return position of the next matching quote of the same type.
+Will return position of the next char from charset.
 Returns 0 otherwise.
 */
-static size_t	find_char_set(char *str, char *charset)
+size_t	find_char_set(const char *str, char *charset)
 {
 	size_t	i;
 	size_t	j;
