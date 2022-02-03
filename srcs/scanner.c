@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 18:31:12 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/02 19:37:18 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/02/03 15:30:51 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,25 @@ int	free_toklist(t_token *list)
 
 t_token	*scanner(const char *str)
 {
-	t_token		*token_list;
 	size_t		i;
+	t_token		*token_list;
 
 	if (!str)
-		return (NULL);
-	token_list = NULL;
-	i = 0;
-	while (str[i])
 	{
-		if (categorizer(str, token_list, &i) == FALSE)
+		token_list = NULL;
+		ft_putstr_fd("Error: Null string passed to scanner\n", 2);
+		return (NULL);
+	}
+	i = 0;
+	token_list = NULL;
+	while (i < ft_strlen(str))
+	{
+		if (categorizer(str, &token_list, &i) == FALSE)
 			break ;
 	}
-	if (create_token(END, NULL, token_list) == FALSE)
+	if (token_list == NULL)
+		return (NULL);
+	if (create_token(END, NULL, &token_list) == FALSE)
 	{
 		free_toklist(token_list);
 		return (NULL);

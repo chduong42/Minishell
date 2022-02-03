@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:48:39 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/02 19:41:30 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/02/03 15:24:11 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,20 @@ static char	*cleaner(char *str_in)
 	return (str_out);
 }
 
-static void	add_token(t_token *list, t_token *token)
+static void	add_token(t_token **list, t_token *token)
 {
 	t_token	*tmp;
 
-	if (!list)
+	if (*list == NULL)
 	{
-		token->previous = NULL;
-		list = token;
+		printf("Creating list.\n");
+		*list = token;
+		(*list)->previous = NULL;
 	}
 	else
 	{
-		tmp = list;
+		printf("Adding token.\n");
+		tmp = *list;
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = token;
@@ -44,12 +46,14 @@ static void	add_token(t_token *list, t_token *token)
 	}
 }
 
-t_bool	create_token(t_token_type type, char *data, t_token *list)
+t_bool	create_token(t_token_type type, char *data, t_token **list)
 {
 	t_token	*token;
 
+	if ((data == NULL || data[0] == '\0') && (type != NONE && type != END))
+		return (FALSE);
 	token = (t_token *)malloc(sizeof(t_token));
-	if (!token)
+	if (token == NULL)
 	{
 		perror("malloc");
 		return (FALSE);
@@ -87,24 +91,26 @@ size_t	find_char_set(const char *str, char *charset)
 	return (0);
 }
 
-t_bool	lexer(char *input, t_token *token_list)
+t_token	*lexer(char *input)
 {
 	char	*str;
+	t_token	*token_list;
 
 	if (!input)
-		return (FALSE);
+		return (NULL);
 	str = cleaner(input);
-	if (!str)
+	if (str == NULL)
 	{
 		ft_putstr_fd("Error: Corrupted Input\n", 2);
-		return (FALSE);
+		return (NULL);
 	}
+	token_list = NULL;
 	token_list = scanner(str);
 	free(str);
-	if (!token_list)
+	if (token_list == NULL)
 	{
 		ft_putstr_fd("Error: Tokenizer Failed\n", 2);
-		return (FALSE);
+		return (NULL);
 	}
-	return (TRUE);
+	return (token_list);
 }
