@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/02/02 14:01:21 by chduong          ###   ########.fr       */
+/*   Updated: 2022/02/03 14:23:27 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "parsing.h"
 
 char	*grep_path(char **env)
 {
@@ -30,7 +31,7 @@ int	main(int ac, char **av, char **env)
 {
 	char	*line;
 	char	**path;
-	
+
 	line = NULL;
 	if (ac == 1)
 	{
