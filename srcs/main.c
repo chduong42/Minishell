@@ -27,50 +27,26 @@ char	*grep_path(char **env)
 	return (NULL);
 }
 
-void	clear_memory(char *line)
-{
-	if (line)
-	{
-		free(line);
-		line = NULL;
-	}
-	clear_history();
-}
-
 int	main(int ac, char **av, char **env)
 {
 	char	*line;
-	char	*path;
-	t_token	*token_list;
-	t_token	*tmp;
+	char	**path;
 
 	line = NULL;
-	path = grep_path(env);
 	if (ac == 1)
 	{
+		path = ft_split(grep_path(env), ':');
 		while (1)
 		{
-			line = readline("MiniShell >: ");
+			line = readline("\e[1;35mMiniShell >: \e[0m");
 			if (line && *line)
-				add_history(line);
-			token_list = lexer(line);
-			if (token_list == NULL)
-				ft_putstr_fd("Error : lexer failed\n", 2);
-			else
-			{
-				tmp = token_list;
-				while (tmp != NULL)
-				{
-					printf("%s => %d\n", tmp->data, tmp->type);
-					tmp = tmp->next;
-				}
-				free_toklist(token_list);
-			}
+        		add_history(line);
+			parse_line(line, path, env);
 			free(line);
 		}
+		clear_memory(line, path);
 	}
 	else
 		printf("\e[1;37mUsage:\e[0m %s runs without any argument\n", av[0]);
-	clear_memory(line);
 	return (0);
 }

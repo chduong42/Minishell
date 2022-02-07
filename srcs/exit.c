@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:08:07 by chduong           #+#    #+#             */
-/*   Updated: 2022/01/28 15:19:40 by chduong          ###   ########.fr       */
+/*   Updated: 2022/02/02 13:34:11 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,36 @@ static int	only_digit(char *arg)
 	return (1);
 }
 
-void	exit_shell(char **arg)
+void	free_exit(char **arg, char *line, char **path, int opt)
+{
+	if (arg)
+		free_tab(arg);
+	if (path)
+		free_tab(path);
+	if (line)
+		free(line);
+	clear_history();
+	rl_clear_history();
+	exit(opt);
+}
+
+void	exit_shell(char **arg, char *line, char **path)
 {
 	int	nb_arg;
 
 	nb_arg = count_arg(arg);
 	if (nb_arg == 1)
-		exit(EXIT_SUCCESS);
+		free_exit(arg, line, path, EXIT_SUCCESS);
 	else if (nb_arg == 2)
 	{
 		if (only_digit(arg[1]))
-			exit(ft_atoi(arg[1]));
+			free_exit(arg, line, path, ft_atoi(arg[1]));
 		else
 		{
-			printf("minishell: exit: %s: numeric argument required\n", arg[1]);
-			exit(EXIT_SUCCESS);
+			printf("Minishell: exit: %s: numeric argument required\n", arg[1]);
+			free_exit(arg, line, path, EXIT_SUCCESS);
 		}
 	}
 	else
-		printf("minishell: exit: too many argument\n");
+		printf("Minishell: exit: too many argument\n");
 }

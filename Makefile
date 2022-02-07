@@ -82,7 +82,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ_DIR) $(MS_OBJ) $(LIBFT)
 	@echo "> $(CYAN)Generate objects$(END) : \t\t[$(GREEN)OK$(END)]"
-	@$(CC) $(LINK) -o $@ $(MS_OBJ) $(LIBFT)
+	@$(CC) -g3 $(LINK) -o $@ $(MS_OBJ) $(LIBFT)
 	@echo "> $(WHITE)$(BOLD)MiniShell Compilation$(END) : \t[$(YELLOW)COMPLETE$(END)]"
 
 $(LIBFT):
@@ -115,6 +115,6 @@ norm:
 	@norminette ${SRC_DIR} ${INC_DIR} | grep 'Error' ; true
 
 leak:
-	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --suppressions=ignorereadline ./${NAME}
+	valgrind --leak-check=full --show-leak-kinds=all --suppressions=ignorereadline ./${NAME}
 
 .PHONY: all clean fclean re

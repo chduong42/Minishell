@@ -19,21 +19,23 @@
 # include <string.h>
 # include <signal.h>
 # include <stdint.h>
+# include <stdbool.h>
+# include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft.h"
 
-/* Boolean type definition */
-typedef uint8_t	t_bool;
-# define TRUE 1
-# define FALSE 0
-
-t_bool	is_in_charset(char c, char *charset);
-
-int		parse_line(const char *line, char *path, char **env);
+//	UTILS
 int		count_arg(char **arg);
+void	free_tab(char **tab);
+void	clear_memory(char *line, char **path);
+bool	is_in_charset(char c, char *charset);
 
-void	exec_cmd(char **arg, char *path, char **env);
-void	exit_shell(char **arg);
+//	PARSING
+void	parse_line(char *line, char **path, char **env);
+
+//	BUILTINS
+void	exit_shell(char **arg, char *line, char **path);
+void	exec_cmd(char **arg, char **path, char **env);
 
 #endif
