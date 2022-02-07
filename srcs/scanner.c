@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scanner.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 18:31:12 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/03 15:30:51 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/02/07 14:56:53 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ t_bool	is_in_charset(char c, char *charset)
 	int		i;
 
 	if (!charset || c == '\0')
-		return (FALSE);
+		return (false);
 	i = 0;
 	while (charset[i])
 	{
 		if (charset[i] == c)
-			return (TRUE);
+			return (true);
 		++i;
 	}
-	return (FALSE);
+	return (false);
 }
 
 int	free_toklist(t_token *list)
@@ -63,12 +63,12 @@ t_token	*scanner(const char *str)
 	token_list = NULL;
 	while (i < ft_strlen(str))
 	{
-		if (categorizer(str, &token_list, &i) == FALSE)
+		if (categorizer(str, &token_list, &i) == false)
 			break ;
 	}
 	if (token_list == NULL)
 		return (NULL);
-	if (create_token(END, NULL, &token_list) == FALSE)
+	if (create_token(END, NULL, &token_list) == false)
 	{
 		free_toklist(token_list);
 		return (NULL);

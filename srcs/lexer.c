@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:48:39 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/03 15:24:11 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/02/07 14:56:53 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,18 @@ t_bool	create_token(t_token_type type, char *data, t_token **list)
 	t_token	*token;
 
 	if ((data == NULL || data[0] == '\0') && (type != NONE && type != END))
-		return (FALSE);
+		return (false);
 	token = (t_token *)malloc(sizeof(t_token));
 	if (token == NULL)
 	{
 		perror("malloc");
-		return (FALSE);
+		return (false);
 	}
 	token->type = type;
 	token->data = data;
 	token->next = NULL;
 	add_token(list, token);
-	return (TRUE);
+	return (true);
 }
 
 /*

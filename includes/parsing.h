@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:31:10 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/03 15:26:09 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/02/07 14:57:17 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,12 @@ typedef struct s_token
 /* Prototypes */
 t_token	*lexer(char *input);
 t_token	*scanner(const char *str);
+
 size_t	find_char_set(const char *str, char *charset);
-t_bool	create_token(t_token_type type, char *data, t_token **list);
+
 int		free_toklist(t_token *list);
-t_bool	categorizer(const char *str, t_token **token_list, size_t *i);
+
+bool	create_token(t_token_type type, char *data, t_token **list);
+bool	categorizer(const char *str, t_token **token_list, size_t *i);
 
 #endif
