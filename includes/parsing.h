@@ -21,8 +21,6 @@ typedef enum e_token_type
 	NONE,
 	WORD,
 	PIPE,
-	SQUOTE,
-	DQUOTE,
 	LESS,
 	GREAT,
 	DLESS,
@@ -35,9 +33,7 @@ typedef enum e_token_type
 
 typedef enum e_abstract_type
 {
-	PROGRAM,
 	COMMAND,
-	OPTION,
 	ARGUMENT,
 	REDIRECT,
 	EXPANSION
