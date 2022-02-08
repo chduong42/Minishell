@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/02/02 14:41:49 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/02/08 21:51:30 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int		count_arg(char **arg);
 void	free_tab(char **tab);
 void	clear_memory(char *line, char **path);
 bool	is_in_charset(char c, char *charset);
+void	ft_print_title(void);
+
 
 //	PARSING
 void	parse_line(char *line, char **path, char **env);

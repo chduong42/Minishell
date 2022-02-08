@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   scanner.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 18:31:12 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/07 14:56:53 by chduong          ###   ########.fr       */
+/*   Updated: 2022/02/08 19:14:41 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-t_bool	is_in_charset(char c, char *charset)
+bool	is_in_charset(char c, char *charset)
 {
 	int		i;
 
@@ -34,15 +34,22 @@ int	free_toklist(t_token *list)
 
 	if (list != NULL)
 	{
-		while (list)
+		tmp = list;
+		while (tmp)
 		{
-			tmp = list;
-			if (list->next != NULL)
-				list = list->next;
 			if (tmp->type == WORD)
 				free(tmp->data);
-			free(tmp);
-			tmp = NULL;
+			if (tmp->next != NULL)
+			{
+				tmp = tmp->next;
+				free(tmp->previous);
+				tmp->previous = NULL;
+			}
+			else
+			{
+				free(tmp);
+				tmp = NULL;
+			}
 		}
 	}
 	return (-1);

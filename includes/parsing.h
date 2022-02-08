@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:31:10 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/07 14:57:17 by chduong          ###   ########.fr       */
+/*   Updated: 2022/02/08 21:52:38 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef enum e_token_type
 }	t_token_type;
 
 # define SPECIAL_CHARS "<>|\"\'"
-# define TERM_CHARS " <>|"
+# define TERM_CHARS " <>|\"\'"
 
 typedef enum e_abstract_type
 {
@@ -41,6 +41,7 @@ typedef enum e_abstract_type
 
 typedef struct s_token
 {
+	size_t			index;
 	char			*data;
 	t_token_type	type;
 	struct s_token	*previous;
@@ -57,5 +58,14 @@ int		free_toklist(t_token *list);
 
 bool	create_token(t_token_type type, char *data, t_token **list);
 bool	categorizer(const char *str, t_token **token_list, size_t *i);
+
+void	display_n_free(t_token *token_list);
+
+int		categ_1(const char *str, t_token **token_list, size_t *i);
+int		categ_2(const char *str, t_token **token_list, size_t *i);
+int		categ_3(const char *str, t_token **token_list, size_t *i);
+int		categ_4(const char *str, t_token **token_list, size_t *i);
+int		categ_5(const char *str, t_token **token_list, size_t *i);
+
 
 #endif

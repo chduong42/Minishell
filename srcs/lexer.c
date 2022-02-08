@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:48:39 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/07 14:56:53 by chduong          ###   ########.fr       */
+/*   Updated: 2022/02/08 20:58:29 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,24 @@ static void	add_token(t_token **list, t_token *token)
 
 	if (*list == NULL)
 	{
-		printf("Creating list.\n");
+//		printf("Creating list.\n");
 		*list = token;
-		(*list)->previous = NULL;
+		token->previous = NULL;
+		token->index = 0;
 	}
 	else
 	{
-		printf("Adding token.\n");
+//		printf("Adding token.\n");
 		tmp = *list;
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = token;
 		token->previous = tmp;
+		token->index = tmp->index + 1;
 	}
 }
 
-t_bool	create_token(t_token_type type, char *data, t_token **list)
+bool	create_token(t_token_type type, char *data, t_token **list)
 {
 	t_token	*token;
 
