@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 18:55:04 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/07 14:56:53 by chduong          ###   ########.fr       */
+/*   Updated: 2022/02/08 17:33:28 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ static int	categ_5(const char *str, t_token **token_list, size_t *i)
 	return (1);
 }
 
-t_bool	categorizer(const char *str, t_token **token_list, size_t *i)
+bool	categorizer(const char *str, t_token **token_list, size_t *i)
 {
 	int	ret;
 

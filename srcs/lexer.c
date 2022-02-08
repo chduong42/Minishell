@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:48:39 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/07 14:56:53 by chduong          ###   ########.fr       */
+/*   Updated: 2022/02/08 17:33:01 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	add_token(t_token **list, t_token *token)
 	}
 }
 
-t_bool	create_token(t_token_type type, char *data, t_token **list)
+bool	create_token(t_token_type type, char *data, t_token **list)
 {
 	t_token	*token;
 

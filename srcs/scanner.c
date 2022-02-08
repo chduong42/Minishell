@@ -6,13 +6,13 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 18:31:12 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/07 14:56:53 by chduong          ###   ########.fr       */
+/*   Updated: 2022/02/08 17:33:28 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-t_bool	is_in_charset(char c, char *charset)
+bool	is_in_charset(char c, char *charset)
 {
 	int		i;
 
