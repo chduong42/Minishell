@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:08:07 by chduong           #+#    #+#             */
-/*   Updated: 2022/02/02 13:34:11 by chduong          ###   ########.fr       */
+/*   Updated: 2022/02/09 17:15:36 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	exit_shell(char **arg, char *line, char **path)
 {
 	int	nb_arg;
 
-	nb_arg = count_arg(arg);
+	nb_arg = count_str(arg);
 	if (nb_arg == 1)
 		free_exit(arg, line, path, EXIT_SUCCESS);
 	else if (nb_arg == 2)

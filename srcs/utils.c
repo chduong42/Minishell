@@ -6,18 +6,18 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:09:54 by chduong           #+#    #+#             */
-/*   Updated: 2022/02/02 13:33:06 by chduong          ###   ########.fr       */
+/*   Updated: 2022/02/09 13:53:25 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	count_arg(char **arg)
+int	count_str(char **str)
 {
 	int	i;
 
 	i = 0;
-	while (arg[i])
+	while (str[i])
 		++i;
 	return (i);
 }

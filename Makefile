@@ -6,7 +6,7 @@
 #    By: chduong <chduong@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/02/07 14:56:44 by chduong          ###   ########.fr        #
+#    Updated: 2022/02/08 17:32:01 by chduong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,8 +65,9 @@ LIBFT		=	$(LIBFT_DIR)libft.a
 #########################################
 #			SOURCES	FILES				#
 #########################################
-MS_SRC		=	main.c		parsing.c		exit.c		utils.c\
-				exec.c		lexer.c			scanner.c	categorizer.c\
+MS_SRC		=	main.c			parsing.c		exit.c		utils.c\
+				exec.c			lexer.c			scanner.c	categorizer.c\
+				export_env.c	
 				
 
 #########################################
