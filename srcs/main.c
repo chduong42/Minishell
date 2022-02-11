@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/02/08 21:43:37 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/02/11 15:57:03 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,12 @@ int	main(int ac, char **av, char **env)
 		{
 			line = readline("\e[1;35mMiniShell >: \e[0m");
 			if (line && *line)
+			{
 				add_history(line);
-			token_list = lexer(line);
-			display_n_free(token_list);
+				token_list = lexer(line);
+				display_toklist(token_list);
+				free_toklist(token_list);
+			}
 		}
 		free_tab(path);
 		clear_history();

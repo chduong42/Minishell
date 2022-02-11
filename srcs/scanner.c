@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 18:31:12 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/08 19:14:41 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/02/11 16:59:32 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	free_toklist(t_token *list)
 		tmp = list;
 		while (tmp)
 		{
-			if (tmp->type == WORD)
+			if (tmp->type == WORD || tmp->type == VAR)
 				free(tmp->data);
 			if (tmp->next != NULL)
 			{
@@ -55,10 +55,21 @@ int	free_toklist(t_token *list)
 	return (-1);
 }
 
+static t_input	init_input(const char *str)
+{
+	t_input		input;
+
+	input.str = str;
+	input.index = 0;
+	input.dquoted = false;
+	input.squoted = false;
+	return (input);
+}
+
 t_token	*scanner(const char *str)
 {
-	size_t		i;
 	t_token		*token_list;
+	t_input		input;
 
 	if (!str)
 	{
@@ -66,11 +77,11 @@ t_token	*scanner(const char *str)
 		ft_putstr_fd("Error: Null string passed to scanner\n", 2);
 		return (NULL);
 	}
-	i = 0;
 	token_list = NULL;
-	while (i < ft_strlen(str))
+	input = init_input((char *)str);
+	while (input.index < ft_strlen(str))
 	{
-		if (categorizer(str, &token_list, &i) == false)
+		if (categorizer(&input, &token_list) == false)
 			break ;
 	}
 	if (token_list == NULL)

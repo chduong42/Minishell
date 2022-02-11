@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 18:55:04 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/08 21:51:56 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/02/11 16:43:47 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,27 @@
 /*
 Redirections 1 category.
 */
-int	categ_1(const char *str, t_token **token_list, size_t *i)
+int	categ_1(t_input *input, t_token **token_list)
 {
-	if (!ft_strncmp(&str[*i], "<<", 2))
+	if (!ft_strncmp(&input->str[input->index], "<<", 2))
 	{
 		if (create_token(DLESS, "<<", token_list) == false)
 			return (free_toklist(*token_list));
-		*i += 2;
+		input->index += 2;
 		return (0);
 	}
-	else if (str[*i] == '<')
+	else if (input->str[input->index] == '<')
 	{
 		if (create_token(LESS, "<", token_list) == false)
 			return (free_toklist(*token_list));
-		++*i;
+		++input->index;
 		return (0);
 	}
-	else if (!ft_strncmp(&str[*i], ">>", 2))
+	else if (!ft_strncmp(&input->str[input->index], ">>", 2))
 	{
 		if (create_token(DGREAT, ">>", token_list) == false)
 			return (free_toklist(*token_list));
-		*i += 2;
+		input->index += 2;
 		return (0);
 	}
 	return (1);
@@ -44,72 +44,75 @@ int	categ_1(const char *str, t_token **token_list, size_t *i)
 /*
 Redirections 2 category.
 */
-int	categ_2(const char *str, t_token **token_list, size_t *i)
+int	categ_2(t_input *input, t_token **token_list)
 {
-	if (str[*i] == '>')
+	if (input->str[input->index] == '>')
 	{
 		if (create_token(GREAT, ">", token_list) == false)
 			return (free_toklist(*token_list));
-		++*i;
+		++input->index;
 		return (0);
 	}
-	else if (str[*i] == '|')
+	else if (input->str[input->index] == '|')
 	{
 		if (create_token(PIPE, "|", token_list) == false)
 			return (free_toklist(*token_list));
-		++*i;
+		++input->index;
 		return (0);
 	}
 	return (1);
 }
 
 /*
-Double quotes category.
+Quotes category.
 */
-int	categ_3(const char *str, t_token **token_list, size_t *i)
+int	categ_3(t_input *input, t_token **token_list)
 {
-	char	*word_data;
-
-	if (str[*i] == '"' && find_char_set(&str[*i], "\""))
+	if (input->str[input->index] == 34)
 	{
-		word_data = ft_substr(str, *i + 1, find_char_set(&str[*i], "\"") - 1);
-		if (create_token(WORD, word_data, token_list) == false)
+		if (create_token(DQUOTE, "\"", token_list) == false)
 			return (free_toklist(*token_list));
-		*i += ft_strlen(word_data) + 2;
+		if (input->dquoted == false && input->squoted == false)
+			input->dquoted = true;
+		else if (input->dquoted == true)
+			input->dquoted = false;
+		++input->index;
 		return (0);
 	}
-	else if (str[*i] == '"' && !find_char_set(&str[*i], "\""))
+	else if (input->str[input->index] == 39)
 	{
-		word_data = ft_substr(str, *i, find_char_set(&str[*i], TERM_CHARS));
-		if (create_token(WORD, word_data, token_list) == false)
+		if (create_token(SQUOTE, "\'", token_list) == false)
 			return (free_toklist(*token_list));
-		*i += ft_strlen(word_data);
+		if (input->squoted == false && input->dquoted == false)
+			input->squoted = true;
+		else if (input->squoted == true)
+			input->squoted = false;
+		++input->index;
 		return (0);
 	}
 	return (1);
 }
 
 /*
-Simple quotes category.
+Env variables and spaces category.
 */
-int	categ_4(const char *str, t_token **token_list, size_t *i)
+int	categ_4(t_input *input, t_token **token_list)
 {
 	char	*word_data;
 
-	if (str[*i] == 39 && find_char_set(&str[*i], "\'"))
+	if (input->str[input->index] == '$')
 	{
-		word_data = ft_substr(str, *i + 1, find_char_set(&str[*i], "\'") - 1);
-		if (create_token(WORD, word_data, token_list) == false)
+		word_data = ft_substr(input->str, input->index,
+				find_char_set(&input->str[input->index], TERM_N_SPACE));
+		if (create_token(VAR, word_data, token_list) == false)
 			return (free_toklist(*token_list));
-		*i += ft_strlen(word_data) + 2;
+		input->index += ft_strlen(word_data);
 		return (0);
 	}
-	else if (str[*i] == 39 && !find_char_set(&str[*i], "\'"))
+	else if (input->str[input->index] == ' '
+		&& input->dquoted == false && input->squoted == false)
 	{
-		word_data = ft_substr(str, *i, find_char_set(&str[*i], TERM_CHARS));
-		if (create_token(WORD, word_data, token_list) == false)
-			return (free_toklist(*token_list));
-		*i += ft_strlen(word_data);
+		++input->index;
 		return (0);
 	}
 	return (1);
@@ -118,25 +121,22 @@ int	categ_4(const char *str, t_token **token_list, size_t *i)
 /*
 Non-special characters category.
 */
-int	categ_5(const char *str, t_token **token_list, size_t *i)
+int	categ_5(t_input *input, t_token **token_list)
 {
 	char	*word_data;
+	char	*charset;
 
-	if (str[*i] == ' ')
-	{
-		++*i;
-		return (0);
-	}
+	charset = TERM_N_SPACE;
+	if (input->dquoted == true || input->squoted == true)
+		charset = TERM_CHARS;
+	if (find_char_set(&input->str[input->index], charset) != 0)
+		word_data = ft_substr(input->str, input->index,
+				find_char_set(&input->str[input->index], charset));
 	else
-	{
-		if (find_char_set(&str[*i], TERM_CHARS) != 0)
-			word_data = ft_substr(str, *i, find_char_set(&str[*i], TERM_CHARS));
-		else
-			word_data = ft_substr(str, *i, ft_strlen(&str[*i]));
-		if (create_token(WORD, word_data, token_list) == false)
-			return (free_toklist(*token_list));
-		*i += ft_strlen(word_data);
-		return (0);
-	}
-	return (1);
+		word_data = ft_substr(input->str, input->index,
+				ft_strlen(&input->str[input->index]));
+	if (create_token(WORD, word_data, token_list) == false)
+		return (free_toklist(*token_list));
+	input->index += ft_strlen(word_data);
+	return (0);
 }
