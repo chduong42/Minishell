@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:48:39 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/08 20:58:29 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/02/11 17:07:26 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,12 @@ static void	add_token(t_token **list, t_token *token)
 
 	if (*list == NULL)
 	{
-//		printf("Creating list.\n");
 		*list = token;
 		token->previous = NULL;
 		token->index = 0;
 	}
 	else
 	{
-//		printf("Adding token.\n");
 		tmp = *list;
 		while (tmp->next)
 			tmp = tmp->next;
@@ -48,6 +46,9 @@ static void	add_token(t_token **list, t_token *token)
 	}
 }
 
+/*
+Create and add a new token to the list.
+*/
 bool	create_token(t_token_type type, char *data, t_token **list)
 {
 	t_token	*token;
@@ -93,6 +94,9 @@ size_t	find_char_set(const char *str, char *charset)
 	return (0);
 }
 
+/*
+Converts input string to token list exploitable by the analyzer.
+*/
 t_token	*lexer(char *input)
 {
 	char	*str;

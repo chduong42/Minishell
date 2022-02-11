@@ -6,12 +6,15 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 18:31:12 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/11 16:59:32 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/02/11 17:09:24 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
+/*
+Returns true if "c" is in "charset", false otherwise.
+*/
 bool	is_in_charset(char c, char *charset)
 {
 	int		i;
@@ -28,6 +31,9 @@ bool	is_in_charset(char c, char *charset)
 	return (false);
 }
 
+/*
+Completely frees the token list, as well as data for each concerned token.
+*/
 int	free_toklist(t_token *list)
 {
 	t_token	*tmp;
@@ -66,6 +72,9 @@ static t_input	init_input(const char *str)
 	return (input);
 }
 
+/*
+Core function of the lexer.
+*/
 t_token	*scanner(const char *str)
 {
 	t_token		*token_list;
