@@ -6,7 +6,7 @@
 #    By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/02/08 21:53:07 by smagdela         ###   ########.fr        #
+#    Updated: 2022/02/15 10:58:17 by smagdela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,7 +67,8 @@ LIBFT		=	$(LIBFT_DIR)libft.a
 #########################################
 MS_SRC		=	main.c		parsing.c		exit.c		utils.c\
 				exec.c		lexer.c			scanner.c	categorizer.c\
-				categorizer_2.c				analyzer.c
+				categorizer_2.c				analyzer.c	checkers.c\
+				
 
 #########################################
 #            OBJECT FILES    	        #

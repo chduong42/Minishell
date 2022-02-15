@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:31:10 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/11 16:32:16 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/02/15 10:57:43 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ typedef struct s_input
 /* Prototypes */
 t_token	*lexer(char *input);
 t_token	*scanner(const char *str);
+t_token	*analyzer(t_token *token_list);
+
 
 size_t	find_char_set(const char *str, char *charset);
 
