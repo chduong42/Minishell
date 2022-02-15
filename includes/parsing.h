@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:31:10 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/15 10:57:43 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/02/15 16:04:00 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 typedef enum e_token_type
 {
 	NONE,
-	WORD,
-	VAR,
+	WORD,	// Note that only WORD and VAR tokens
+	VAR,	// have malloc'd data attributes.
 	DQUOTE,
 	SQUOTE,
 	PIPE,
@@ -64,6 +64,8 @@ t_token	*lexer(char *input);
 t_token	*scanner(const char *str);
 t_token	*analyzer(t_token *token_list);
 
+char	*my_strcat(char *dest, char *str);
+char	*find_envar(char *envar, char **envp);
 
 size_t	find_char_set(const char *str, char *charset);
 
@@ -73,6 +75,7 @@ bool	create_token(t_token_type type, char *data, t_token **list);
 bool	categorizer(t_input *input, t_token **token_list);
 
 void	display_toklist(t_token *token_list);
+void	expand(t_token *elem);
 
 int		categ_1(t_input *input, t_token **token_list);
 int		categ_2(t_input *input, t_token **token_list);

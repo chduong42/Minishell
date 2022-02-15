@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 18:31:12 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/11 17:09:24 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/02/15 15:48:10 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ bool	is_in_charset(char c, char *charset)
 
 /*
 Completely frees the token list, as well as data for each concerned token.
+Returns -1 (for norm and ease of code reasons).
 */
 int	free_toklist(t_token *list)
 {
