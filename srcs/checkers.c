@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 10:53:09 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/15 16:02:53 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/02/17 17:38:14 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,101 +34,46 @@ static size_t	is_closed(t_token *elem, t_token_type elem_type)
 }
 
 /*
-Reduce everything between "elem" and the elem with index "end" from toklist.
-Meaning everything (including environment variables) will become one and
-only one token of type WORD, without the quotes on each sides.
-To use with single quotes.
+Trims every boundary space from each WORD token in the list,
+starting from "elem".
 */
-void	reduce_all(t_token *elem, size_t end)
+static void	trim_workspaces(t_token *elem)
 {
-	t_token	*tmp;
-	t_token	*to_free;
-	char	*new_data;
-
-	tmp = elem->next;
-	if (tmp == NULL)
-		return ;
-	new_data = "";
-	while (tmp->index < end)
-	{
-		if (tmp == NULL)
-		{
-			free(new_data);
-			return ;
-		}
-		new_data = my_strcat(new_data, tmp->data);
-		tmp = tmp->next;
-	}
-	elem->data = new_data;
-	elem->type = WORD;
-	to_free = elem->next;
-	elem->next = tmp->next;
-	if (tmp->next != NULL)
-		tmp->next->previous = elem;
-	tmp->next = NULL;
-	to_free->previous = NULL;
-	free_toklist(to_free);
-}
-
-/*
-Reduce everything between "elem" and the elem with index "end" from toklist.
-Meaning everything (BUT NOT environement variables) will become one and
-only one token of type WORD, AFTER EXPANDING ENVIRONMENT VARIABLES,
-without the quotes on each sides.
-To use with double quotes.
-*/
-t_token	*reduce(t_token *elem, size_t end)
-{
-	t_token	*tmp;
-	t_token	*to_free;
-	char	*new_data;
-
-	tmp = elem->next;
-	if (tmp == NULL)
-		return ;
-	new_data = "";
-	while (tmp->index < end)
-	{
-		if (tmp == NULL)
-		{
-			free(new_data);
-			return ;
-		}
-		else if (tmp->type == VAR)
-			expand(tmp);
-		new_data = my_strcat(new_data, tmp->data);
-		tmp = tmp->next;
-	}
-	elem->data = new_data;
-	elem->type = WORD;
-	to_free = elem->next;
-	elem->next = tmp->next;
-	if (tmp->next != NULL)
-		tmp->next->previous = elem;
-	tmp->next = NULL;
-	to_free->previous = NULL;
-	free_toklist(to_free);
+	/*Code here MF*/
 }
 
 bool checker_quotes(t_token *token_list)
 {
 	t_token	*tmp;
-	size_t	end;
+	size_t	ends;
+	size_t	endd;
 
 	tmp = token_list;
+	ends = 42;
+	endd = 42;
 	while (tmp != NULL)
 	{
 		if (tmp->type == SQUOTE)
 		{
-			end = is_closed(tmp, SQUOTE);
-			if (end != 0)
-				reduce_all(tmp, end);
+			ends = is_closed(tmp, SQUOTE);
+			if (ends == 0 && endd == 0)
+			{
+				trim_wordspaces(tmp);
+				break ;
+			}
+			else if (ends != 0)
+				reduce_all(tmp, ends);
 		}
 		else if (tmp->type == DQUOTE)
 		{
-			end = is_closed(tmp, SQUOTE);
-			if (end != 0)
-				reduce(tmp, end);
+			endd = is_closed(tmp, SQUOTE);
+			if (ends == 0 && endd == 0)
+			{
+				trim_wordspaces(tmp);
+				break ;
+			}
+			else if (endd != 0)
+				reduce(tmp, endd);
 		}
 		tmp = tmp->next;
 	}

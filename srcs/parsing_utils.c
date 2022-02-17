@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 15:26:15 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/15 15:59:46 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/02/17 17:20:43 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ char	*my_strcat(char *dest, char *str)
 /*
 Finds "envar" in "envp" and returns its value,
 according to the environmenet format.
+If no envar with such a name exists, returns an empty string "";
+Treats special envar like $?.
 */
 char	*find_envar(char *envar, char **envp)
 {
@@ -56,16 +58,4 @@ char	*find_envar(char *envar, char **envp)
 	
 	etc...
 	*/
-}
-
-/*
-Replace current VAR token with the expanded WORD version of it,
-if the VAR is found in the environement.
-*/
-void	expand(t_token *elem)
-{
-	if (elem->type != VAR)
-		return ;
-	elem->type = WORD;
-	elem->data = find_envar(elem->data, envp);
 }
