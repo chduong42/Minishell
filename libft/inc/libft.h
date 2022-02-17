@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 18:09:34 by chduong           #+#    #+#             */
-/*   Updated: 2021/12/15 14:04:46 by chduong          ###   ########.fr       */
+/*   Updated: 2022/02/17 18:07:29 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 
 typedef struct s_list
 {
-	void			*content;
+	char			*content;
+	struct s_list	*prev;
 	struct s_list	*next;
 }					t_list;
 

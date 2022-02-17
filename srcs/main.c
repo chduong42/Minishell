@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/02/03 14:23:27 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/02/17 16:59:31 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,36 @@ char	*grep_path(char **env)
 	return (NULL);
 }
 
-int	main(int ac, char **av, char **env)
+void	data_init(t_data *data, char **envp)
 {
-	char	*line;
-	char	**path;
+	int		i;
 
-	line = NULL;
+	data->line = NULL;
+	data->env = NULL;
+	data->path = ft_split(grep_path(envp), ':');
+	data->newenv = 0;
+	data->newpath = 0;
+	i = 0;
+	while (envp[i])
+		ft_lstadd_back(&data->env, ft_lstnew(envp[i++]));
+}
+
+int	main(int ac, char **av, char **envp)
+{
+	t_data	data;
+
 	if (ac == 1)
 	{
-		path = ft_split(grep_path(env), ':');
+		data_init(&data, envp);
 		while (1)
 		{
-			line = readline("\e[1;35mMiniShell >: \e[0m");
-			if (line && *line)
-        		add_history(line);
-			parse_line(line, path, env);
-			free(line);
+			data.line = readline("\e[1;35mMiniShell >: \e[0m");
+			if (data.line && *data.line)
+        		add_history(data.line);
+			parse_line(&data);
+			free(data.line);
 		}
-		clear_memory(line, path);
+		clear_memory(data.line, data.path);
 	}
 	else
 		printf("\e[1;37mUsage:\e[0m %s runs without any argument\n", av[0]);

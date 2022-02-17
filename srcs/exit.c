@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:08:07 by chduong           #+#    #+#             */
-/*   Updated: 2022/02/09 17:15:36 by chduong          ###   ########.fr       */
+/*   Updated: 2022/02/17 13:47:21 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	free_exit(char **arg, char *line, char **path, int opt)
 	if (line)
 		free(line);
 	clear_history();
-	rl_clear_history();
 	exit(opt);
 }
 

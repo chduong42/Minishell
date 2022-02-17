@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:47:38 by chduong           #+#    #+#             */
-/*   Updated: 2022/02/09 21:19:01 by chduong          ###   ########.fr       */
+/*   Updated: 2022/02/09 21:21:26 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	print_env(char **env)
 	}
 }
 
-char	**cpy_env(char **env)
+static char	**cpy_env(char **env)
 {
 	char	**sort;
 	int	i;

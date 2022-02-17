@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 20:17:23 by chduong           #+#    #+#             */
-/*   Updated: 2022/02/09 11:18:11 by chduong          ###   ########.fr       */
+/*   Updated: 2022/02/17 14:56:38 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 ◦ env with no options or arguments
 ◦ exit with no options*/
 
-void	parse_line(char *line, char **path, char **env)
+void	parse_line(t_data *data)
 {
 	char	**arg;
 	pid_t	pid;

@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:09:54 by chduong           #+#    #+#             */
-/*   Updated: 2022/02/09 13:53:25 by chduong          ###   ########.fr       */
+/*   Updated: 2022/02/17 16:27:20 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,4 @@ void	clear_memory(char *line, char **path)
 		line = NULL;
 	}
 	clear_history();
-	rl_clear_history();
 }
