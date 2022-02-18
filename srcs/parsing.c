@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 20:17:23 by chduong           #+#    #+#             */
-/*   Updated: 2022/02/17 14:56:38 by chduong          ###   ########.fr       */
+/*   Updated: 2022/02/18 18:48:41 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,19 @@
 ◦ env with no options or arguments
 ◦ exit with no options*/
 
-void	parse_line(t_data *data)
+
+
+void	parse_line(char **envp, t_data *data)
 {
 	char	**arg;
-	pid_t	pid;
 
-	arg = ft_split(line, ' ');
+	arg = ft_split(data->line, ' ');
 	if (ft_strncmp(arg[0], "exit", 5) == 0)
-		exit_shell(arg, line, path);
+		exit_ms(arg, data);
 	else if (ft_strncmp(arg[0], "env", 4) == 0)
-		print_env(env);
+		print_env(data->env);
 	else if (ft_strncmp(arg[0], "export", 7) == 0)
-		print_export(env);
+		print_export(data);
 	else
-	{
-		pid = fork();
-		if (pid == 0)
-			exec_cmd(arg, path, env);
-		else
-			wait(0);	
-	}
+		fork_exec(arg, envp, data);
 }

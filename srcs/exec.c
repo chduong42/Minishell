@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/02/01 16:49:30 by chduong          ###   ########.fr       */
+/*   Updated: 2022/02/18 18:41:39 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,30 @@ static char	*path_join(char *path, char *cmd)
 	return (p);
 }
 
-void	exec_cmd(char **arg, char **path, char **env)
+static void	exec_cmd(char **arg, char **envp, t_data *data)
 {
 	char	*cmd;
 	int		i;
 
 	i = 0;
-	while (path[i])
+	while (data->path[i])
 	{
-		cmd = path_join(path[i], arg[0]);
+		cmd = path_join(data->path[i], arg[0]);
 		if (access(cmd, X_OK) == 0)
-			execve(cmd, arg, env);
+			execve(cmd, arg, envp);
 		free(cmd);
 		++i;
 	}
 	perror("Error");
+}
+
+void	fork_exec(char **arg, char **envp, t_data *data)
+{
+	pid_t	pid;
+
+	pid = fork();
+	if (pid == 0)
+		exec_cmd(arg, envp, data);
+	else
+		wait(0);
 }

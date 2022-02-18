@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/02/17 16:58:25 by chduong          ###   ########.fr       */
+/*   Updated: 2022/02/18 18:41:12 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_data
 {
 	char	*line;
 	char	**path;
+	char	**export;
 	int		newenv;
 	int		newpath;
 	t_list	*env;
@@ -38,16 +39,16 @@ typedef struct s_data
 //	UTILS
 int		count_str(char **str);
 void	free_tab(char **tab);
-void	clear_memory(char *line, char **path);
+char	*grep_path(t_list *env);
 bool	is_in_charset(char c, char *charset);
 
 //	PARSING
-void	parse_line(t_data *data);
+void	parse_line(char **envp, t_data *data);
 
 //	BUILTINS
-void	exit_shell(char **arg, char *line, char **path);
-void	exec_cmd(char **arg, char **path, char **env);
-void	print_env(char **env);
-void	print_export(char **env);
+void	exit_ms(char **arg, t_data *data);
+void	fork_exec(char **arg, char **envp, t_data *data);
+void	print_env(t_list *env);
+void	print_export(t_data *data);
 
 #endif

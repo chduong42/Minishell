@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:09:54 by chduong           #+#    #+#             */
-/*   Updated: 2022/02/17 16:27:20 by chduong          ###   ########.fr       */
+/*   Updated: 2022/02/18 16:01:00 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ void	free_tab(char **tab)
 	tab = NULL;
 }
 
-void	clear_memory(char *line, char **path)
+char	*grep_path(t_list *env)
 {
-	free_tab(path);
-	if (line)
+	while (env)
 	{
-		free(line);
-		line = NULL;
+		if (ft_strncmp(env->content, "PATH=", 5) == 0)
+			return (env->content + 5);
+		env = env->next;
 	}
-	clear_history();
+	return (NULL);
 }
