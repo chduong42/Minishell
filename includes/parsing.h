@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:31:10 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/17 16:46:01 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/02/18 19:00:36 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef enum e_token_type
 	GREAT,
 	DLESS,
 	DGREAT,
-	END
 }	t_token_type;
 
 # define TERM_CHARS "<>|\"\'$"
@@ -68,6 +67,7 @@ char	*my_strcat(char *dest, char *str);
 char	*find_envar(char *envar, char **envp);
 
 size_t	find_char_set(const char *str, char *charset);
+size_t	is_closed(t_token *elem, t_token_type elem_type);
 
 int		free_toklist(t_token *list);
 
@@ -76,6 +76,8 @@ bool	categorizer(t_input *input, t_token **token_list);
 
 void	display_toklist(t_token *token_list);
 void	expand(t_token *elem);
+void	lst_pop(t_token *elem);
+void	reduce_words(t_token *elem, size_t end);
 
 int		categ_1(t_input *input, t_token **token_list);
 int		categ_2(t_input *input, t_token **token_list);

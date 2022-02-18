@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 18:31:12 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/15 15:48:10 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/02/18 18:58:54 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,5 @@ t_token	*scanner(const char *str)
 	}
 	if (token_list == NULL)
 		return (NULL);
-	if (create_token(END, NULL, &token_list) == false)
-	{
-		free_toklist(token_list);
-		return (NULL);
-	}
 	return (token_list);
 }

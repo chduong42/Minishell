@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 18:42:02 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/15 11:20:25 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/02/18 18:59:20 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,18 @@ void	display_toklist(t_token *token_list)
 	tmp = token_list;
 	while (tmp != NULL)
 	{
-		if (tmp->type != END)
-			type_display(tmp);
-		else
-			printf("%zu END.\n", tmp->index);
+		type_display(tmp);
 		tmp = tmp->next;
 	}
 }
 
+/*
+Displays a syntax error message "str", and frees the token list.
+*/
 static t_token	*synerror(t_token *token_list, const char *str)
 {
 	free_toklist(token_list);
-	ft_putstr_fd("Syntax Error : ", 2);
+	ft_putstr_fd("Minishell : Syntax Error : ", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd("\n", 2);
 	return (NULL);
@@ -65,13 +65,10 @@ static t_token	*synerror(t_token *token_list, const char *str)
 
 t_token	*analyzer(t_token *token_list)
 {
-	if (check_quotes(token_list) == false)
-		return (synerror(token_list, "Near quotes."));
-	if (check_envar(token_list) == false)
-		return (synerror(token_list, "Near environment variable."));
-	if (check_words(token_list) == false)
+	checker_quotes(token_list);
+	if (checker_words(token_list) == false)
 		return (synerror(token_list, "Near arg."));
-	if (check_redir(token_list) == false)
+	if (checker_redir(token_list) == false)
 		return (synerror(token_list, "Near redirection or pipe."));
 	return (token_list);
 }

@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 17:19:43 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/17 17:24:58 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/02/18 18:53:30 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	expand(t_token *elem)
 	while (elem->data[i])
 	{
 		if (elem->data[i] == '$'
-			&& (ft_isalnum(elem->data[i]) || is_in_charset(elem->data[i], "_?")))
+			&& (ft_isalnum(elem->data[i])
+				|| is_in_charset(elem->data[i], "_?")))
 		{
 			/*
 			Treats the case when there are other envar
@@ -41,7 +42,15 @@ void	expand(t_token *elem)
 
 /*
 Used to replace the previous sample of toklist with one token only,
-and frees accordingly.
+and frees accordingly (links "elem" to "tmp").
+
+			  Redirect...
+	/-->-->-->-->-->-->-->-->-->-->-->-->\
+   |									  |
+elem-> | elem+1->elem+2->...->tmp-1-> | tmp->tmp+1->...
+
+		 ^^...then frees this part.^^
+
 Refreshes to the new indexes too.
 */
 static void	relink_toklist(t_token *elem, t_token *tmp, char *new_data)
@@ -51,10 +60,12 @@ static void	relink_toklist(t_token *elem, t_token *tmp, char *new_data)
 	elem->data = new_data;
 	elem->type = WORD;
 	to_free = elem->next;
-	elem->next = tmp->next;
-	if (tmp->next != NULL)
-		tmp->next->previous = elem;
-	tmp->next = NULL;
+	elem->next = tmp;
+	if (tmp != NULL)
+	{	
+		tmp->previous->next = NULL;
+		tmp->previous = elem;
+	}
 	to_free->previous = NULL;
 	free_toklist(to_free);
 	tmp = elem;
@@ -77,23 +88,26 @@ To use with single quotes.
 void	reduce_all(t_token *elem, size_t end)
 {
 	t_token	*tmp;
+	t_token	*elem_end;
 	char	*new_data;
 
 	tmp = elem->next;
 	if (tmp == NULL)
 		return ;
 	new_data = "";
-	while (tmp->index < end)
+	while (tmp != NULL && tmp->index < end)
 	{
-		if (tmp == NULL)
-		{
-			free(new_data);
-			return ;
-		}
 		new_data = my_strcat(new_data, tmp->data);
 		tmp = tmp->next;
 	}
-	relink_toklist(elem, tmp, new_data);
+	if (tmp == NULL)
+	{
+		free(new_data);
+		return ;
+	}
+	elem_end = tmp->next;
+	lst_pop(tmp);
+	relink_toklist(elem, tmp->next, new_data);
 }
 
 /*
@@ -106,23 +120,54 @@ To use with double quotes.
 void	reduce(t_token *elem, size_t end)
 {
 	t_token	*tmp;
+	t_token	*elem_end;
 	char	*new_data;
 
 	tmp = elem->next;
 	if (tmp == NULL)
 		return ;
 	new_data = "";
-	while (tmp->index < end)
+	while (tmp != NULL && tmp->index < end)
 	{
-		if (tmp == NULL)
-		{
-			free(new_data);
-			return ;
-		}
-		else if (tmp->type == VAR)
+		if (tmp->type == VAR)
 			expand(tmp);
 		new_data = my_strcat(new_data, tmp->data);
 		tmp = tmp->next;
+	}
+	if (tmp == NULL)
+	{
+		free(new_data);
+		return ;
+	}
+	elem_end = tmp->next;
+	lst_pop(tmp);
+	relink_toklist(elem, elem_end, new_data);
+}
+
+/*
+Reduce everything between "elem" and the elem with index "end" from toklist.
+Meaning everything (including environment variables) will become one and
+only one token of type WORD, including data from "elem" and "end"th token.
+To use with checker_words.
+*/
+void	reduce_words(t_token *elem, size_t end)
+{
+	t_token	*tmp;
+	char	*new_data;
+
+	tmp = elem;
+	if (tmp == NULL)
+		return ;
+	new_data = "";
+	while (tmp != NULL && tmp->index < end)
+	{
+		new_data = my_strcat(new_data, tmp->data);
+		tmp = tmp->next;
+	}
+	if (tmp == NULL)
+	{
+		free(new_data);
+		return ;
 	}
 	relink_toklist(elem, tmp, new_data);
 }

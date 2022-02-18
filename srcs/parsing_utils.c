@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 15:26:15 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/17 17:20:43 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/02/18 18:47:50 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ char	*my_strcat(char *dest, char *str)
 /*
 Finds "envar" in "envp" and returns its value,
 according to the environmenet format.
-If no envar with such a name exists, returns an empty string "";
+If no envar with such a name exists, returns an empty string "".
+Even if empty, the string is malloc'd, so that double frees won't happen.
 Treats special envar like $?.
 */
 char	*find_envar(char *envar, char **envp)
@@ -58,4 +59,33 @@ char	*find_envar(char *envar, char **envp)
 	
 	etc...
 	*/
+}
+
+void	lst_pop(t_token *elem)
+{
+	t_token	*tmp;
+
+	if (elem == NULL)
+		return ;
+	if (elem->type == WORD || elem->type == VAR)
+		free(elem->data);
+	if (elem->previous == NULL && elem->next == NULL)
+	{
+	}
+	else
+	{
+		elem->next->previous = elem->previous;
+		elem->previous->next = elem->next;
+		tmp = elem->next;
+		while (tmp != NULL)
+		{
+			if (tmp->previous == NULL)
+				tmp->index = 0;
+			else
+				tmp->index = tmp->previous->index + 1;
+			tmp = tmp->next;
+		}
+	}
+	free(elem);
+	elem = NULL;
 }
