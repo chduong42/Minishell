@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:31:10 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/18 19:00:36 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/02/21 15:16:46 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 typedef enum e_token_type
 {
 	NONE,
-	WORD,	// Note that only WORD and VAR tokens
-	VAR,	// have malloc'd data attributes.
+	WORD,
+	VAR,
 	DQUOTE,
 	SQUOTE,
 	PIPE,
@@ -29,7 +29,9 @@ typedef enum e_token_type
 	DLESS,
 	DGREAT,
 }	t_token_type;
-
+/*
+Note that only WORD and VAR token have malloc'd data attributes.
+*/
 # define TERM_CHARS "<>|\"\'$"
 # define TERM_N_SPACE " <>|\"\'$"
 
@@ -73,6 +75,8 @@ int		free_toklist(t_token *list);
 
 bool	create_token(t_token_type type, char *data, t_token **list);
 bool	categorizer(t_input *input, t_token **token_list);
+bool	checker_words(t_token *token_list);
+bool	checker_reidr(t_token *token_list);
 
 void	display_toklist(t_token *token_list);
 void	expand(t_token *elem);

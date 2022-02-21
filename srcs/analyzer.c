@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 18:42:02 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/18 18:59:20 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/02/21 15:14:42 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	display_toklist(t_token *token_list)
 }
 
 /*
-Displays a syntax error message "str", and frees the token list.
+Displays a syntax error message "str", and frees the "token_list".
 */
 static t_token	*synerror(t_token *token_list, const char *str)
 {
