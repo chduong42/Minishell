@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:31:10 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/21 15:16:46 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/02 19:14:15 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ typedef struct s_input
 /* Prototypes */
 t_token	*lexer(char *input);
 t_token	*scanner(const char *str);
-t_token	*analyzer(t_token *token_list);
+t_token	*analyzer(t_token *token_list, t_data *env_data);
 
 char	*my_strcat(char *dest, char *str);
-char	*find_envar(char *envar, char **envp);
+char	*find_envar(char *envar, t_data *env_data);
 
 size_t	find_char_set(const char *str, char *charset);
 size_t	is_closed(t_token *elem, t_token_type elem_type);
@@ -79,8 +79,11 @@ bool	checker_words(t_token *token_list);
 bool	checker_reidr(t_token *token_list);
 
 void	display_toklist(t_token *token_list);
-void	expand(t_token *elem);
+void	checker_quotes(t_token *token_list, t_data *env_data);
+void	expand(t_token *elem, t_data *env_data);
 void	lst_pop(t_token *elem);
+void	reduce_all(t_token *elem, size_t end);
+void	reduce(t_token *elem, size_t end, t_data *env_data);
 void	reduce_words(t_token *elem, size_t end);
 
 int		categ_1(t_input *input, t_token **token_list);

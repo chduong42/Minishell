@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 10:53:09 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/18 18:56:22 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/02 19:11:24 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,15 @@ static void	squote_manager(t_token *tmp, size_t *ends, size_t *endd)
 		reduce_all(tmp, *ends);
 }
 
-static void	dquote_manager(t_token *tmp, size_t *ends, size_t *endd)
+static void	dquote_manager(t_token *tmp, size_t *ends,
+	size_t *endd, t_data *env_data)
 {
 	*endd = is_closed(tmp, SQUOTE);
 	if (*endd != 0)
-		reduce(tmp, *endd);
+		reduce(tmp, *endd, env_data);
 }
 
-void	checker_quotes(t_token *token_list)
+void	checker_quotes(t_token *token_list, t_data *env_data)
 {
 	t_token	*tmp;
 	size_t	ends;
@@ -83,7 +84,7 @@ void	checker_quotes(t_token *token_list)
 		if (tmp->type == SQUOTE)
 			squote_manager(tmp, &ends, &endd);
 		else if (tmp->type == DQUOTE)
-			dquote_manager(tmp, &ends, &endd);
+			dquote_manager(tmp, &ends, &endd, env_data);
 		if (ends == 0 && endd == 0)
 		{
 			trim_wordspaces(tmp);

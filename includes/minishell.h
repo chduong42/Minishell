@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/02/11 17:11:58 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/02 19:37:53 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,30 @@
 # include <readline/history.h>
 # include "libft.h"
 
+//	TYPEDEF
+typedef struct s_data
+{
+	char	*line;
+	char	**path;
+	char	**export;
+	int		newenv;
+	int		newpath;
+	t_list	*env;
+}			t_data;
+
 //	UTILS
-int		count_arg(char **arg);
+int		count_str(char **str);
 void	free_tab(char **tab);
-void	clear_memory(char *line, char **path);
+char	*grep_path(t_list *env);
 bool	is_in_charset(char c, char *charset);
-void	ft_print_title(void);
 
 //	PARSING
-void	parse_line(char *line, char **path, char **env);
+void	parse_line(char **envp, t_data *data);
 
 //	BUILTINS
-void	exit_shell(char **arg, char *line, char **path);
-void	exec_cmd(char **arg, char **path, char **env);
+void	exit_ms(char **arg, t_data *data);
+void	fork_exec(char **arg, char **envp, t_data *data);
+void	print_env(t_list *env);
+void	print_export(t_data *data);
 
 #endif

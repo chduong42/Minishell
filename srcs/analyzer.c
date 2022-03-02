@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 18:42:02 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/21 15:14:42 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/02 19:12:57 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ static t_token	*synerror(t_token *token_list, const char *str)
 	return (NULL);
 }
 
-t_token	*analyzer(t_token *token_list)
+t_token	*analyzer(t_token *token_list, t_data *env_data)
 {
-	checker_quotes(token_list);
+	checker_quotes(token_list, env_data);
 	if (checker_words(token_list) == false)
 		return (synerror(token_list, "Near arg."));
 	if (checker_redir(token_list) == false)
