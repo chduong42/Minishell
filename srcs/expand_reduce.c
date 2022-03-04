@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 17:19:43 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/02 19:13:47 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/04 17:58:34 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,7 @@ void	expand(t_token *elem, t_data *env_data)
 			&& (ft_isalnum(elem->data[i])
 				|| is_in_charset(elem->data[i], "_?")))
 		{
-			/*
-			Treats the case when there are other envar
-			to expand inside the already expanded ones.
-			*/
+			matriochka(elem, env_data);
 		}
 		++i;
 	}

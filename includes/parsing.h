@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:31:10 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/02 19:14:15 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/04 18:35:31 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ bool	checker_reidr(t_token *token_list);
 void	display_toklist(t_token *token_list);
 void	checker_quotes(t_token *token_list, t_data *env_data);
 void	expand(t_token *elem, t_data *env_data);
+void	matriochka(t_token *elem, t_data *env_data);
 void	lst_pop(t_token *elem);
 void	reduce_all(t_token *elem, size_t end);
 void	reduce(t_token *elem, size_t end, t_data *env_data);
