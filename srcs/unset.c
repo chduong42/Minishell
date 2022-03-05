@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/09 15:21:12 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/05 19:48:22 by kennyduong       ###   ########.fr       */
+/*   Created: 2022/02/25 18:42:25 by kennyduong        #+#    #+#             */
+/*   Updated: 2022/02/25 18:43:35 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-t_list	*ft_lstnew(char *envp, char *var, char *content)
+void	unset(char **arg, t_data *data)
 {
-	t_list	*a;
-
-	a = malloc(sizeof(t_list));
-	if (!a)
-		return (NULL);
-	a->line = envp;
-	a->var = var;
-	a->content = content;
-	a->prev = NULL;
-	a->next = NULL;
-	return (a);
+    
 }

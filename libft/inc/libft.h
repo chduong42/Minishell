@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 18:09:34 by chduong           #+#    #+#             */
-/*   Updated: 2022/02/18 18:58:34 by chduong          ###   ########.fr       */
+/*   Updated: 2022/03/05 19:48:39 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	*ft_memset(void *b, int c, size_t len);
 
 //	STRING FUNCTIONS
 
+int		ft_strcmp(const char *s1, const char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 char	*ft_strchr(const char *s, int c);
@@ -66,6 +67,8 @@ size_t	ft_strlen(const char *s);
 
 typedef struct s_list
 {
+	char			*line;
+	char			*var;
 	char			*content;
 	struct s_list	*prev;
 	struct s_list	*next;
@@ -80,7 +83,7 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 
 t_list	*ft_lstlast(t_list *lst);
-t_list	*ft_lstnew(char *content);
+t_list	*ft_lstnew(char *envp, char *var, char *content);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 #endif

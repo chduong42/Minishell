@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/09 15:21:12 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/05 19:48:22 by kennyduong       ###   ########.fr       */
+/*   Created: 2021/05/21 17:39:55 by chduong           #+#    #+#             */
+/*   Updated: 2022/02/28 16:47:49 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(char *envp, char *var, char *content)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	t_list	*a;
-
-	a = malloc(sizeof(t_list));
-	if (!a)
-		return (NULL);
-	a->line = envp;
-	a->var = var;
-	a->content = content;
-	a->prev = NULL;
-	a->next = NULL;
-	return (a);
+	while ((*s1 || *s2) && *s1 == *s2)
+	{
+		++s1;
+		++s2;
+	}
+	return ((unsigned char)(*s1) - (unsigned char)(*s2));
 }

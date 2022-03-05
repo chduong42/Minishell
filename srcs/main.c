@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/02/18 19:24:54 by chduong          ###   ########.fr       */
+/*   Updated: 2022/03/05 20:16:37 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 void	data_init(t_data *data, char **envp)
 {
 	int		i;
+	char	**tmp;
 
 	data->newenv = 0;
 	data->newpath = 0;
@@ -24,7 +25,12 @@ void	data_init(t_data *data, char **envp)
 	data->env = NULL;
 	i = 0;
 	while (envp[i])
-		ft_lstadd_back(&data->env, ft_lstnew(ft_strdup(envp[i++])));
+	{
+		tmp = ft_split(envp[i], '=');
+		ft_lstadd_back(&data->env, ft_lstnew(ft_strdup(envp[i]), tmp[0], tmp[1]));
+		free_tab(tmp);
+		++i;
+	}
 	data->path = ft_split(grep_path(data->env), ':');
 }
 

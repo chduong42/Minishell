@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:47:38 by chduong           #+#    #+#             */
-/*   Updated: 2022/02/18 18:25:33 by chduong          ###   ########.fr       */
+/*   Updated: 2022/03/05 19:51:10 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	print_env(t_list *env)
 {
 	while (env)
 	{
-		printf("%s\n", env->content);
+		printf("%s\n", env->line);
 		env = env->next;
 	}
 }
@@ -30,7 +30,7 @@ static char	**cpy_env(t_list *env)
 	i = 0;
 	while (env)
 	{
-		sort[i] = env->content;
+		sort[i] = env->line;
 		env = env->next;
 		++i;
 	}
@@ -50,7 +50,7 @@ static void	sort_export(char **sort)
 		j = i + 1;
 		while (sort[j])
 		{
-			if (ft_strncmp(sort[i], sort[j], ft_strlen(sort[i])) > 0)
+			if (ft_strcmp(sort[i], sort[j]) > 0)
 			{
 				tmp = sort[i];
 				sort[i] = sort[j];
@@ -71,7 +71,7 @@ void	print_export(t_data *data)
 	{
 		free_tab(data->export);
 		data->export = NULL;
-		data->newenv = 0;
+		data->newenv = false;
 	}
 	if (!data->export)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 11:24:39 by chduong           #+#    #+#             */
-/*   Updated: 2021/06/11 13:32:56 by chduong          ###   ########.fr       */
+/*   Updated: 2022/02/28 14:57:32 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	sublen(char const *str, char set)
 	i = 0;
 	while (*str == set)
 		++str;
-	while (*(str + i) && *(str + i) != set)
+	while (str[i] && str[i] != set)
 		++i;
 	return (i);
 }

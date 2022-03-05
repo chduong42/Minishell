@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 20:17:23 by chduong           #+#    #+#             */
-/*   Updated: 2022/02/18 18:48:41 by chduong          ###   ########.fr       */
+/*   Updated: 2022/02/25 18:43:06 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ void	parse_line(char **envp, t_data *data)
 	else if (ft_strncmp(arg[0], "env", 4) == 0)
 		print_env(data->env);
 	else if (ft_strncmp(arg[0], "export", 7) == 0)
-		print_export(data);
+		export(arg, data);
+	else if (ft_strncmp(arg[0], "unset", 6) == 0)
+		unset(arg, data);
 	else
 		fork_exec(arg, envp, data);
 }
