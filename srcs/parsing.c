@@ -6,7 +6,7 @@
 /*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 20:17:23 by chduong           #+#    #+#             */
-/*   Updated: 2022/02/25 18:43:06 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/03/08 12:51:07 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
 ◦ unset with no options
 ◦ env with no options or arguments
 ◦ exit with no options*/
-
-
 
 void	parse_line(char **envp, t_data *data)
 {
