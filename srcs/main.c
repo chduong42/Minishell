@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/08 14:49:46 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/08 16:13:57 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,19 @@ int	main(int ac, char **av, char **envp)
 		{
 			data.line = readline("\e[1;35mMiniShell >: \e[0m");
 			if (data.line && *data.line)
+			{
 				add_history(data.line);
-			token_list = lexer(data.line);
-			display_toklist(token_list);
-			free_toklist(token_list);
-			parse_line(envp, &data);
-			free(data.line);
-			data.line = NULL;
+				token_list = lexer(data.line);
+				printf("Tokenizer output :\n");
+				display_toklist(token_list);
+				token_list = analyzer(token_list, &data);
+				printf("Analyzer output :\n");
+				display_toklist(token_list);
+				free_toklist(token_list);
+				//parse_line(envp, &data);
+				free(data.line);
+				data.line = NULL;
+			}
 		}
 	}
 	else

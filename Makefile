@@ -6,7 +6,7 @@
 #    By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/03/08 14:40:51 by smagdela         ###   ########.fr        #
+#    Updated: 2022/03/08 16:06:23 by smagdela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,8 @@ MS_SRC		=	main.c			parsing.c	exit.c		utils.c\
 				exec.c			lexer.c		scanner.c	categorizer.c\
 				categorizer_2.c	analyzer.c	parsing_utils.c\
 				parsing_utils_2.c			checker_quotes.c\
-				checker_redir.c	checker_words.c			\
+				checker_redir.c	checker_words.c			print_env.c\
+				export.c		unset.c		expand_reduce.c\
 
 #########################################
 #            OBJECT FILES    	        #

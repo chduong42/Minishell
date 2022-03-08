@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 18:42:25 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/03/08 01:24:41 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/03/08 16:06:07 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	unset(char **arg, t_data *data)
 {
+	(void)arg;
+	(void)data;
+	/*
     int		i;
 	char	**tmp;
     t_list  *env;
@@ -34,4 +37,5 @@ void	unset(char **arg, t_data *data)
         }
         env = env->next;
 	}
+	*/
 }

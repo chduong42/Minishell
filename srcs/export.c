@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 12:11:03 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/03/07 22:07:45 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/03/08 16:04:45 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	export(char **arg, t_data *data)
 		{
 			tmp = ft_split(arg[i], '=');
 			if (is_new_var(tmp[0], data))
-				ft_lstadd_back(data->env, ft_lstnew(arg[i], tmp[0], tmp[1]));
+				ft_lstadd_back(&data->env, ft_lstnew(arg[i], tmp[0], tmp[1]));
 			else
 				change_var(arg[i], tmp, data);
 			free_tab(tmp);
