@@ -6,7 +6,7 @@
 /*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/02/24 12:31:56 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/03/02 19:37:53 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ typedef struct s_data
 	char	**export;
 	bool	newenv;
 	bool	newpath;
-	t_list	*env;
 }			t_data;
 
 //	UTILS

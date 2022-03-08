@@ -1,45 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   checker_words.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/27 15:09:54 by chduong           #+#    #+#             */
-/*   Updated: 2022/02/18 16:01:00 by chduong          ###   ########.fr       */
+/*   Created: 2022/02/18 18:04:58 by smagdela          #+#    #+#             */
+/*   Updated: 2022/02/21 15:15:54 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "parsing.h"
 
-int	count_str(char **str)
+bool	checker_words(t_token *token_list)
 {
-	int	i;
+	t_token	*tmp;
+	t_token	*tmp2;
+	size_t	end_word;
 
-	i = 0;
-	while (str[i])
-		++i;
-	return (i);
-}
-
-void	free_tab(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab && tab[i])
-		free(tab[i++]);
-	free(tab);
-	tab = NULL;
-}
-
-char	*grep_path(t_list *env)
-{
-	while (env)
+	tmp = token_list;
+	while (tmp != NULL)
 	{
-		if (ft_strncmp(env->content, "PATH=", 5) == 0)
-			return (env->content + 5);
-		env = env->next;
+		if (tmp->type == WORD)
+		{
+			tmp2 = tmp;
+			while (tmp2 != NULL)
+			{
+				if (tmp2->next == NULL || tmp2->next->type != WORD)
+				{
+					end_word = tmp2->index;
+					break ;
+				}
+				tmp2 = tmp2->next;
+			}
+			reduce_words(tmp, end_word);
+		}
 	}
-	return (NULL);
 }

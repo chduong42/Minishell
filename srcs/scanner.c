@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   scanner.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 18:31:12 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/08 17:33:28 by chduong          ###   ########.fr       */
+/*   Updated: 2022/02/18 18:58:54 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
+/*
+Returns true if "c" is in "charset", false otherwise.
+*/
 bool	is_in_charset(char c, char *charset)
 {
 	int		i;
@@ -28,30 +31,55 @@ bool	is_in_charset(char c, char *charset)
 	return (false);
 }
 
+/*
+Completely frees the token list, as well as data for each concerned token.
+Returns -1 (for norm and ease of code reasons).
+*/
 int	free_toklist(t_token *list)
 {
 	t_token	*tmp;
 
 	if (list != NULL)
 	{
-		while (list)
+		tmp = list;
+		while (tmp)
 		{
-			tmp = list;
-			if (list->next != NULL)
-				list = list->next;
-			if (tmp->type == WORD)
+			if (tmp->type == WORD || tmp->type == VAR)
 				free(tmp->data);
-			free(tmp);
-			tmp = NULL;
+			if (tmp->next != NULL)
+			{
+				tmp = tmp->next;
+				free(tmp->previous);
+				tmp->previous = NULL;
+			}
+			else
+			{
+				free(tmp);
+				tmp = NULL;
+			}
 		}
 	}
 	return (-1);
 }
 
+static t_input	init_input(const char *str)
+{
+	t_input		input;
+
+	input.str = str;
+	input.index = 0;
+	input.dquoted = false;
+	input.squoted = false;
+	return (input);
+}
+
+/*
+Core function of the lexer.
+*/
 t_token	*scanner(const char *str)
 {
-	size_t		i;
 	t_token		*token_list;
+	t_input		input;
 
 	if (!str)
 	{
@@ -59,19 +87,14 @@ t_token	*scanner(const char *str)
 		ft_putstr_fd("Error: Null string passed to scanner\n", 2);
 		return (NULL);
 	}
-	i = 0;
 	token_list = NULL;
-	while (i < ft_strlen(str))
+	input = init_input((char *)str);
+	while (input.index < ft_strlen(str))
 	{
-		if (categorizer(str, &token_list, &i) == false)
+		if (categorizer(&input, &token_list) == false)
 			break ;
 	}
 	if (token_list == NULL)
 		return (NULL);
-	if (create_token(END, NULL, &token_list) == false)
-	{
-		free_toklist(token_list);
-		return (NULL);
-	}
 	return (token_list);
 }

@@ -6,7 +6,7 @@
 /*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/05 20:16:37 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/02/11 15:57:03 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	data_init(t_data *data, char **envp)
 int	main(int ac, char **av, char **envp)
 {
 	t_data	data;
+	t_token	*token_list;
 
 	if (ac == 1)
 	{
@@ -46,6 +47,9 @@ int	main(int ac, char **av, char **envp)
 			data.line = readline("\e[1;35mMiniShell >: \e[0m");
 			if (data.line && *data.line)
         		add_history(data.line);
+      token_list = lexer(line);
+      display_toklist(token_list);
+			free_toklist(token_list);
 			parse_line(envp, &data);
 			free(data.line);
 			data.line = NULL;
