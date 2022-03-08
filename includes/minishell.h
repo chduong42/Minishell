@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/02 19:37:53 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/08 13:57:25 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_data
 	char	**export;
 	bool	newenv;
 	bool	newpath;
+	t_list	*env;
 }			t_data;
 
 //	UTILS
@@ -49,5 +50,7 @@ void	exit_ms(char **arg, t_data *data);
 void	fork_exec(char **arg, char **envp, t_data *data);
 void	print_env(t_list *env);
 void	print_export(t_data *data);
+void	export(char **arg, t_data *data);
+void	unset(char **arg, t_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 18:42:02 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/02 19:12:57 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/08 14:52:23 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	display_toklist(t_token *token_list)
 /*
 Displays a syntax error message "str", and frees the "token_list".
 */
-static t_token	*synerror(t_token *token_list, const char *str)
+static t_token	*synerror(t_token *token_list, char *str)
 {
 	free_toklist(token_list);
 	ft_putstr_fd("Minishell : Syntax Error : ", 2);
@@ -66,8 +66,7 @@ static t_token	*synerror(t_token *token_list, const char *str)
 t_token	*analyzer(t_token *token_list, t_data *env_data)
 {
 	checker_quotes(token_list, env_data);
-	if (checker_words(token_list) == false)
-		return (synerror(token_list, "Near arg."));
+	checker_words(token_list);
 	if (checker_redir(token_list) == false)
 		return (synerror(token_list, "Near redirection or pipe."));
 	return (token_list);

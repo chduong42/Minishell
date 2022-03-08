@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/02/11 15:57:03 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/08 14:49:46 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,14 @@ int	main(int ac, char **av, char **envp)
 	if (ac == 1)
 	{
 		data_init(&data, envp);
+		ft_print_title();
 		while (1)
 		{
 			data.line = readline("\e[1;35mMiniShell >: \e[0m");
 			if (data.line && *data.line)
-        		add_history(data.line);
-      token_list = lexer(line);
-      display_toklist(token_list);
+				add_history(data.line);
+			token_list = lexer(data.line);
+			display_toklist(token_list);
 			free_toklist(token_list);
 			parse_line(envp, &data);
 			free(data.line);

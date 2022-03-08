@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 15:15:08 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/21 16:25:04 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/08 14:37:49 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static bool	is_valid_great(t_token *elem)
 	return (false);
 }
 
-bool	checker_reidr(t_token *token_list)
+bool	checker_redir(t_token *token_list)
 {
 	t_token	*tmp;
 

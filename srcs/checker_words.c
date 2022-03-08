@@ -6,13 +6,13 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 18:04:58 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/21 15:15:54 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/08 14:52:31 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-bool	checker_words(t_token *token_list)
+void	checker_words(t_token *token_list)
 {
 	t_token	*tmp;
 	t_token	*tmp2;
