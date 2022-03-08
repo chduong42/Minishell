@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 10:53:09 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/02 19:11:24 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/08 14:42:02 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,14 @@ static void	trim_wordspaces(t_token *elem)
 	}
 }
 
-static void	squote_manager(t_token *tmp, size_t *ends, size_t *endd)
+static void	squote_manager(t_token *tmp, size_t *ends)
 {
 	*ends = is_closed(tmp, SQUOTE);
 	if (*ends != 0)
 		reduce_all(tmp, *ends);
 }
 
-static void	dquote_manager(t_token *tmp, size_t *ends,
-	size_t *endd, t_data *env_data)
+static void	dquote_manager(t_token *tmp, size_t *endd, t_data *env_data)
 {
 	*endd = is_closed(tmp, SQUOTE);
 	if (*endd != 0)
@@ -82,9 +81,9 @@ void	checker_quotes(t_token *token_list, t_data *env_data)
 	while (tmp != NULL)
 	{
 		if (tmp->type == SQUOTE)
-			squote_manager(tmp, &ends, &endd);
+			squote_manager(tmp, &ends);
 		else if (tmp->type == DQUOTE)
-			dquote_manager(tmp, &ends, &endd, env_data);
+			dquote_manager(tmp, &ends, env_data);
 		if (ends == 0 && endd == 0)
 		{
 			trim_wordspaces(tmp);

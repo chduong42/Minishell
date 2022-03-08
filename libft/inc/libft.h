@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 18:09:34 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/05 19:48:39 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/03/08 16:07:37 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,5 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 
 t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstnew(char *envp, char *var, char *content);
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 #endif

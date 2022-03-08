@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: chduong <chduong@student.42.fr>            +#+  +:+       +#+         #
+#    By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/22 15:57:00 by chduong           #+#    #+#              #
-#    Updated: 2022/02/18 19:09:11 by chduong          ###   ########.fr        #
+#    Updated: 2022/03/08 16:08:28 by smagdela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ MKDIR		=	mkdir -p
 
 SRC_DIR		=	srcs/
 SRC			=	ft_atoi.c			ft_isalnum.c		ft_isdigit.c\
-				ft_lstadd_back.c	ft_lstdelone.c		ft_lstmap.c\
+				ft_lstadd_back.c	ft_lstdelone.c		ft_strcmp.c\
 				ft_memccpy.c		ft_memcpy.c			ft_putchar_fd.c\
 				ft_putstr_fd.c		ft_strdup.c			ft_strlcpy.c\
 				ft_strncmp.c		ft_strtrim.c		ft_toupper.c\
