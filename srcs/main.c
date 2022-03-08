@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
 /*   Updated: 2022/02/11 15:57:03 by smagdela         ###   ########.fr       */
@@ -13,45 +13,47 @@
 #include "minishell.h"
 #include "parsing.h"
 
-char	*grep_path(char **env)
+void	data_init(t_data *data, char **envp)
 {
-	int	i;
+	int		i;
+	char	**tmp;
 
+	data->newenv = 0;
+	data->newpath = 0;
+	data->export = NULL;
+	data->line = NULL;
+	data->env = NULL;
 	i = 0;
-	while (env[i])
+	while (envp[i])
 	{
-		if (ft_strncmp(env[i], "PATH=", 5) == 0)
-			return (env[i] + 5);
+		tmp = ft_split(envp[i], '=');
+		ft_lstadd_back(&data->env, ft_lstnew(ft_strdup(envp[i]), tmp[0], tmp[1]));
+		free_tab(tmp);
 		++i;
 	}
-	return (NULL);
+	data->path = ft_split(grep_path(data->env), ':');
 }
 
-int	main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **envp)
 {
-	char	*line;
-	char	**path;
+	t_data	data;
 	t_token	*token_list;
 
-	line = NULL;
 	if (ac == 1)
 	{
-		path = ft_split(grep_path(env), ':');
-		ft_print_title();
+		data_init(&data, envp);
 		while (1)
 		{
-			line = readline("\e[1;35mMiniShell >: \e[0m");
-			if (line && *line)
-			{
-				add_history(line);
-				token_list = lexer(line);
-				display_toklist(token_list);
-				free_toklist(token_list);
-			}
+			data.line = readline("\e[1;35mMiniShell >: \e[0m");
+			if (data.line && *data.line)
+        		add_history(data.line);
+      token_list = lexer(line);
+      display_toklist(token_list);
+			free_toklist(token_list);
+			parse_line(envp, &data);
+			free(data.line);
+			data.line = NULL;
 		}
-		free_tab(path);
-		clear_history();
-		rl_clear_history();
 	}
 	else
 		printf("\e[1;37mUsage:\e[0m %s runs without any argument\n", av[0]);

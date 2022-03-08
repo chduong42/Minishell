@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:08:07 by chduong           #+#    #+#             */
-/*   Updated: 2022/02/11 17:12:32 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/02/18 19:15:25 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,34 +27,37 @@ static int	only_digit(char *arg)
 	return (1);
 }
 
-void	free_exit(char **arg, char *line, char **path, int opt)
+static void	free_exit(char **arg, t_data *data, int opt)
 {
 	if (arg)
 		free_tab(arg);
-	if (path)
-		free_tab(path);
-	if (line)
-		free(line);
+	if (data->line)
+		free(data->line);
+	if (data->path)
+		free_tab(data->path);
+	if (data->export)
+		free_tab(data->export);
+	if (data->env)
+		ft_lstclear(&data->env, free);
 	clear_history();
-	rl_clear_history();
 	exit(opt);
 }
 
-void	exit_shell(char **arg, char *line, char **path)
+void	exit_ms(char **arg, t_data *data)
 {
 	int	nb_arg;
 
-	nb_arg = count_arg(arg);
+	nb_arg = count_str(arg);
 	if (nb_arg == 1)
-		free_exit(arg, line, path, EXIT_SUCCESS);
+		free_exit(arg, data, EXIT_SUCCESS);
 	else if (nb_arg == 2)
 	{
 		if (only_digit(arg[1]))
-			free_exit(arg, line, path, ft_atoi(arg[1]));
+			free_exit(arg, data, ft_atoi(arg[1]));
 		else
 		{
 			printf("Minishell: exit: %s: numeric argument required\n", arg[1]);
-			free_exit(arg, line, path, EXIT_SUCCESS);
+			free_exit(arg, data, EXIT_SUCCESS);
 		}
 	}
 	else

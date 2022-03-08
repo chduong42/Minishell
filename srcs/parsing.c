@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 20:17:23 by chduong           #+#    #+#             */
-/*   Updated: 2022/02/11 17:22:50 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/08 12:51:07 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,19 @@
 ◦ env with no options or arguments
 ◦ exit with no options*/
 
-void	parse_line(char *line, char **path, char **env)
+void	parse_line(char **envp, t_data *data)
 {
 	char	**arg;
-	pid_t	pid;
 
-	arg = ft_split(line, ' ');
+	arg = ft_split(data->line, ' ');
 	if (ft_strncmp(arg[0], "exit", 5) == 0)
-		exit_shell(arg, line, path);
+		exit_ms(arg, data);
+	else if (ft_strncmp(arg[0], "env", 4) == 0)
+		print_env(data->env);
+	else if (ft_strncmp(arg[0], "export", 7) == 0)
+		export(arg, data);
+	else if (ft_strncmp(arg[0], "unset", 6) == 0)
+		unset(arg, data);
 	else
-	{
-		pid = fork();
-		if (pid == 0)
-			exec_cmd(arg, path, env);
-		else
-			wait(0);
-	}
+		fork_exec(arg, envp, data);
 }

@@ -6,18 +6,18 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:09:54 by chduong           #+#    #+#             */
-/*   Updated: 2022/02/08 18:37:31 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/02/18 16:01:00 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	count_arg(char **arg)
+int	count_str(char **str)
 {
 	int	i;
 
 	i = 0;
-	while (arg[i])
+	while (str[i])
 		++i;
 	return (i);
 }
@@ -33,14 +33,13 @@ void	free_tab(char **tab)
 	tab = NULL;
 }
 
-void	clear_memory(char *line, char **path)
+char	*grep_path(t_list *env)
 {
-	free_tab(path);
-	if (line)
+	while (env)
 	{
-		free(line);
-		line = NULL;
+		if (ft_strncmp(env->content, "PATH=", 5) == 0)
+			return (env->content + 5);
+		env = env->next;
 	}
-	clear_history();
-	rl_clear_history();
+	return (NULL);
 }
