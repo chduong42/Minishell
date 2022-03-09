@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 18:04:58 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/08 14:52:31 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/09 15:09:39 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ void	checker_words(t_token *token_list)
 			}
 			reduce_words(tmp, end_word);
 		}
+		tmp = tmp->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:09:54 by chduong           #+#    #+#             */
-/*   Updated: 2022/02/18 16:01:00 by chduong          ###   ########.fr       */
+/*   Updated: 2022/03/09 12:35:40 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ char	*grep_path(t_list *env)
 {
 	while (env)
 	{
-		if (ft_strncmp(env->content, "PATH=", 5) == 0)
-			return (env->content + 5);
+		if (ft_strncmp(env->line, "PATH=", 5) == 0)
+			return (env->line + 5);
 		env = env->next;
 	}
 	return (NULL);

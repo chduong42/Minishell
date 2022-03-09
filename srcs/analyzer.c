@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 18:42:02 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/08 14:52:23 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/09 15:06:11 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,20 +54,25 @@ void	display_toklist(t_token *token_list)
 /*
 Displays a syntax error message "str", and frees the "token_list".
 */
-static t_token	*synerror(t_token *token_list, char *str)
+static void	synerror(t_token *token_list, char *str)
 {
 	free_toklist(token_list);
+	token_list = NULL;
 	ft_putstr_fd("Minishell : Syntax Error : ", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd("\n", 2);
-	return (NULL);
 }
 
-t_token	*analyzer(t_token *token_list, t_data *env_data)
+void	analyzer(t_token *token_list, t_data *env_data)
 {
+	printf("\nChecking quotes...\n");
 	checker_quotes(token_list, env_data);
+	display_toklist(token_list);
+	printf("Quotes OK!\n\nChecking words...\n");
 	checker_words(token_list);
+	display_toklist(token_list);
+	printf("Words OK!\n\nChecking redir...\n");
 	if (checker_redir(token_list) == false)
-		return (synerror(token_list, "Near redirection or pipe."));
-	return (token_list);
+		synerror(token_list, "Near redirection or pipe.");
+	printf("Redir OK!\nEnd of parser.\n\n");
 }

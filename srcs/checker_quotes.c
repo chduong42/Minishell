@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 10:53:09 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/08 14:42:02 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/09 14:23:07 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	squote_manager(t_token *tmp, size_t *ends)
 
 static void	dquote_manager(t_token *tmp, size_t *endd, t_data *env_data)
 {
-	*endd = is_closed(tmp, SQUOTE);
+	*endd = is_closed(tmp, DQUOTE);
 	if (*endd != 0)
 		reduce(tmp, *endd, env_data);
 }

@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 15:26:15 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/04 18:49:36 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/09 15:32:42 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*my_strcat(char *dest, char *str)
 	tmp = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
 	if (tmp == NULL)
 		return (NULL);
-	if (dest != NULL && len1 != 0)
+	if (dest != NULL)
 	{
 		i = 0;
 		while (dest[i])
@@ -98,22 +98,18 @@ void	lst_pop(t_token *elem)
 		return ;
 	if (elem->type == WORD || elem->type == VAR)
 		free(elem->data);
-	if (elem->previous == NULL && elem->next == NULL)
-	{
-	}
-	else
-	{
+	if (elem->next != NULL)
 		elem->next->previous = elem->previous;
+	if (elem->previous != NULL)
 		elem->previous->next = elem->next;
-		tmp = elem->next;
-		while (tmp != NULL)
-		{
-			if (tmp->previous == NULL)
-				tmp->index = 0;
-			else
-				tmp->index = tmp->previous->index + 1;
-			tmp = tmp->next;
-		}
+	tmp = elem->next;
+	while (tmp != NULL)
+	{
+		if (tmp->previous == NULL)
+			tmp->index = 0;
+		else
+			tmp->index = tmp->previous->index + 1;
+		tmp = tmp->next;
 	}
 	free(elem);
 	elem = NULL;
