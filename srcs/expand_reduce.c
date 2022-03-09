@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 17:19:43 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/09 15:08:08 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/09 17:59:38 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ void	reduce_words(t_token *elem, size_t end)
 {
 	t_token	*tmp;
 	char	*new_data;
+	char	*tmp_save;
 
 	if (elem == NULL || elem->index >= end)
 		return ;
@@ -164,7 +165,9 @@ void	reduce_words(t_token *elem, size_t end)
 	new_data = "";
 	while (tmp != NULL && tmp->index < end)
 	{
-		new_data = my_strcat(new_data, tmp->data);
+		tmp_save = new_data;
+		new_data = NULL;
+		new_data = my_strcat(tmp_save, tmp->data);
 		tmp = tmp->next;
 	}
 	relink_toklist(elem, tmp, new_data);
