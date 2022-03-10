@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:31:10 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/09 14:14:13 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/10 18:09:58 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_input
 /* Prototypes */
 t_token	*lexer(char *input);
 t_token	*scanner(const char *str);
+t_token	*analyzer(t_token *token_list, t_data *env_data);
 
 char	*my_strcat(char *dest, char *str);
 char	*find_envar(char *envar, t_data *env_data);
@@ -76,7 +77,6 @@ bool	create_token(t_token_type type, char *data, t_token **list);
 bool	categorizer(t_input *input, t_token **token_list);
 bool	checker_redir(t_token *token_list);
 
-void	analyzer(t_token *token_list, t_data *env_data);
 void	display_toklist(t_token *token_list);
 void	checker_quotes(t_token *token_list, t_data *env_data);
 void	expand(t_token *elem, t_data *env_data);

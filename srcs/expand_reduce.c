@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 17:19:43 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/09 17:59:38 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/10 18:20:11 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@ void	expand(t_token *elem, t_data *env_data)
 		return ;
 	elem->type = WORD;
 	elem->data = find_envar(elem->data, env_data);
+	if (elem->data == NULL)
+	{
+		perror("Environment variable expansion : malloc failed.\n");
+		elem->data = ft_strdup("");
+		return ;
+	}
 	i = 0;
 	while (elem->data[i])
 	{
@@ -97,7 +103,7 @@ void	reduce_all(t_token *elem, size_t end)
 	tmp = elem->next;
 	if (tmp == NULL)
 		return ;
-	new_data = "";
+	new_data = ft_strdup("");
 	while (tmp != NULL && tmp->index < end)
 	{
 		new_data = my_strcat(new_data, tmp->data);
@@ -129,7 +135,7 @@ void	reduce(t_token *elem, size_t end, t_data *env_data)
 	tmp = elem->next;
 	if (tmp == NULL)
 		return ;
-	new_data = "";
+	new_data = ft_strdup("");
 	while (tmp != NULL && tmp->index < end)
 	{
 		if (tmp->type == VAR)
@@ -157,17 +163,16 @@ void	reduce_words(t_token *elem, size_t end)
 {
 	t_token	*tmp;
 	char	*new_data;
-	char	*tmp_save;
 
 	if (elem == NULL || elem->index >= end)
 		return ;
 	tmp = elem;
-	new_data = "";
-	while (tmp != NULL && tmp->index < end)
+	new_data = ft_strdup("");
+	while (tmp != NULL && tmp->index <= end)
 	{
-		tmp_save = new_data;
-		new_data = NULL;
-		new_data = my_strcat(tmp_save, tmp->data);
+		new_data = my_strcat(new_data, tmp->data);
+		if (tmp->next != NULL && tmp->index != end)
+			new_data = my_strcat(new_data, " ");
 		tmp = tmp->next;
 	}
 	relink_toklist(elem, tmp, new_data);
