@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:31:10 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/10 18:09:58 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/11 16:37:35 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,14 @@ char	*find_envar(char *envar, t_data *env_data);
 
 size_t	find_char_set(const char *str, char *charset);
 size_t	is_closed(t_token *elem, t_token_type elem_type);
+size_t	ft_envarlen(const char *str);
 
 int		free_toklist(t_token *list);
 
 bool	create_token(t_token_type type, char *data, t_token **list);
 bool	categorizer(t_input *input, t_token **token_list);
 bool	checker_redir(t_token *token_list);
+bool	ft_is_in_charset(char c, char *charset);
 
 void	display_toklist(t_token *token_list);
 void	checker_quotes(t_token *token_list, t_data *env_data);

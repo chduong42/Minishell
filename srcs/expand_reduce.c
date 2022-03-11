@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 17:19:43 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/10 18:20:11 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/11 16:51:23 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	expand(t_token *elem, t_data *env_data)
 	if (elem->type != VAR)
 		return ;
 	elem->type = WORD;
-	elem->data = find_envar(elem->data, env_data);
+	elem->data = find_envar(elem->data + 1, env_data);
 	if (elem->data == NULL)
 	{
 		perror("Environment variable expansion : malloc failed.\n");

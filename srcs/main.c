@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/10 18:10:13 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/11 16:00:35 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,14 @@ void	data_init(t_data *data, char **envp)
 	while (envp[i])
 	{
 		tmp = ft_split(envp[i], '=');
+		/*
+		printf("%s\n", envp[i]);
+		printf("%s\n", tmp[0]);
+		printf("%s\n", tmp[1]);
+		*/
 		ft_lstadd_back(&data->env,
 			ft_lstnew(ft_strdup(envp[i]), tmp[0], tmp[1]));
-		free_tab(tmp);
+		//free_tab(tmp);
 		++i;
 	}
 	data->path = ft_split(grep_path(data->env), ':');
@@ -43,6 +48,14 @@ int	main(int ac, char **av, char **envp)
 	if (ac == 1)
 	{
 		data_init(&data, envp);
+		/*Print envp
+		tmp = data.env;
+		while (tmp)
+		{
+			printf("%s=%s\n", tmp->var, tmp->content);
+			tmp = tmp->next;
+		}
+		*/
 		ft_print_title();
 		while (1)
 		{

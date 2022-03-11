@@ -6,11 +6,26 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:46:59 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/04 18:48:12 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/11 16:23:19 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+
+//ft is in charset
+bool	ft_is_in_charset(char c, char *charset)
+{
+	int i;
+
+	i = 0;
+	while (charset[i])
+	{
+		if (c == charset[i])
+			return (true);
+		++i;
+	}
+	return (false);
+}
 
 static size_t	matriochka_aux(t_token *elem, t_data *env_data, size_t i)
 {
