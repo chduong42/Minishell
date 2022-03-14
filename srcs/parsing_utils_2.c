@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:46:59 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/14 12:46:23 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/14 16:47:07 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 //ft is in charset
 bool	ft_is_in_charset(char c, char *charset)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (charset[i])

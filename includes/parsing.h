@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:31:10 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/14 13:31:39 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/14 17:09:20 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ t_token	*analyzer(t_token *token_list, t_data *env_data);
 
 char	*my_strcat(char *dest, char *str);
 char	*find_envar(char *envar, t_data *env_data);
+char	*cleaner(char *str_in);
 
 size_t	find_char_set(const char *str, char *charset);
 size_t	is_closed(t_token *elem, t_token_type elem_type);

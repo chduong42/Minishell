@@ -6,12 +6,11 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 15:26:15 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/14 13:28:18 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/14 16:54:19 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-
 
 static void	str_copy(char *str1, char *str2)
 {
@@ -56,7 +55,6 @@ size_t	ft_envarlen(const char *str)
 {
 	size_t	i;
 
-	printf("envar in envarlen = %s\n", str);
 	i = 0;
 	while (str[i] && (ft_isalpha(str[i]) || ft_isdigit(str[i])
 			|| ft_is_in_charset(str[i], "_$?")))
@@ -68,7 +66,6 @@ size_t	ft_envarlen(const char *str)
 		}
 		++i;
 	}
-	printf("Return value = %lu\n", i);
 	return (i);
 }
 
@@ -116,6 +113,8 @@ void	lst_pop(t_token *elem)
 	if (elem->previous != NULL)
 		elem->previous->next = elem->next;
 	tmp = elem->next;
+	free(elem);
+	elem = NULL;
 	while (tmp != NULL)
 	{
 		if (tmp->previous == NULL)
@@ -124,6 +123,4 @@ void	lst_pop(t_token *elem)
 			tmp->index = tmp->previous->index + 1;
 		tmp = tmp->next;
 	}
-	free(elem);
-	elem = NULL;
 }

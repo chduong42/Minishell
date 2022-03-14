@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 17:19:43 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/14 13:39:54 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/14 17:12:42 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,56 +66,43 @@ static void	relink_toklist(t_token *elem, t_token *tmp, char *new_data)
 	elem->data = new_data;
 	elem->type = WORD;
 	to_free = elem->next;
-	elem->next = tmp;
-	if (tmp != NULL)
+	while (to_free != NULL && to_free != tmp)
 	{
-		tmp->previous->next = NULL;
-		tmp->previous = elem;
+		lst_pop(to_free);
+		to_free = elem->next;
 	}
-	if (to_free != NULL)
+	while (to_free != NULL)
 	{
-		to_free->previous = NULL;
-		free_toklist(to_free);
-	}
-	tmp = elem;
-	while (tmp != NULL)
-	{
-		if (tmp->previous == NULL)
-			tmp->index = 0;
+		if (to_free->previous == NULL)
+			to_free->index = 0;
 		else
-			tmp->index = tmp->previous->index + 1;
-		tmp = tmp->next;
+			to_free->index = to_free->previous->index + 1;
+		to_free = to_free->next;
 	}
 }
 
 /*
 Reduce everything between "elem" and the elem with index "end" from toklist.
 Meaning everything (including environment variables) will become one and
-only one token of type WORD, without the quotes on each sides.
+only one token of type WORD, with the quotes on each sides.
 To use with single quotes.
 */
 void	reduce_all(t_token *elem, size_t end)
 {
 	t_token	*tmp;
-	t_token	*elem_end;
 	char	*new_data;
 
-	tmp = elem->next;
+	tmp = elem;
 	if (tmp == NULL)
 		return ;
 	new_data = ft_strdup("");
-	while (tmp != NULL && tmp->index < end)
+	while (tmp != NULL && tmp->index <= end)
 	{
 		new_data = my_strcat(new_data, tmp->data);
+		if (tmp->next == NULL)
+			break ;
 		tmp = tmp->next;
 	}
-	if (tmp == NULL)
-	{
-		free(new_data);
-		return ;
-	}
-	elem_end = tmp->next;
-	lst_pop(tmp);
 	relink_toklist(elem, tmp->next, new_data);
 }
 
@@ -123,34 +110,28 @@ void	reduce_all(t_token *elem, size_t end)
 Reduce everything between "elem" and the elem with index "end" from toklist.
 Meaning everything (BUT NOT environement variables) will become one and
 only one token of type WORD, AFTER EXPANDING ENVIRONMENT VARIABLES,
-without the quotes on each sides.
+with the quotes on each sides.
 To use with double quotes.
 */
 void	reduce(t_token *elem, size_t end, t_data *env_data)
 {
 	t_token	*tmp;
-	t_token	*elem_end;
 	char	*new_data;
 
-	tmp = elem->next;
+	tmp = elem;
 	if (tmp == NULL)
 		return ;
 	new_data = ft_strdup("");
-	while (tmp != NULL && tmp->index < end)
+	while (tmp != NULL && tmp->index <= end)
 	{
 		if (tmp->type == VAR)
 			expand(tmp, env_data);
 		new_data = my_strcat(new_data, tmp->data);
+		if (tmp->next == NULL)
+			break ;
 		tmp = tmp->next;
 	}
-	if (tmp == NULL)
-	{
-		free(new_data);
-		return ;
-	}
-	elem_end = tmp->next;
-	lst_pop(tmp);
-	relink_toklist(elem, elem_end, new_data);
+	relink_toklist(elem, tmp->next, new_data);
 }
 
 /*
@@ -171,8 +152,8 @@ void	reduce_words(t_token *elem, size_t end)
 	while (tmp != NULL && tmp->index <= end)
 	{
 		new_data = my_strcat(new_data, tmp->data);
-		if (tmp->next != NULL && tmp->index != end)
-			new_data = my_strcat(new_data, " ");
+//		if (tmp->next != NULL && tmp->index != end)
+//			new_data = my_strcat(new_data, " ");
 		tmp = tmp->next;
 	}
 	relink_toklist(elem, tmp, new_data);
