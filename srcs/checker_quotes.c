@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 10:53:09 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/14 14:56:13 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/14 18:09:49 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,6 @@ void	checker_quotes(t_token *token_list, t_data *env_data)
 			squote_manager(tmp, &ends);
 		else if (tmp->type == DQUOTE)
 			dquote_manager(tmp, &ends, env_data);
-//		if (ends == 0 && endd == 0)
-//		{
-//			trim_wordspaces(tmp);
-//			break ;
-//		}
 		tmp = tmp->next;
 	}
 }

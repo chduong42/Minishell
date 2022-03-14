@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 18:42:02 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/14 13:32:03 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/14 18:01:56 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,24 +52,42 @@ void	display_toklist(t_token *token_list)
 }
 
 /*
-Displays a syntax error message "str".
+Displays an optional syntax error message "str", and delete token_list.
 */
-static void	synerror(char *str)
+static void	synerror(char *str, t_token **token_list)
 {
-	ft_putstr_fd("Minishell : Syntax Error : ", 2);
-	ft_putstr_fd(str, 2);
+	ft_putstr_fd("Minishell : Syntax Error", 2);
+	if (str != NULL)
+		ft_putstr_fd(str, 2);
 	ft_putstr_fd("\n", 2);
+	if (*token_list != NULL)
+	{
+		free_toklist(*token_list);
+		*token_list = NULL;
+	}
 }
 
 t_token	*analyzer(t_token *token_list, t_data *env_data)
 {
+	t_token	*tmp;
+
 	checker_quotes(token_list, env_data);
 	checker_words(token_list, env_data);
 	if (checker_redir(token_list) == false)
 	{
-		synerror("Near redirection or pipe.");
-		free_toklist(token_list);
-		token_list = NULL;
+		synerror(" near redirection or pipe.", &token_list);
+		return (token_list);
+	}
+	tmp = token_list;
+	while (tmp != NULL)
+	{
+		if (tmp->type == NONE || tmp->type == VAR || tmp->type == DQUOTE
+			|| tmp->type == SQUOTE || ft_strlen(tmp->data) == 0)
+		{
+			synerror(" : Analyzer failure.", &token_list);
+			break ;
+		}
+		tmp = tmp->next;
 	}
 	return (token_list);
 }
