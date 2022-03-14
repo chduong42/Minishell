@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 15:26:15 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/11 16:51:32 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/11 17:00:06 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ char	*find_envar(char *envar, t_data *env_data)
 	envar_len = ft_strlen(envar);
 	while (tmp != NULL)
 	{
-		//printf("Is %s == %s ?\n", envar, tmp->var);
 		env_var_len = ft_strlen(tmp->var);
 		if (envar_len == env_var_len
 			&& ft_strncmp(tmp->var, envar, envar_len) == 0)
