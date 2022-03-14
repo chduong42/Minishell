@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:46:59 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/11 16:23:19 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/14 12:46:23 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,12 @@ static size_t	matriochka_aux(t_token *elem, t_data *env_data, size_t i)
 	return (ft_strlen(envar_value) - 1);
 }
 
+/*
+WARNING: MAY NOT BE USEFUL,
+AS THERE MAY NOT BE ANY UNEXPANDED VAR INSIDE EXPORTED ONES!
+
+Expand environement variables inside the already expanded ones, if present.
+*/
 void	matriochka(t_token *elem, t_data *env_data)
 {
 	size_t	i;

@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 18:55:04 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/11 16:26:27 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/14 13:15:02 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,12 @@ int	categ_4(t_input *input, t_token **token_list)
 
 	if (input->str[input->index] == '$')
 	{
+		if (input->str[input->index + 1] == '$')
+		{
+			if (create_token(WORD, ft_strdup("$"), token_list) == false)
+				return (free_toklist(*token_list));
+			return (0);
+		}
 		word_data = ft_substr(input->str, input->index,
 				ft_envarlen(input->str + input->index));
 		if (create_token(VAR, word_data, token_list) == false)

@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 18:42:02 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/10 18:21:42 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/14 13:32:03 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	synerror(char *str)
 t_token	*analyzer(t_token *token_list, t_data *env_data)
 {
 	checker_quotes(token_list, env_data);
-	checker_words(token_list);
+	checker_words(token_list, env_data);
 	if (checker_redir(token_list) == false)
 	{
 		synerror("Near redirection or pipe.");

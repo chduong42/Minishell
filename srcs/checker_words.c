@@ -6,18 +6,32 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 18:04:58 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/09 15:09:39 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/14 13:36:32 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	checker_words(t_token *token_list)
+static void	expand_remaining_envar(t_token *token_list, t_data *env_data)
+{
+	t_token	*tmp;
+
+	tmp = token_list;
+	while (tmp != NULL)
+	{
+		if (tmp->type == VAR)
+			expand(tmp, env_data);
+		tmp = tmp->next;
+	}
+}
+
+void	checker_words(t_token *token_list, t_data *env_data)
 {
 	t_token	*tmp;
 	t_token	*tmp2;
 	size_t	end_word;
 
+	expand_remaining_envar(token_list, env_data);
 	tmp = token_list;
 	while (tmp != NULL)
 	{

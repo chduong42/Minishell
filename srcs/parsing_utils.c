@@ -6,22 +6,12 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 15:26:15 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/11 17:00:06 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/14 13:28:18 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-size_t	ft_envarlen(const char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i] && (ft_isalpha(str[i]) || ft_isdigit(str[i])
-			|| ft_is_in_charset(str[i], "_$")))
-		i++;
-	return (i);
-}
 
 static void	str_copy(char *str1, char *str2)
 {
@@ -62,6 +52,26 @@ char	*my_strcat(char *dest, char *str)
 	return (tmp);
 }
 
+size_t	ft_envarlen(const char *str)
+{
+	size_t	i;
+
+	printf("envar in envarlen = %s\n", str);
+	i = 0;
+	while (str[i] && (ft_isalpha(str[i]) || ft_isdigit(str[i])
+			|| ft_is_in_charset(str[i], "_$?")))
+	{
+		if (str[i] == '?')
+		{
+			++i;
+			break ;
+		}
+		++i;
+	}
+	printf("Return value = %lu\n", i);
+	return (i);
+}
+
 /*
 Finds "envar" in "envp" and returns its value,
 according to the environment format.
@@ -78,6 +88,8 @@ char	*find_envar(char *envar, t_data *env_data)
 
 	tmp = env_data->env;
 	envar_len = ft_strlen(envar);
+	if (envar_len == 1 && envar[0] == '?')
+		return (ft_strdup(ft_itoa(errno)));
 	while (tmp != NULL)
 	{
 		env_var_len = ft_strlen(tmp->var);
