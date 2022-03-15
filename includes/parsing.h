@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:31:10 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/14 17:09:20 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/15 14:52:41 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,15 @@ bool	create_token(t_token_type type, char *data, t_token **list);
 bool	categorizer(t_input *input, t_token **token_list);
 bool	checker_redir(t_token *token_list);
 bool	ft_is_in_charset(char c, char *charset);
+bool	executor(t_token *token_list, char **envp, t_data *data);
+
 
 void	display_toklist(t_token *token_list);
 void	checker_quotes(t_token *token_list, t_data *env_data);
 void	expand(t_token *elem, t_data *env_data);
 void	matriochka(t_token *elem, t_data *env_data);
 void	lst_pop(t_token *elem);
-void	checker_words(t_token *token_list, t_data *env_data);
+void	checker_words(t_token *token_list);
 void	reduce_all(t_token *elem, size_t end);
 void	reduce(t_token *elem, size_t end, t_data *env_data);
 void	reduce_words(t_token *elem, size_t end);

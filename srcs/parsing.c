@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 20:17:23 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/08 12:51:07 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/03/15 15:09:03 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,18 @@
 ◦ env with no options or arguments
 ◦ exit with no options*/
 
-void	parse_line(char **envp, t_data *data)
+void	parse_line(char *cmd, char **envp, t_data *data)
 {
 	char	**arg;
 
-	arg = ft_split(data->line, ' ');
-	if (ft_strncmp(arg[0], "exit", 5) == 0)
+	arg = ft_split(cmd, ' ');
+	if (ft_strncmp(arg[0], "exit", 4) == 0)
 		exit_ms(arg, data);
-	else if (ft_strncmp(arg[0], "env", 4) == 0)
+	else if (ft_strncmp(arg[0], "env", 3) == 0)
 		print_env(data->env);
-	else if (ft_strncmp(arg[0], "export", 7) == 0)
+	else if (ft_strncmp(arg[0], "export", 6) == 0)
 		export(arg, data);
-	else if (ft_strncmp(arg[0], "unset", 6) == 0)
+	else if (ft_strncmp(arg[0], "unset", 5) == 0)
 		unset(arg, data);
 	else
 		fork_exec(arg, envp, data);

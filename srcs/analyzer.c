@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 18:42:02 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/14 18:01:56 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/15 14:52:49 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,30 @@ static void	synerror(char *str, t_token **token_list)
 	}
 }
 
+static void	expand_remaining_envar(t_token *token_list, t_data *env_data)
+{
+	t_token	*tmp;
+
+	tmp = token_list;
+	while (tmp != NULL)
+	{
+		if (tmp->type == VAR)
+			expand(tmp, env_data);
+		tmp = tmp->next;
+	}
+}
+
 t_token	*analyzer(t_token *token_list, t_data *env_data)
 {
 	t_token	*tmp;
 
 	checker_quotes(token_list, env_data);
-	checker_words(token_list, env_data);
-	if (checker_redir(token_list) == false)
+	expand_remaining_envar(token_list, env_data);
+	checker_words(token_list);
+	if (checker_redir(token_list) == false || token_list == NULL
+		|| (token_list->next == NULL && token_list->type != WORD))
 	{
-		synerror(" near redirection or pipe.", &token_list);
+		synerror(NULL, &token_list);
 		return (token_list);
 	}
 	tmp = token_list;
