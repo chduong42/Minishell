@@ -6,7 +6,7 @@
 /*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 15:21:12 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/05 19:48:22 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/03/15 16:10:31 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ t_list	*ft_lstnew(char *envp, char *var, char *content)
 	a = malloc(sizeof(t_list));
 	if (!a)
 		return (NULL);
-	a->line = envp;
-	a->var = var;
-	a->content = content;
+	a->line = ft_strdup(envp);
+	a->var = ft_strdup(var);
+	a->content = ft_strdup(content);
 	a->prev = NULL;
 	a->next = NULL;
 	return (a);

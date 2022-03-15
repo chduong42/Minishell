@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:08:07 by chduong           #+#    #+#             */
-/*   Updated: 2022/02/18 19:15:25 by chduong          ###   ########.fr       */
+/*   Updated: 2022/03/15 15:53:31 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	free_exit(char **arg, t_data *data, int opt)
 	if (data->env)
 		ft_lstclear(&data->env, free);
 	clear_history();
+	//rl_clear_history();
 	exit(opt);
 }
 

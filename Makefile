@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+         #
+#    By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/03/08 16:06:23 by smagdela         ###   ########.fr        #
+#    Updated: 2022/03/15 16:13:55 by kennyduong       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,7 +85,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ_DIR) $(MS_OBJ) $(LIBFT)
 	@echo "> $(CYAN)Generate objects$(END) : \t\t[$(GREEN)OK$(END)]"
-	@$(CC) -g3 $(LINK) -o $@ $(MS_OBJ) $(LIBFT)
+	@$(CC) $(DEBUG) $(LINK) -o $@ $(MS_OBJ) $(LIBFT)
 	@echo "> $(WHITE)$(BOLD)MiniShell Compilation$(END) : \t[$(YELLOW)COMPLETE$(END)]"
 
 $(LIBFT):
