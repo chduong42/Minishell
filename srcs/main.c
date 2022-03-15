@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/08 16:13:57 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/15 16:11:01 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	data_init(t_data *data, char **envp)
 	while (envp[i])
 	{
 		tmp = ft_split(envp[i], '=');
-		ft_lstadd_back(&data->env, ft_lstnew(ft_strdup(envp[i]), tmp[0], tmp[1]));
+		ft_lstadd_back(&data->env, ft_lstnew(envp[i], tmp[0], tmp[1]));
 		free_tab(tmp);
 		++i;
 	}
@@ -37,7 +37,7 @@ void	data_init(t_data *data, char **envp)
 int	main(int ac, char **av, char **envp)
 {
 	t_data	data;
-	t_token	*token_list;
+	// t_token	*token_list;
 
 	if (ac == 1)
 	{
@@ -49,14 +49,14 @@ int	main(int ac, char **av, char **envp)
 			if (data.line && *data.line)
 			{
 				add_history(data.line);
-				token_list = lexer(data.line);
-				printf("Tokenizer output :\n");
-				display_toklist(token_list);
-				token_list = analyzer(token_list, &data);
-				printf("Analyzer output :\n");
-				display_toklist(token_list);
-				free_toklist(token_list);
-				//parse_line(envp, &data);
+				// token_list = lexer(data.line);
+				// printf("Tokenizer output :\n");
+				// display_toklist(token_list);
+				// token_list = analyzer(token_list, &data);
+				// printf("Analyzer output :\n");
+				// display_toklist(token_list);
+				// free_toklist(token_list);
+				parse_line(envp, &data);
 				free(data.line);
 				data.line = NULL;
 			}
