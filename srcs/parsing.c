@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 20:17:23 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/21 16:02:25 by chduong          ###   ########.fr       */
+/*   Updated: 2022/03/21 13:41:15 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@
 ◦ env with no options or arguments
 ◦ exit with no options*/
 
-void	parse_line(char **envp, t_data *data)
+/*
+Receives the char **arg variable, containing 
+*/
+void	parse_line(char **arg, char **envp, t_data *data)
 {
-	char	**arg;
-
-	arg = ft_split(data->line, ' ');
 	//if (ft_strncmp(arg[0], "cd", 3) == 0)
 	//	cd();
 	if (ft_strncmp(arg[0], "echo", 5) == 0)
@@ -42,5 +42,4 @@ void	parse_line(char **envp, t_data *data)
 		unset(arg, data);
 	else
 		fork_exec(arg, envp, data);
-	free_tab(arg);
 }

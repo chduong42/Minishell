@@ -6,21 +6,19 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:48:39 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/08 13:59:51 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/21 11:23:22 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-static char	*cleaner(char *str_in)
+char	*cleaner(char *str_in)
 {
-	char	*tmp;
 	char	*str_out;
 
 	if (!str_in)
 		return (NULL);
-	tmp = str_in;
-	str_out = ft_strtrim(tmp, " \t\n\r\v\f");
+	str_out = ft_strtrim(str_in, " \t\n\r\v\f");
 	free(str_in);
 	return (str_out);
 }
@@ -64,6 +62,7 @@ bool	create_token(t_token_type type, char *data, t_token **list)
 	token->type = type;
 	token->data = data;
 	token->next = NULL;
+	token->cmd = NULL;
 	add_token(list, token);
 	return (true);
 }

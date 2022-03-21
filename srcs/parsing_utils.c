@@ -6,11 +6,23 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 15:26:15 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/04 18:49:36 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/21 11:24:38 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+
+static void	str_copy(char *str1, char *str2)
+{
+	size_t	i;
+
+	i = 0;
+	while (str2[i])
+	{
+		str1[i] = str2[i];
+		++i;
+	}
+}
 
 /*
 Takes 2 strings and return only one newly malloc'dstring,
@@ -22,38 +34,39 @@ char	*my_strcat(char *dest, char *str)
 	size_t	len1;
 	size_t	len2;
 	char	*tmp;
-	size_t	i;
 
 	len1 = ft_strlen(dest);
 	len2 = ft_strlen(str);
 	tmp = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
 	if (tmp == NULL)
 		return (NULL);
-	if (dest != NULL && len1 != 0)
+	if (dest != NULL)
 	{
-		i = 0;
-		while (dest[i])
-		{
-			tmp[i] = dest[i];
-			++i;
-		}
+		str_copy(tmp, dest);
 		free(dest);
 	}
-	ft_strlcpy(tmp + len1, str, len2 + 1);
+	if (str != NULL)
+		str_copy(tmp + len1, str);
+	tmp[len1 + len2] = '\0';
 	return (tmp);
 }
 
-static char	*find_envar_aux(t_list *tmp, size_t env_var_len)
+size_t	ft_envarlen(const char *str)
 {
-	char	*ret;
+	size_t	i;
 
-	ret = (char *)malloc(sizeof(char)
-			* (ft_strlen(tmp->content) - env_var_len - 1));
-	if (ret == NULL)
-		return (NULL);
-	ft_strlcpy(ret, tmp->content + env_var_len + 1,
-		ft_strlen(tmp->content) - env_var_len - 1);
-	return (ret);
+	i = 0;
+	while (str[i] && (ft_isalpha(str[i]) || ft_isdigit(str[i])
+			|| ft_is_in_charset(str[i], "_$?")))
+	{
+		if (str[i] == '?')
+		{
+			++i;
+			break ;
+		}
+		++i;
+	}
+	return (i);
 }
 
 /*
@@ -66,28 +79,25 @@ Returns NULL in case an error occured.
 */
 char	*find_envar(char *envar, t_data *env_data)
 {
-	char	*ret;
 	t_list	*tmp;
 	size_t	envar_len;
 	size_t	env_var_len;
 
 	tmp = env_data->env;
 	envar_len = ft_strlen(envar);
+	if (envar_len == 1 && envar[0] == '?')
+		return (ft_strdup(ft_itoa(errno)));
 	while (tmp != NULL)
 	{
-		env_var_len = find_char_set(tmp->content, "=");
+		env_var_len = ft_strlen(tmp->var);
 		if (envar_len == env_var_len
-			&& ft_strncmp(tmp->content, envar, ft_strlen(envar)) == 0)
+			&& ft_strncmp(tmp->var, envar, envar_len) == 0)
 		{
-			return (find_envar_aux(tmp, env_var_len));
+			return (ft_strdup(tmp->content));
 		}
 		tmp = tmp->next;
 	}
-	ret = malloc(1);
-	if (ret == NULL)
-		return (NULL);
-	ret[0] = '\0';
-	return (ret);
+	return (ft_strdup(""));
 }
 
 void	lst_pop(t_token *elem)
@@ -98,23 +108,21 @@ void	lst_pop(t_token *elem)
 		return ;
 	if (elem->type == WORD || elem->type == VAR)
 		free(elem->data);
-	if (elem->previous == NULL && elem->next == NULL)
-	{
-	}
-	else
-	{
+	if (elem->next != NULL)
 		elem->next->previous = elem->previous;
+	if (elem->previous != NULL)
 		elem->previous->next = elem->next;
-		tmp = elem->next;
-		while (tmp != NULL)
-		{
-			if (tmp->previous == NULL)
-				tmp->index = 0;
-			else
-				tmp->index = tmp->previous->index + 1;
-			tmp = tmp->next;
-		}
-	}
+	if (elem->cmd != NULL)
+		free_tab(elem->cmd);
+	tmp = elem->next;
 	free(elem);
 	elem = NULL;
+	while (tmp != NULL)
+	{
+		if (tmp->previous == NULL)
+			tmp->index = 0;
+		else
+			tmp->index = tmp->previous->index + 1;
+		tmp = tmp->next;
+	}
 }

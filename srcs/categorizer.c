@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 18:55:04 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/11 16:43:47 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/21 13:52:43 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	categ_2(t_input *input, t_token **token_list)
 }
 
 /*
-Quotes category.
+Quotes and spaces category.
 */
 int	categ_3(t_input *input, t_token **token_list)
 {
@@ -72,10 +72,6 @@ int	categ_3(t_input *input, t_token **token_list)
 	{
 		if (create_token(DQUOTE, "\"", token_list) == false)
 			return (free_toklist(*token_list));
-		if (input->dquoted == false && input->squoted == false)
-			input->dquoted = true;
-		else if (input->dquoted == true)
-			input->dquoted = false;
 		++input->index;
 		return (0);
 	}
@@ -83,10 +79,13 @@ int	categ_3(t_input *input, t_token **token_list)
 	{
 		if (create_token(SQUOTE, "\'", token_list) == false)
 			return (free_toklist(*token_list));
-		if (input->squoted == false && input->dquoted == false)
-			input->squoted = true;
-		else if (input->squoted == true)
-			input->squoted = false;
+		++input->index;
+		return (0);
+	}
+	else if (input->str[input->index] == ' ')
+	{
+		if (create_token(WORD, ft_strdup(" "), token_list) == false)
+			return (free_toklist(*token_list));
 		++input->index;
 		return (0);
 	}
@@ -94,7 +93,7 @@ int	categ_3(t_input *input, t_token **token_list)
 }
 
 /*
-Env variables and spaces category.
+Env variables.
 */
 int	categ_4(t_input *input, t_token **token_list)
 {
@@ -102,17 +101,19 @@ int	categ_4(t_input *input, t_token **token_list)
 
 	if (input->str[input->index] == '$')
 	{
+		if (input->str[input->index + 1] == '$'
+			|| input->str[input->index + 1] == '\0')
+		{
+			if (create_token(WORD, ft_strdup("$"), token_list) == false)
+				return (free_toklist(*token_list));
+			++input->index;
+			return (0);
+		}
 		word_data = ft_substr(input->str, input->index,
-				find_char_set(&input->str[input->index], TERM_N_SPACE));
+				ft_envarlen(input->str + input->index));
 		if (create_token(VAR, word_data, token_list) == false)
 			return (free_toklist(*token_list));
 		input->index += ft_strlen(word_data);
-		return (0);
-	}
-	else if (input->str[input->index] == ' '
-		&& input->dquoted == false && input->squoted == false)
-	{
-		++input->index;
 		return (0);
 	}
 	return (1);
@@ -124,14 +125,10 @@ Non-special characters category.
 int	categ_5(t_input *input, t_token **token_list)
 {
 	char	*word_data;
-	char	*charset;
 
-	charset = TERM_N_SPACE;
-	if (input->dquoted == true || input->squoted == true)
-		charset = TERM_CHARS;
-	if (find_char_set(&input->str[input->index], charset) != 0)
+	if (find_char_set(&input->str[input->index], TERM_N_SPACE) != 0)
 		word_data = ft_substr(input->str, input->index,
-				find_char_set(&input->str[input->index], charset));
+				find_char_set(&input->str[input->index], TERM_N_SPACE));
 	else
 		word_data = ft_substr(input->str, input->index,
 				ft_strlen(&input->str[input->index]));

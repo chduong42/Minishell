@@ -6,7 +6,7 @@
 /*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 17:19:43 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/15 18:49:50 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/03/21 14:20:13 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,18 @@ if the VAR is found in the environement.
 */
 void	expand(t_token *elem, t_data *env_data)
 {
-	size_t	i;
+	int	i;
 
 	if (elem->type != VAR)
 		return ;
 	elem->type = WORD;
-	elem->data = find_envar(elem->data, env_data);
+	elem->data = find_envar(elem->data + 1, env_data);
+	if (elem->data == NULL)
+	{
+		perror("Environment variable expansion : malloc failed.\n");
+		elem->data = ft_strdup("");
+		return ;
+	}
 	i = 0;
 	while (elem->data[i])
 	{
@@ -32,6 +38,7 @@ void	expand(t_token *elem, t_data *env_data)
 				|| is_in_charset(elem->data[i], "_?")))
 		{
 			matriochka(elem, env_data);
+			i = -1;
 		}
 		++i;
 	}
@@ -54,56 +61,49 @@ static void	relink_toklist(t_token *elem, t_token *tmp, char *new_data)
 {
 	t_token	*to_free;
 
+	if (elem->next == tmp)
+		return ;
 	elem->data = new_data;
 	elem->type = WORD;
 	to_free = elem->next;
-	elem->next = tmp;
-	if (tmp != NULL)
-	{	
-		tmp->previous->next = NULL;
-		tmp->previous = elem;
-	}
-	to_free->previous = NULL;
-	free_toklist(to_free);
-	tmp = elem;
-	while (tmp != NULL)
+	while (to_free != NULL && to_free != tmp)
 	{
-		if (tmp->previous == NULL)
-			tmp->index = 0;
+		lst_pop(to_free);
+		to_free = elem->next;
+	}
+	while (to_free != NULL)
+	{
+		if (to_free->previous == NULL)
+			to_free->index = 0;
 		else
-			tmp->index = tmp->previous->index + 1;
-		tmp = tmp->next;
+			to_free->index = to_free->previous->index + 1;
+		to_free = to_free->next;
 	}
 }
 
 /*
 Reduce everything between "elem" and the elem with index "end" from toklist.
 Meaning everything (including environment variables) will become one and
-only one token of type WORD, without the quotes on each sides.
+only one token of type WORD, WITHOUT the quotes on each sides.
 To use with single quotes.
 */
-void	reduce_all(t_token *elem, size_t end)
+void	reduce_all(t_token *elem, t_token *end)
 {
 	t_token	*tmp;
-	// t_token	*elem_end;
 	char	*new_data;
 
-	tmp = elem->next;
+	tmp = elem;
 	if (tmp == NULL)
 		return ;
-	new_data = "";
-	while (tmp != NULL && tmp->index < end)
+	tmp = tmp->next;
+	new_data = ft_strdup("");
+	while (tmp != NULL && tmp->index < end->index)
 	{
 		new_data = my_strcat(new_data, tmp->data);
+		if (tmp->next == NULL)
+			break ;
 		tmp = tmp->next;
 	}
-	if (tmp == NULL)
-	{
-		free(new_data);
-		return ;
-	}
-	// elem_end = tmp->next;
-	lst_pop(tmp);
 	relink_toklist(elem, tmp->next, new_data);
 }
 
@@ -111,43 +111,10 @@ void	reduce_all(t_token *elem, size_t end)
 Reduce everything between "elem" and the elem with index "end" from toklist.
 Meaning everything (BUT NOT environement variables) will become one and
 only one token of type WORD, AFTER EXPANDING ENVIRONMENT VARIABLES,
-without the quotes on each sides.
+WITHOUT the quotes on each sides.
 To use with double quotes.
 */
-void	reduce(t_token *elem, size_t end, t_data *env_data)
-{
-	t_token	*tmp;
-	t_token	*elem_end;
-	char	*new_data;
-
-	tmp = elem->next;
-	if (tmp == NULL)
-		return ;
-	new_data = "";
-	while (tmp != NULL && tmp->index < end)
-	{
-		if (tmp->type == VAR)
-			expand(tmp, env_data);
-		new_data = my_strcat(new_data, tmp->data);
-		tmp = tmp->next;
-	}
-	if (tmp == NULL)
-	{
-		free(new_data);
-		return ;
-	}
-	elem_end = tmp->next;
-	lst_pop(tmp);
-	relink_toklist(elem, elem_end, new_data);
-}
-
-/*
-Reduce everything between "elem" and the elem with index "end" from toklist.
-Meaning everything (including environment variables) will become one and
-only one token of type WORD, including data from "elem" and "end"th token.
-To use with checker_words.
-*/
-void	reduce_words(t_token *elem, size_t end)
+void	reduce(t_token *elem, t_token *end, t_data *env_data)
 {
 	t_token	*tmp;
 	char	*new_data;
@@ -155,16 +122,54 @@ void	reduce_words(t_token *elem, size_t end)
 	tmp = elem;
 	if (tmp == NULL)
 		return ;
-	new_data = "";
-	while (tmp != NULL && tmp->index < end)
+	tmp = tmp->next;
+	new_data = ft_strdup("");
+	while (tmp != NULL && tmp->index < end->index)
 	{
+		if (tmp->type == VAR)
+			expand(tmp, env_data);
 		new_data = my_strcat(new_data, tmp->data);
+		if (tmp->next == NULL)
+			break ;
 		tmp = tmp->next;
 	}
-	if (tmp == NULL)
+	relink_toklist(elem, tmp->next, new_data);
+}
+
+/*
+Reduce everything between "elem" and the elem with index "end" from toklist.
+Meaning everything (including environment variables) will become one and
+only one token of type WORD, merging every data attributes from them in one
+array of strings "cmd", including data from "elem" and "end"th token.
+To use with checker_words.
+*/
+bool	reduce_words(t_token *elem, size_t end)
+{
+	t_token	*tmp;
+	char	**cmd;
+	size_t	i;
+
+	if (elem == NULL || elem->index > end)
 	{
-		free(new_data);
-		return ;
+//		printf("elem ptr = %p\nelem index = %lu\nend = %lu\n", elem, elem->index, end);
+		return (false);
 	}
-	relink_toklist(elem, tmp, new_data);
+	cmd = (char **)malloc(sizeof(char *) * (end - elem->index + 2));
+	if (cmd == NULL)
+	{
+		perror("malloc : reduce_words failed.");
+		return (false);
+	}
+	tmp = elem;
+	i = 0;
+	while (tmp != NULL && tmp->index <= end)
+	{
+		cmd[i] = ft_strdup(tmp->data);
+		tmp = tmp->next;
+		++i;
+	}
+	cmd[i] = NULL;
+	relink_toklist(elem, tmp, NULL);
+	elem->cmd = cmd;
+	return (true);
 }

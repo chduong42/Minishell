@@ -23,6 +23,7 @@
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <errno.h>
 # include "libft.h"
 
 //	TYPEDEF
@@ -43,7 +44,7 @@ bool	is_in_charset(char c, char *charset);
 t_list	*grep(t_list *env, char *varname);
 
 //	PARSING
-void	parse_line(char **envp, t_data *data);
+void	parse_line(char **arg, char **envp, t_data *data);
 
 //	BUILTINS
 void	echo(char **arg);

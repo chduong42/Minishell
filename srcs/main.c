@@ -75,13 +75,17 @@ int	main(int ac, char **av, char **envp)
 			if (data.line && *data.line)
 			{
 				add_history(data.line);
-				// token_list = lexer(data.line);
-				// printf("Tokenizer output :\n");
-				// display_toklist(token_list);
-				// token_list = analyzer(token_list, &data);
-				// printf("Analyzer output :\n");
-				// display_toklist(token_list);
-				// free_toklist(token_list);
+				token_list = lexer(data.line);
+				printf("\n	\e[0;33m\e[4;33mTokenizer output :\e[0m\n\n");
+				display_toklist(token_list);
+				token_list = analyzer(token_list, &data);
+				if (token_list != NULL)
+				{
+					printf("\n	\e[0;33m\e[4;33mAnalyzer output :\e[0m\n\n");
+					display_toklist(token_list);
+					printf("\n--------------------------------------------\n");
+					executor(token_list, envp, &data);
+				}
 				parse_line(envp, &data);
 				free(data.line);
 				data.line = NULL;
