@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/21 17:17:34 by chduong          ###   ########.fr       */
+/*   Updated: 2022/03/21 17:31:47 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	data_init(t_data *data, char **envp)
 int	main(int ac, char **av, char **envp)
 {
 	t_data	data;
-	// t_token	*token_list;
+	t_token	*token_list;
 
 	if (ac == 1)
 	{
@@ -86,9 +86,6 @@ int	main(int ac, char **av, char **envp)
 					printf("\n--------------------------------------------\n");
 					executor(token_list, envp, &data);
 				}
-				parse_line(envp, &data);
-				free(data.line);
-				data.line = NULL;
 			}
 		}
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:48:39 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/21 11:23:22 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/21 17:32:12 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ char	*cleaner(char *str_in)
 		return (NULL);
 	str_out = ft_strtrim(str_in, " \t\n\r\v\f");
 	free(str_in);
+	str_in = NULL;
 	return (str_out);
 }
 
