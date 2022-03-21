@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/21 11:20:31 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/21 15:57:02 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,14 @@ typedef struct s_data
 //	UTILS
 int		count_str(char **str);
 void	free_tab(char **tab);
-char	*grep_path(t_list *env);
 bool	is_in_charset(char c, char *charset);
+t_list	*grep(t_list *env, char *varname);
 
 //	PARSING
 void	parse_line(char **arg, char **envp, t_data *data);
 
 //	BUILTINS
+void	echo(char **arg);
 void	exit_ms(char **arg, t_data *data);
 void	fork_exec(char **arg, char **envp, t_data *data);
 void	print_env(t_list *env);

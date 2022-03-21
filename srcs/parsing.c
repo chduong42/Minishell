@@ -26,13 +26,19 @@ Receives the char **arg variable, containing
 */
 void	parse_line(char **arg, char **envp, t_data *data)
 {
-	if (ft_strncmp(arg[0], "exit", 4) == 0)
-		exit_ms(arg, data);
-	else if (ft_strncmp(arg[0], "env", 3) == 0)
+	//if (ft_strncmp(arg[0], "cd", 3) == 0)
+	//	cd();
+	if (ft_strncmp(arg[0], "echo", 5) == 0)
+		echo(arg);
+	else if (ft_strncmp(arg[0], "env", 4) == 0)
 		print_env(data->env);
-	else if (ft_strncmp(arg[0], "export", 6) == 0)
+	else if (ft_strncmp(arg[0], "exit", 5) == 0)
+		exit_ms(arg, data);
+	else if (ft_strncmp(arg[0], "export", 7) == 0)
 		export(arg, data);
-	else if (ft_strncmp(arg[0], "unset", 5) == 0)
+	// else if (ft_strncmp(arg[0], "pwd", 4) == 0)
+	// 	pwd();
+	else if (ft_strncmp(arg[0], "unset", 6) == 0)
 		unset(arg, data);
 	else
 		fork_exec(arg, envp, data);

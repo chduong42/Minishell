@@ -6,7 +6,7 @@
 /*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:47:38 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/05 19:51:10 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/03/15 20:22:19 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	print_export(t_data *data)
 {
 	int	i;
 
-	i = 0;
 	if (data->newenv && data->export)
 	{
 		free_tab(data->export);
@@ -78,6 +77,7 @@ void	print_export(t_data *data)
 		data->export = cpy_env(data->env);
 		sort_export(data->export);	
 	}
+	i = 0;
 	while (data->export[i])
 		printf("%s\n", data->export[i++]);
 }

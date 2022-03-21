@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   expand_reduce.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 17:19:43 by smagdela          #+#    #+#             */
 /*   Updated: 2022/03/21 14:20:13 by smagdela         ###   ########.fr       */

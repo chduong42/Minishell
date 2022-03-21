@@ -6,7 +6,7 @@
 /*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 15:54:00 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/07 22:54:00 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/03/15 16:28:49 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,14 @@
 
 void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	t_list *prev;
-	t_list *next;
-
 	if (!lst || !del)
 		return ;
-	del(lst->line);
-	del(lst->var);
-	del(lst->content);
-	prev = lst->prev;
-	next = lst->next;
-	prev->next = next;
-	next->prev = prev;
+	if (lst->line)
+		del(lst->line);
+	if (lst->var)
+		del(lst->var);
+	if (lst->content)
+		del(lst->content);
 	free(lst);
 	lst = NULL;
 }

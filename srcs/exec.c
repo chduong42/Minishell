@@ -36,6 +36,8 @@ static void	exec_cmd(char **arg, char **envp, t_data *data)
 	char	*cmd;
 	int		i;
 
+	// if (ft_strncmp(arg[1], "./", 2) == 0)
+	// 	cmd = path_join()
 	i = 0;
 	while (data->path[i])
 	{
