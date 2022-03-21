@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:46:59 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/14 16:47:07 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/21 13:38:39 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,19 @@ bool	ft_is_in_charset(char c, char *charset)
 		++i;
 	}
 	return (false);
+}
+
+void	expand_remaining_envar(t_token *token_list, t_data *env_data)
+{
+	t_token	*tmp;
+
+	tmp = token_list;
+	while (tmp != NULL)
+	{
+		if (tmp->type == VAR)
+			expand(tmp, env_data);
+		tmp = tmp->next;
+	}
 }
 
 static size_t	matriochka_aux(t_token *elem, t_data *env_data, size_t i)

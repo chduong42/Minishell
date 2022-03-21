@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 18:31:12 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/21 11:25:59 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/21 13:53:48 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ static t_input	init_input(const char *str)
 
 	input.str = str;
 	input.index = 0;
-	input.dquoted = false;
-	input.squoted = false;
 	return (input);
 }
 

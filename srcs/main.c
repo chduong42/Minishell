@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/21 11:48:14 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/21 14:26:17 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	main(int ac, char **av, char **envp)
 				{
 					printf("\n	\e[0;33m\e[4;33mAnalyzer output :\e[0m\n\n");
 					display_toklist(token_list);
-					printf("\n");
+					printf("\n--------------------------------------------\n");
 					executor(token_list, envp, &data);
 				}
 //				parse_line(envp, &data);

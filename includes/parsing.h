@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:31:10 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/21 11:39:40 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/21 13:42:22 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,6 @@ Note that only WORD and VAR token have malloc'd data attributes.
 # define TERM_CHARS "<>|\"\'$"
 # define TERM_N_SPACE " <>|\"\'$"
 
-typedef enum e_abstract_type
-{
-	COMMAND,
-	ARGUMENT,
-	REDIRECT,
-	EXPANSION
-}	t_abstract_type;
-
 typedef struct s_token
 {
 	size_t			index;
@@ -57,8 +49,6 @@ typedef struct s_input
 {
 	const char	*str;
 	size_t		index;
-	bool		dquoted;
-	bool		squoted;
 }	t_input;
 
 /* Prototypes */
@@ -92,6 +82,7 @@ void	lst_pop(t_token *elem);
 void	reduce_all(t_token *elem, t_token *end);
 void	reduce(t_token *elem, t_token *end, t_data *env_data);
 void	ft_print_title(void);
+void	expand_remaining_envar(t_token *token_list, t_data *env_data);
 
 int		categ_1(t_input *input, t_token **token_list);
 int		categ_2(t_input *input, t_token **token_list);

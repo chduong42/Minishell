@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 10:53:09 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/21 11:33:41 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/21 14:20:05 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,35 @@ static void	dquote_manager(t_token *tmp, size_t *endd, t_data *env_data)
 	}
 }
 
+/*
+Deletes every WORD token which are only spaces.
+*/
+static void	suppress_spaces(t_token *token_list)
+{
+	t_token	*tmp;
+	t_token	*to_pop;
+
+	tmp = token_list;
+	while (tmp != NULL)
+	{
+		if (tmp->type == WORD
+			&& !ft_strncmp(tmp->data, " ", ft_strlen(tmp->data)))
+		{
+			to_pop = tmp;
+			tmp = tmp->next;
+			lst_pop(to_pop);
+		}
+		else
+			tmp = tmp->next;
+	}
+}
+
+/*
+Check if quotes are closed, and reduce everything in between accordingly,
+or unclosed, and convert to non-special token WORD.
+In the ends, calls "suppress_spaces" function in order to delete
+any spaces which were not inside quotes, therefore unecessary.
+*/
 void	checker_quotes(t_token *token_list, t_data *env_data)
 {
 	t_token	*tmp;
@@ -112,4 +141,5 @@ void	checker_quotes(t_token *token_list, t_data *env_data)
 			dquote_manager(tmp, &endd, env_data);
 		tmp = tmp->next;
 	}
+	suppress_spaces(token_list);
 }
