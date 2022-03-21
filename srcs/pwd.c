@@ -3,10 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:51:32 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/03/08 16:51:33 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/03/21 16:41:32 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
+
+void	pwd(void)
+{
+	getcwd()
+}

@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/02/18 18:41:39 by chduong          ###   ########.fr       */
+/*   Updated: 2022/03/21 15:57:36 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static void	exec_cmd(char **arg, char **envp, t_data *data)
 	char	*cmd;
 	int		i;
 
+	// if (ft_strncmp(arg[1], "./", 2) == 0)
+	// 	cmd = path_join()
 	i = 0;
 	while (data->path[i])
 	{

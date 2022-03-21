@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 20:17:23 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/15 20:01:09 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/03/21 16:02:25 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,16 @@ void	parse_line(char **envp, t_data *data)
 	arg = ft_split(data->line, ' ');
 	//if (ft_strncmp(arg[0], "cd", 3) == 0)
 	//	cd();
-	//else if (ft_strncmp(arg[0], "echo", 5) == 0)
-	//	echo();
-	if (ft_strncmp(arg[0], "env", 4) == 0)
+	if (ft_strncmp(arg[0], "echo", 5) == 0)
+		echo(arg);
+	else if (ft_strncmp(arg[0], "env", 4) == 0)
 		print_env(data->env);
 	else if (ft_strncmp(arg[0], "exit", 5) == 0)
 		exit_ms(arg, data);
 	else if (ft_strncmp(arg[0], "export", 7) == 0)
 		export(arg, data);
-	//else if (ft_strncmp(arg[0], "pwd", 4) == 0)
-	//	pwd();
+	// else if (ft_strncmp(arg[0], "pwd", 4) == 0)
+	// 	pwd();
 	else if (ft_strncmp(arg[0], "unset", 6) == 0)
 		unset(arg, data);
 	else

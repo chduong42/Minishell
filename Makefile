@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+         #
+#    By: chduong <chduong@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/03/15 18:48:53 by kennyduong       ###   ########.fr        #
+#    Updated: 2022/03/21 15:58:04 by chduong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,7 +71,7 @@ MS_SRC		=	main.c				parsing.c			exit.c\
 				analyzer.c			parsing_utils.c		parsing_utils_2.c\
 				checker_quotes.c	checker_redir.c		checker_words.c\
 				print_env.c			export.c			unset.c\
-				expand_reduce.c
+				expand_reduce.c		echo.c
 
 #########################################
 #            OBJECT FILES    	        #
@@ -82,11 +82,10 @@ MS_OBJ		:=	$(addprefix $(OBJ_DIR), $(MS_OBJ))
 #########################################
 #			MAKE	RULES				#
 #########################################
-all: $(NAME)
 
 $(NAME): $(OBJ_DIR) $(MS_OBJ) $(LIBFT)
 	@echo "> $(CYAN)Generate objects$(END) : \t\t[$(GREEN)OK$(END)]"
-	@$(CC) $(DEBUG) $(LINK) -o $@ $(MS_OBJ) $(LIBFT)
+	@$(CC) $(LINK) -o $@ $(MS_OBJ) $(LIBFT)
 	@echo "> $(WHITE)$(BOLD)MiniShell Compilation$(END) : \t[$(YELLOW)COMPLETE$(END)]"
 
 $(LIBFT):
@@ -100,6 +99,8 @@ ${OBJ_DIR}%.o:	${SRC_DIR}%.c
 
 $(OBJ_DIR):
 	@$(MKDIR) $(OBJ_DIR)
+
+all: $(NAME)
 
 bonus :	
 	
@@ -119,6 +120,6 @@ norm:
 	@norminette ${SRC_DIR} ${INC_DIR} | grep 'Error' ; true
 
 leak:
-	valgrind --leak-check=full --show-leak-kinds=all --suppressions=ignorereadline ./${NAME}
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=ignorereadline ./${NAME}
 
 .PHONY: all clean fclean re

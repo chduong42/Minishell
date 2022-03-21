@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:09:54 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/15 16:40:18 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/03/21 15:56:27 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ void	free_tab(char **tab)
 	tab = NULL;
 }
 
-char	*grep_path(t_list *env)
+t_list	*grep(t_list *env, char *varname)
 {
 	while (env)
 	{
-		if (ft_strncmp(env->var, "PATH", 5) == 0)
-			return (env->content + 5);
+		if (ft_strcmp(env->var, varname) == 0)
+			return (env);
 		env = env->next;
 	}
 	return (NULL);
