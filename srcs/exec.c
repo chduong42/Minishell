@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/02/18 18:41:39 by chduong          ###   ########.fr       */
+/*   Updated: 2022/03/21 16:55:01 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,10 @@ static void	exec_cmd(char **arg, char **envp, t_data *data)
 		free(cmd);
 		++i;
 	}
+	cmd = path_join(getcwd(NULL, 0), arg[0]);
+	if (access(cmd, X_OK) == 0)
+		execve(cmd, arg, envp);
+	free(cmd);
 	perror("Error");
 }
 

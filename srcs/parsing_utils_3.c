@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 13:40:03 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/21 13:40:43 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/21 16:04:45 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ static void	print_tab(char **tab)
 
 static void	type_display(t_token *tmp)
 {
-	if (tmp->type == WORD && tmp->data != NULL)
-		printf("%zu WORD (data) : [%s]\n", tmp->index, tmp->data);
-	else if (tmp->type == WORD && tmp->cmd != NULL)
+	if (tmp->type == WORD && tmp->cmd != NULL)
 	{
 		printf("%zu WORD (cmd) : ", tmp->index);
 		print_tab(tmp->cmd);
 	}
+	else if (tmp->type == WORD && tmp->data != NULL)
+		printf("%zu WORD (data) : [%s]\n", tmp->index, tmp->data);
 	else if (tmp->type == PIPE)
 		printf("%zu PIPE: [%s]\n", tmp->index, tmp->data);
 	else if (tmp->type == LESS)
