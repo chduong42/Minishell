@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_reduce.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 17:19:43 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/04 17:58:34 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/15 18:49:50 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ To use with single quotes.
 void	reduce_all(t_token *elem, size_t end)
 {
 	t_token	*tmp;
-	t_token	*elem_end;
+	// t_token	*elem_end;
 	char	*new_data;
 
 	tmp = elem->next;
@@ -102,7 +102,7 @@ void	reduce_all(t_token *elem, size_t end)
 		free(new_data);
 		return ;
 	}
-	elem_end = tmp->next;
+	// elem_end = tmp->next;
 	lst_pop(tmp);
 	relink_toklist(elem, tmp->next, new_data);
 }

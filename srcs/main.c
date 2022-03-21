@@ -6,7 +6,7 @@
 /*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/15 16:11:01 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/03/15 20:16:52 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ void	data_init(t_data *data, char **envp)
 	int		i;
 	char	**tmp;
 
-	data->newenv = 0;
-	data->newpath = 0;
-	data->export = NULL;
 	data->line = NULL;
 	data->env = NULL;
+	data->export = NULL;
+	data->newenv = 0;
+	data->newpath = 0;
 	i = 0;
 	while (envp[i])
 	{

@@ -6,7 +6,7 @@
 #    By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/03/15 16:13:55 by kennyduong       ###   ########.fr        #
+#    Updated: 2022/03/15 18:48:53 by kennyduong       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,12 +65,13 @@ LIBFT		=	$(LIBFT_DIR)libft.a
 #########################################
 #			SOURCES	FILES				#
 #########################################
-MS_SRC		=	main.c			parsing.c	exit.c		utils.c\
-				exec.c			lexer.c		scanner.c	categorizer.c\
-				categorizer_2.c	analyzer.c	parsing_utils.c\
-				parsing_utils_2.c			checker_quotes.c\
-				checker_redir.c	checker_words.c			print_env.c\
-				export.c		unset.c		expand_reduce.c\
+MS_SRC		=	main.c				parsing.c			exit.c\
+				utils.c				exec.c				lexer.c\
+				scanner.c			categorizer.c		categorizer_2.c\
+				analyzer.c			parsing_utils.c		parsing_utils_2.c\
+				checker_quotes.c	checker_redir.c		checker_words.c\
+				print_env.c			export.c			unset.c\
+				expand_reduce.c
 
 #########################################
 #            OBJECT FILES    	        #
