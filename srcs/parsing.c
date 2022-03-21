@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 20:17:23 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/15 15:09:03 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/21 09:48:00 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,14 @@
 ◦ env with no options or arguments
 ◦ exit with no options*/
 
-void	parse_line(char *cmd, char **envp, t_data *data)
+/*
+Receives the char **arg variable, containing 
+*/
+void	parse_line(char **arg, char **envp, t_data *data)
 {
-	char	**arg;
+//	char	**arg;
 
-	arg = ft_split(cmd, ' ');
+//	arg = ft_split(cmd, ' ');
 	if (ft_strncmp(arg[0], "exit", 4) == 0)
 		exit_ms(arg, data);
 	else if (ft_strncmp(arg[0], "env", 3) == 0)

@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/15 14:04:17 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/21 11:20:31 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*grep_path(t_list *env);
 bool	is_in_charset(char c, char *charset);
 
 //	PARSING
-void	parse_line(char *cmd, char **envp, t_data *data);
+void	parse_line(char **arg, char **envp, t_data *data);
 
 //	BUILTINS
 void	exit_ms(char **arg, t_data *data);

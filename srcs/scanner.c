@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 18:31:12 by smagdela          #+#    #+#             */
-/*   Updated: 2022/02/18 18:58:54 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/21 11:25:59 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	free_toklist(t_token *list)
 		{
 			if (tmp->type == WORD || tmp->type == VAR)
 				free(tmp->data);
+			if (tmp->cmd != NULL)
+				free_tab(tmp->cmd);
 			if (tmp->next != NULL)
 			{
 				tmp = tmp->next;

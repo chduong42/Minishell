@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 17:19:43 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/14 18:09:36 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/21 12:00:05 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,10 @@ static void	relink_toklist(t_token *elem, t_token *tmp, char *new_data)
 /*
 Reduce everything between "elem" and the elem with index "end" from toklist.
 Meaning everything (including environment variables) will become one and
-only one token of type WORD, with the quotes on each sides.
+only one token of type WORD, WITHOUT the quotes on each sides.
 To use with single quotes.
 */
-void	reduce_all(t_token *elem, size_t end)
+void	reduce_all(t_token *elem, t_token *end)
 {
 	t_token	*tmp;
 	char	*new_data;
@@ -95,8 +95,9 @@ void	reduce_all(t_token *elem, size_t end)
 	tmp = elem;
 	if (tmp == NULL)
 		return ;
+	tmp = tmp->next;
 	new_data = ft_strdup("");
-	while (tmp != NULL && tmp->index <= end)
+	while (tmp != NULL && tmp->index < end->index)
 	{
 		new_data = my_strcat(new_data, tmp->data);
 		if (tmp->next == NULL)
@@ -110,10 +111,10 @@ void	reduce_all(t_token *elem, size_t end)
 Reduce everything between "elem" and the elem with index "end" from toklist.
 Meaning everything (BUT NOT environement variables) will become one and
 only one token of type WORD, AFTER EXPANDING ENVIRONMENT VARIABLES,
-with the quotes on each sides.
+WITHOUT the quotes on each sides.
 To use with double quotes.
 */
-void	reduce(t_token *elem, size_t end, t_data *env_data)
+void	reduce(t_token *elem, t_token *end, t_data *env_data)
 {
 	t_token	*tmp;
 	char	*new_data;
@@ -121,8 +122,9 @@ void	reduce(t_token *elem, size_t end, t_data *env_data)
 	tmp = elem;
 	if (tmp == NULL)
 		return ;
+	tmp = tmp->next;
 	new_data = ft_strdup("");
-	while (tmp != NULL && tmp->index <= end)
+	while (tmp != NULL && tmp->index < end->index)
 	{
 		if (tmp->type == VAR)
 			expand(tmp, env_data);
@@ -137,22 +139,37 @@ void	reduce(t_token *elem, size_t end, t_data *env_data)
 /*
 Reduce everything between "elem" and the elem with index "end" from toklist.
 Meaning everything (including environment variables) will become one and
-only one token of type WORD, including data from "elem" and "end"th token.
+only one token of type WORD, merging every data attributes from them in one
+array of strings "cmd", including data from "elem" and "end"th token.
 To use with checker_words.
 */
-void	reduce_words(t_token *elem, size_t end)
+bool	reduce_words(t_token *elem, size_t end)
 {
 	t_token	*tmp;
-	char	*new_data;
+	char	**cmd;
+	size_t	i;
 
-	if (elem == NULL || elem->index >= end)
-		return ;
+	if (elem == NULL || elem->index > end)
+	{
+		printf("elem ptr = %p\nelem index = %lu\nend = %lu\n", elem, elem->index, end);
+		return (false);
+	}
+	cmd = (char **)malloc(sizeof(char *) * (end - elem->index + 2));
+	if (cmd == NULL)
+	{
+		perror("malloc : reduce_words failed.");
+		return (false);
+	}
 	tmp = elem;
-	new_data = ft_strdup("");
+	i = 0;
 	while (tmp != NULL && tmp->index <= end)
 	{
-		new_data = my_strcat(new_data, tmp->data);
+		cmd[i] = ft_strdup(tmp->data);
 		tmp = tmp->next;
+		++i;
 	}
-	relink_toklist(elem, tmp, new_data);
+	cmd[i] = NULL;
+	relink_toklist(elem, tmp, NULL);
+	elem->cmd = cmd;
+	return (true);
 }

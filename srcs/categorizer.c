@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 18:55:04 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/14 18:07:35 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/21 12:30:39 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,14 @@ int	categ_2(t_input *input, t_token **token_list)
 }
 
 /*
-Quotes category.
+Quotes and spaces category.
 */
 int	categ_3(t_input *input, t_token **token_list)
 {
 	if (input->str[input->index] == 34)
 	{
+		if (!input->squoted)
+			input->dquoted = !input->dquoted;
 		if (create_token(DQUOTE, "\"", token_list) == false)
 			return (free_toklist(*token_list));
 		++input->index;
@@ -77,8 +79,16 @@ int	categ_3(t_input *input, t_token **token_list)
 	}
 	else if (input->str[input->index] == 39)
 	{
+		if (!input->dquoted)
+			input->squoted = !input->squoted;
 		if (create_token(SQUOTE, "\'", token_list) == false)
 			return (free_toklist(*token_list));
+		++input->index;
+		return (0);
+	}
+	else if (input->str[input->index] == ' '
+		&& !input->squoted && !input->dquoted)
+	{
 		++input->index;
 		return (0);
 	}
@@ -86,7 +96,7 @@ int	categ_3(t_input *input, t_token **token_list)
 }
 
 /*
-Env variables and spaces category.
+Env variables.
 */
 int	categ_4(t_input *input, t_token **token_list)
 {
@@ -118,10 +128,15 @@ Non-special characters category.
 int	categ_5(t_input *input, t_token **token_list)
 {
 	char	*word_data;
+	char	*charset;
 
-	if (find_char_set(&input->str[input->index], TERM_CHARS) != 0)
+	if (input->dquoted || input->squoted)
+		charset = TERM_CHARS;
+	else
+		charset = TERM_N_SPACE;
+	if (find_char_set(&input->str[input->index], charset) != 0)
 		word_data = ft_substr(input->str, input->index,
-				find_char_set(&input->str[input->index], TERM_CHARS));
+				find_char_set(&input->str[input->index], charset));
 	else
 		word_data = ft_substr(input->str, input->index,
 				ft_strlen(&input->str[input->index]));

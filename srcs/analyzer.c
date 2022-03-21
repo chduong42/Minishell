@@ -6,16 +6,34 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 18:42:02 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/15 14:52:49 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/21 12:12:48 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
+static void	print_tab(char **tab)
+{
+	size_t	i;
+
+	i = 0;
+	while (tab[i] != NULL)
+	{
+		printf("[%s] ", tab[i]);
+		++i;
+	}
+	printf("\n");
+}
+
 static void	type_display(t_token *tmp)
 {
-	if (tmp->type == WORD)
-		printf("%zu WORD: [%s]\n", tmp->index, tmp->data);
+	if (tmp->type == WORD && tmp->data != NULL)
+		printf("%zu WORD (data) : [%s]\n", tmp->index, tmp->data);
+	else if (tmp->type == WORD && tmp->cmd != NULL)
+	{
+		printf("%zu WORD (cmd) : ", tmp->index);
+		print_tab(tmp->cmd);
+	}
 	else if (tmp->type == PIPE)
 		printf("%zu PIPE: [%s]\n", tmp->index, tmp->data);
 	else if (tmp->type == LESS)
@@ -86,18 +104,22 @@ t_token	*analyzer(t_token *token_list, t_data *env_data)
 
 	checker_quotes(token_list, env_data);
 	expand_remaining_envar(token_list, env_data);
-	checker_words(token_list);
+	if (checker_words(token_list) == false)
+	{
+		synerror(" : Near token word.", &token_list);
+		return (token_list);
+	}
 	if (checker_redir(token_list) == false || token_list == NULL
 		|| (token_list->next == NULL && token_list->type != WORD))
 	{
-		synerror(NULL, &token_list);
+		synerror(" : Near redirection token.", &token_list);
 		return (token_list);
 	}
 	tmp = token_list;
 	while (tmp != NULL)
 	{
 		if (tmp->type == NONE || tmp->type == VAR || tmp->type == DQUOTE
-			|| tmp->type == SQUOTE || ft_strlen(tmp->data) == 0)
+			|| tmp->type == SQUOTE)
 		{
 			synerror(" : Analyzer failure.", &token_list);
 			break ;

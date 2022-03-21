@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/15 15:15:02 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/21 11:48:14 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,14 @@ int	main(int ac, char **av, char **envp)
 			{
 				add_history(data.line);
 				token_list = lexer(data.line);
-//				printf("\n	\e[0;33m\e[4;33mTokenizer output :\e[0m\n\n");
-//				display_toklist(token_list);
+				printf("\n	\e[0;33m\e[4;33mTokenizer output :\e[0m\n\n");
+				display_toklist(token_list);
 				token_list = analyzer(token_list, &data);
 				if (token_list != NULL)
 				{
-//					printf("\n	\e[0;33m\e[4;33mAnalyzer output :\e[0m\n\n");
-//					display_toklist(token_list);
-//					printf("\n");
+					printf("\n	\e[0;33m\e[4;33mAnalyzer output :\e[0m\n\n");
+					display_toklist(token_list);
+					printf("\n");
 					executor(token_list, envp, &data);
 				}
 //				parse_line(envp, &data);
