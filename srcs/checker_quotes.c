@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 10:53:09 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/22 17:27:45 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/22 17:58:52 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ static bool	squote_manager(t_token *tmp, t_token *token_list)
 			ends_elem = ends_elem->next;
 		if (ends_elem != tmp->next)
 			reduce_all(tmp, ends_elem, token_list);
+		else
+			relink_toklist(tmp, tmp->next->next, ft_strdup(""), &token_list);
 		return (true);
 	}
 	return (false);
@@ -88,6 +90,8 @@ static bool	dquote_manager(t_token *tmp, t_data *env_data, t_token *token_list)
 			endd_elem = endd_elem->next;
 		if (endd_elem != tmp->next)
 			reduce(tmp, endd_elem, env_data, token_list);
+		else
+			relink_toklist(tmp, tmp->next->next, ft_strdup(""), &token_list);
 		return (true);
 	}
 	return (false);
@@ -112,11 +116,7 @@ bool	checker_quotes(t_token *token_list, t_data *env_data)
 			ret = squote_manager(tmp, token_list);
 		else if (tmp->type == DQUOTE)
 			ret = dquote_manager(tmp, env_data, token_list);
-		if (tmp->next && ((tmp->type == SQUOTE && tmp->next->type == SQUOTE)
-				|| (tmp->type == DQUOTE && tmp->next->type == DQUOTE)))
-			relink_toklist(tmp, tmp->next->next, ft_strdup(" "), &token_list);
-		else
-			tmp = tmp->next;
+		tmp = tmp->next;
 	}
 	return (ret);
 }
