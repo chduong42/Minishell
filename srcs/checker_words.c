@@ -6,29 +6,11 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 18:04:58 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/21 13:42:49 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/22 10:52:06 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-
-/*
-static bool	quoted(t_token *tmp)
-{
-	if (tmp->type == WORD)
-	{
-		printf("Is [%s] quoted?", tmp->data);
-		if (tmp->data[0] == '\''
-			&& tmp->data[ft_strlen(tmp->data) - 1] == '\'')
-			return (true);
-		else if (tmp->data[0] == '\"'
-			&& tmp->data[ft_strlen(tmp->data) - 1] == '\"')
-			return (true);
-	}
-	printf("No it isn't.\n");
-	return (false);
-}
-*/
 
 bool	checker_words(t_token *token_list)
 {

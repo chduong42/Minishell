@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:46:59 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/21 13:38:39 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/22 11:00:15 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,29 @@ void	expand_remaining_envar(t_token *token_list, t_data *env_data)
 	while (tmp != NULL)
 	{
 		if (tmp->type == VAR)
+		{
 			expand(tmp, env_data);
+			if(tmp->previous && tmp->previous->type == WORD
+				&& ft_strncmp(tmp->previous->data, " ",
+				ft_strlen(tmp->previous->data)))
+			{
+				tmp = tmp->previous;
+				tmp->data = my_strcat(tmp->data, tmp->next->data);
+				lst_pop(tmp->next);
+			}
+			if(tmp->next && tmp->next->type == WORD
+				&& ft_strncmp(tmp->next->data, " ",
+				ft_strlen(tmp->next->data)))
+			{
+				tmp->data = my_strcat(tmp->data, tmp->next->data);
+				lst_pop(tmp->next);
+			}
+		}
 		tmp = tmp->next;
 	}
 }
 
+/*
 static size_t	matriochka_aux(t_token *elem, t_data *env_data, size_t i)
 {
 	char	*envar_name;
@@ -61,12 +79,11 @@ static size_t	matriochka_aux(t_token *elem, t_data *env_data, size_t i)
 	return (ft_strlen(envar_value) - 1);
 }
 
-/*
+
 WARNING: MAY NOT BE USEFUL,
 AS THERE MAY NOT BE ANY UNEXPANDED VAR INSIDE EXPORTED ONES!
 
 Expand environement variables inside the already expanded ones, if present.
-*/
 void	matriochka(t_token *elem, t_data *env_data)
 {
 	size_t	i;
@@ -82,3 +99,4 @@ void	matriochka(t_token *elem, t_data *env_data)
 		++i;
 	}
 }
+*/

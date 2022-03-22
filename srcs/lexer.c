@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:48:39 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/21 17:32:12 by chduong          ###   ########.fr       */
+/*   Updated: 2022/03/22 10:50:39 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ t_token	*lexer(char *input)
 		ft_putstr_fd("Error: Corrupted Input\n", 2);
 		return (NULL);
 	}
+	if (str[0] == '\0')
+		return (NULL);
 	token_list = NULL;
 	token_list = scanner(str);
 	free(str);

@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 15:26:15 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/21 11:24:38 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/22 10:34:16 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,12 @@ size_t	ft_envarlen(const char *str)
 {
 	size_t	i;
 
-	i = 0;
+	if (str[0] == '$')
+		i = 1;
+	else
+		i = 0;
 	while (str[i] && (ft_isalpha(str[i]) || ft_isdigit(str[i])
-			|| ft_is_in_charset(str[i], "_$?")))
+			|| ft_is_in_charset(str[i], "_?")))
 	{
 		if (str[i] == '?')
 		{

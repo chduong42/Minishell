@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 10:53:09 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/21 14:20:05 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/22 11:01:28 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ static void	dquote_manager(t_token *tmp, size_t *endd, t_data *env_data)
 /*
 Deletes every WORD token which are only spaces.
 */
-static void	suppress_spaces(t_token *token_list)
+void	suppress_spaces(t_token *token_list)
 {
 	t_token	*tmp;
 	t_token	*to_pop;
@@ -141,5 +141,4 @@ void	checker_quotes(t_token *token_list, t_data *env_data)
 			dquote_manager(tmp, &endd, env_data);
 		tmp = tmp->next;
 	}
-	suppress_spaces(token_list);
 }

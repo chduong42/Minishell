@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_reduce.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 17:19:43 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/21 14:20:13 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/22 11:00:36 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ if the VAR is found in the environement.
 */
 void	expand(t_token *elem, t_data *env_data)
 {
-	int	i;
-
 	if (elem->type != VAR)
 		return ;
 	elem->type = WORD;
@@ -29,18 +27,6 @@ void	expand(t_token *elem, t_data *env_data)
 		perror("Environment variable expansion : malloc failed.\n");
 		elem->data = ft_strdup("");
 		return ;
-	}
-	i = 0;
-	while (elem->data[i])
-	{
-		if (elem->data[i] == '$'
-			&& (ft_isalnum(elem->data[i])
-				|| is_in_charset(elem->data[i], "_?")))
-		{
-			matriochka(elem, env_data);
-			i = -1;
-		}
-		++i;
 	}
 }
 
