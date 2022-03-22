@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 18:31:12 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/21 13:53:48 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/22 11:20:46 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,6 @@ int	free_toklist(t_token *list)
 	return (-1);
 }
 
-static t_input	init_input(const char *str)
-{
-	t_input		input;
-
-	input.str = str;
-	input.index = 0;
-	return (input);
-}
-
 /*
 Core function of the lexer.
 */
@@ -88,7 +79,8 @@ t_token	*scanner(const char *str)
 		return (NULL);
 	}
 	token_list = NULL;
-	input = init_input((char *)str);
+	input.str = str;
+	input.index = 0;
 	while (input.index < ft_strlen(str))
 	{
 		if (categorizer(&input, &token_list) == false)

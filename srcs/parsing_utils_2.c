@@ -6,13 +6,12 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:46:59 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/22 11:00:15 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/22 11:50:46 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-//ft is in charset
 bool	ft_is_in_charset(char c, char *charset)
 {
 	int	i;
@@ -37,17 +36,17 @@ void	expand_remaining_envar(t_token *token_list, t_data *env_data)
 		if (tmp->type == VAR)
 		{
 			expand(tmp, env_data);
-			if(tmp->previous && tmp->previous->type == WORD
+			if (tmp->previous && tmp->previous->type == WORD
 				&& ft_strncmp(tmp->previous->data, " ",
-				ft_strlen(tmp->previous->data)))
+					ft_strlen(tmp->previous->data)))
 			{
 				tmp = tmp->previous;
 				tmp->data = my_strcat(tmp->data, tmp->next->data);
 				lst_pop(tmp->next);
 			}
-			if(tmp->next && tmp->next->type == WORD
+			if (tmp->next && tmp->next->type == WORD
 				&& ft_strncmp(tmp->next->data, " ",
-				ft_strlen(tmp->next->data)))
+					ft_strlen(tmp->next->data)))
 			{
 				tmp->data = my_strcat(tmp->data, tmp->next->data);
 				lst_pop(tmp->next);

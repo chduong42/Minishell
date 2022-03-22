@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 17:19:43 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/22 11:00:36 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/22 12:05:16 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ elem-> | elem+1->elem+2->...->tmp-1-> | tmp->tmp+1->...
 
 Refreshes to the new indexes too.
 */
-static void	relink_toklist(t_token *elem, t_token *tmp, char *new_data)
+void	relink_toklist(t_token *elem, t_token *tmp, char *new_data)
 {
 	t_token	*to_free;
 
@@ -136,10 +136,7 @@ bool	reduce_words(t_token *elem, size_t end)
 	size_t	i;
 
 	if (elem == NULL || elem->index > end)
-	{
-//		printf("elem ptr = %p\nelem index = %lu\nend = %lu\n", elem, elem->index, end);
 		return (false);
-	}
 	cmd = (char **)malloc(sizeof(char *) * (end - elem->index + 2));
 	if (cmd == NULL)
 	{
