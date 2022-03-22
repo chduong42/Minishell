@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 17:19:43 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/22 12:05:16 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/22 14:50:11 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ elem-> | elem+1->elem+2->...->tmp-1-> | tmp->tmp+1->...
 
 Refreshes to the new indexes too.
 */
-void	relink_toklist(t_token *elem, t_token *tmp, char *new_data)
+void	relink_toklist(t_token *elem, t_token *tmp, char *new_data, t_token *token_list)
 {
 	t_token	*to_free;
 
@@ -54,7 +54,7 @@ void	relink_toklist(t_token *elem, t_token *tmp, char *new_data)
 	to_free = elem->next;
 	while (to_free != NULL && to_free != tmp)
 	{
-		lst_pop(to_free);
+		lst_pop(to_free, &token_list);
 		to_free = elem->next;
 	}
 	while (to_free != NULL)
@@ -73,7 +73,7 @@ Meaning everything (including environment variables) will become one and
 only one token of type WORD, WITHOUT the quotes on each sides.
 To use with single quotes.
 */
-void	reduce_all(t_token *elem, t_token *end)
+void	reduce_all(t_token *elem, t_token *end, t_token *token_list)
 {
 	t_token	*tmp;
 	char	*new_data;
@@ -90,7 +90,7 @@ void	reduce_all(t_token *elem, t_token *end)
 			break ;
 		tmp = tmp->next;
 	}
-	relink_toklist(elem, tmp->next, new_data);
+	relink_toklist(elem, tmp->next, new_data, token_list);
 }
 
 /*
@@ -100,7 +100,7 @@ only one token of type WORD, AFTER EXPANDING ENVIRONMENT VARIABLES,
 WITHOUT the quotes on each sides.
 To use with double quotes.
 */
-void	reduce(t_token *elem, t_token *end, t_data *env_data)
+void	reduce(t_token *elem, t_token *end, t_data *env_data, t_token *token_list)
 {
 	t_token	*tmp;
 	char	*new_data;
@@ -119,7 +119,7 @@ void	reduce(t_token *elem, t_token *end, t_data *env_data)
 			break ;
 		tmp = tmp->next;
 	}
-	relink_toklist(elem, tmp->next, new_data);
+	relink_toklist(elem, tmp->next, new_data, token_list);
 }
 
 /*
@@ -129,7 +129,7 @@ only one token of type WORD, merging every data attributes from them in one
 array of strings "cmd", including data from "elem" and "end"th token.
 To use with checker_words.
 */
-bool	reduce_words(t_token *elem, size_t end)
+bool	reduce_words(t_token *elem, size_t end, t_token *token_list)
 {
 	t_token	*tmp;
 	char	**cmd;
@@ -152,7 +152,7 @@ bool	reduce_words(t_token *elem, size_t end)
 		++i;
 	}
 	cmd[i] = NULL;
-	relink_toklist(elem, tmp, NULL);
+	relink_toklist(elem, tmp, NULL, token_list);
 	elem->cmd = cmd;
 	return (true);
 }

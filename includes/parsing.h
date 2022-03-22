@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:31:10 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/22 12:05:35 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/22 14:59:07 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,16 +71,18 @@ bool	create_token(t_token_type type, char *data, t_token **list);
 bool	categorizer(t_input *input, t_token **token_list);
 bool	checker_quotes(t_token *token_list, t_data *env_data);
 bool	checker_words(t_token *token_list);
-bool	reduce_words(t_token *elem, size_t end);
+bool	reduce_words(t_token *elem, size_t end, t_token *token_list);
 bool	checker_redir(t_token *token_list);
 bool	executor(t_token *token_list, char **envp, t_data *data);
 
 void	display_toklist(t_token *token_list);
-void	relink_toklist(t_token *elem, t_token *tmp, char *new_data);
+void	relink_toklist(t_token *elem, t_token *tmp,
+			char *new_data, t_token *token_list);
 void	expand(t_token *elem, t_data *env_data);
-void	lst_pop(t_token *elem);
-void	reduce_all(t_token *elem, t_token *end);
-void	reduce(t_token *elem, t_token *end, t_data *env_data);
+void	lst_pop(t_token *elem, t_token **token_list);
+void	reduce_all(t_token *elem, t_token *end, t_token *token_list);
+void	reduce(t_token *elem, t_token *end, t_data *env_data,
+			t_token *token_list);
 void	ft_print_title(void);
 void	expand_remaining_envar(t_token *token_list, t_data *env_data);
 void	suppress_spaces(t_token *token_list);

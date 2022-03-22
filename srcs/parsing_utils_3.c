@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 13:40:03 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/21 16:04:45 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/22 15:10:02 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,28 @@ void	display_toklist(t_token *token_list)
 	{
 		type_display(tmp);
 		tmp = tmp->next;
+	}
+}
+
+/*
+Deletes every WORD token which are only spaces.
+*/
+void	suppress_spaces(t_token *token_list)
+{
+	t_token	*tmp;
+	t_token	*to_pop;
+
+	tmp = token_list;
+	while (tmp != NULL)
+	{
+		if (tmp->type == WORD
+			&& !ft_strncmp(tmp->data, " ", ft_strlen(tmp->data)))
+		{
+			to_pop = tmp;
+			tmp = tmp->next;
+			lst_pop(to_pop, &token_list);
+		}
+		else
+			tmp = tmp->next;
 	}
 }

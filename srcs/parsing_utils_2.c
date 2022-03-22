@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:46:59 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/22 11:50:46 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/22 14:44:57 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@ void	expand_remaining_envar(t_token *token_list, t_data *env_data)
 			{
 				tmp = tmp->previous;
 				tmp->data = my_strcat(tmp->data, tmp->next->data);
-				lst_pop(tmp->next);
+				lst_pop(tmp->next, &token_list);
 			}
 			if (tmp->next && tmp->next->type == WORD
 				&& ft_strncmp(tmp->next->data, " ",
 					ft_strlen(tmp->next->data)))
 			{
 				tmp->data = my_strcat(tmp->data, tmp->next->data);
-				lst_pop(tmp->next);
+				lst_pop(tmp->next, &token_list);
 			}
 		}
 		tmp = tmp->next;

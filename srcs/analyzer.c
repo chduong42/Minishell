@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 18:42:02 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/22 11:18:02 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/22 15:26:15 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ t_token	*analyzer(t_token *token_list, t_data *env_data)
 		synerror(" : Near token word.", &token_list);
 		return (token_list);
 	}
-	if (checker_redir(token_list) == false || token_list == NULL
-		|| (token_list->next == NULL && token_list->type != WORD))
+	if (checker_redir(token_list) == false)
 	{
 		synerror(" : Near redirection token.", &token_list);
 		return (token_list);
@@ -54,7 +53,8 @@ t_token	*analyzer(t_token *token_list, t_data *env_data)
 	while (tmp != NULL)
 	{
 		if (tmp->type == NONE || tmp->type == VAR || tmp->type == DQUOTE
-			|| tmp->type == SQUOTE)
+			|| tmp->type == SQUOTE
+			|| (token_list->next == NULL && token_list->type != WORD))
 		{
 			synerror(" : Analyzer failure.", &token_list);
 			break ;

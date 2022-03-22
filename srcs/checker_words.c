@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 18:04:58 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/22 10:52:06 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/22 14:59:29 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ bool	checker_words(t_token *token_list)
 				}
 				tmp2 = tmp2->next;
 			}
-			if (reduce_words(tmp, end_word) == false)
+			if (reduce_words(tmp, end_word, token_list) == false)
 				return (false);
 		}
 		tmp = tmp->next;

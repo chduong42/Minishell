@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 18:31:12 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/22 11:20:46 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/22 15:29:26 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ Returns -1 (for norm and ease of code reasons).
 int	free_toklist(t_token *list)
 {
 	t_token	*tmp;
+	t_token	*to_free;
 
 	if (list != NULL)
 	{
@@ -48,17 +49,11 @@ int	free_toklist(t_token *list)
 				free(tmp->data);
 			if (tmp->cmd != NULL)
 				free_tab(tmp->cmd);
-			if (tmp->next != NULL)
-			{
-				tmp = tmp->next;
-				free(tmp->previous);
-				tmp->previous = NULL;
-			}
-			else
-			{
-				free(tmp);
-				tmp = NULL;
-			}
+			to_free = tmp;
+			tmp = tmp->next;
+			free(to_free);
+			printf("Trying to free the %luth token, of data [%s]\n", tmp->index, tmp->data);
+			to_free = NULL;
 		}
 	}
 	return (-1);

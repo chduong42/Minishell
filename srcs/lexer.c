@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:48:39 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/22 11:47:05 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/22 13:27:44 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ t_token	*lexer(char *input)
 	}
 	if (str[0] == '\0')
 		return (NULL);
-	token_list = NULL;
 	token_list = scanner(str);
 	free(str);
 	if (token_list == NULL)
