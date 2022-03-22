@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 17:19:43 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/22 14:50:11 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/22 17:23:48 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ elem-> | elem+1->elem+2->...->tmp-1-> | tmp->tmp+1->...
 
 Refreshes to the new indexes too.
 */
-void	relink_toklist(t_token *elem, t_token *tmp, char *new_data, t_token *token_list)
+void	relink_toklist(t_token *elem, t_token *tmp, char *new_data,
+		t_token **token_list)
 {
 	t_token	*to_free;
 
@@ -54,7 +55,7 @@ void	relink_toklist(t_token *elem, t_token *tmp, char *new_data, t_token *token_
 	to_free = elem->next;
 	while (to_free != NULL && to_free != tmp)
 	{
-		lst_pop(to_free, &token_list);
+		lst_pop(to_free, token_list);
 		to_free = elem->next;
 	}
 	while (to_free != NULL)
@@ -73,7 +74,8 @@ Meaning everything (including environment variables) will become one and
 only one token of type WORD, WITHOUT the quotes on each sides.
 To use with single quotes.
 */
-void	reduce_all(t_token *elem, t_token *end, t_token *token_list)
+void	reduce_all(t_token *elem, t_token *end,
+		t_token *token_list)
 {
 	t_token	*tmp;
 	char	*new_data;
@@ -90,7 +92,7 @@ void	reduce_all(t_token *elem, t_token *end, t_token *token_list)
 			break ;
 		tmp = tmp->next;
 	}
-	relink_toklist(elem, tmp->next, new_data, token_list);
+	relink_toklist(elem, tmp->next, new_data, &token_list);
 }
 
 /*
@@ -100,7 +102,8 @@ only one token of type WORD, AFTER EXPANDING ENVIRONMENT VARIABLES,
 WITHOUT the quotes on each sides.
 To use with double quotes.
 */
-void	reduce(t_token *elem, t_token *end, t_data *env_data, t_token *token_list)
+void	reduce(t_token *elem, t_token *end, t_data *env_data,
+		t_token *token_list)
 {
 	t_token	*tmp;
 	char	*new_data;
@@ -119,7 +122,7 @@ void	reduce(t_token *elem, t_token *end, t_data *env_data, t_token *token_list)
 			break ;
 		tmp = tmp->next;
 	}
-	relink_toklist(elem, tmp->next, new_data, token_list);
+	relink_toklist(elem, tmp->next, new_data, &token_list);
 }
 
 /*
@@ -152,7 +155,7 @@ bool	reduce_words(t_token *elem, size_t end, t_token *token_list)
 		++i;
 	}
 	cmd[i] = NULL;
-	relink_toklist(elem, tmp, NULL, token_list);
+	relink_toklist(elem, tmp, NULL, &token_list);
 	elem->cmd = cmd;
 	return (true);
 }

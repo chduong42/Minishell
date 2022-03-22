@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: chduong <chduong@student.42.fr>            +#+  +:+       +#+         #
+#    By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/03/21 15:58:04 by chduong          ###   ########.fr        #
+#    Updated: 2022/03/22 17:28:24 by smagdela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,12 +67,11 @@ LIBFT		=	$(LIBFT_DIR)libft.a
 #########################################
 MS_SRC		=	main.c				parsing.c			exit.c\
 				utils.c				exec.c				lexer.c\
-				scanner.c			categorizer.c		categorizer_2.c\
-				analyzer.c			parsing_utils.c		parsing_utils_2.c\
+				scanner.c			categorizer.c		analyzer.c\
+				parsing_utils.c		parsing_utils_2.c	parsing_utils_3.c\
 				checker_quotes.c	checker_redir.c		checker_words.c\
 				print_env.c			export.c			unset.c\
-				expand_reduce.c		pipeline.c		parsing_utils_3.c\
-        echo.c
+				expand_reduce.c		pipeline.c			echo.c\
 
 #########################################
 #            OBJECT FILES    	        #

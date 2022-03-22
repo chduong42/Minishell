@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 10:53:09 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/22 15:17:16 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/22 17:27:45 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,18 +93,6 @@ static bool	dquote_manager(t_token *tmp, t_data *env_data, t_token *token_list)
 	return (false);
 }
 
-static void	delete_empty_quotes(t_token **tmp, t_token *token_list)
-{
-	t_token	*to_pop;
-
-	to_pop = *tmp;
-	*tmp = (*tmp)->next;
-	lst_pop(to_pop, &token_list);
-	to_pop = *tmp;
-	*tmp = (*tmp)->next;
-	lst_pop(to_pop, &token_list);
-}
-
 /*
 Check if quotes are closed, and reduce everything in between accordingly,
 or unclosed, and convert to non-special token WORD.
@@ -125,8 +113,8 @@ bool	checker_quotes(t_token *token_list, t_data *env_data)
 		else if (tmp->type == DQUOTE)
 			ret = dquote_manager(tmp, env_data, token_list);
 		if (tmp->next && ((tmp->type == SQUOTE && tmp->next->type == SQUOTE)
-			|| (tmp->type == DQUOTE && tmp->next->type == DQUOTE)))
-			delete_empty_quotes(&tmp, token_list);
+				|| (tmp->type == DQUOTE && tmp->next->type == DQUOTE)))
+			relink_toklist(tmp, tmp->next->next, ft_strdup(" "), &token_list);
 		else
 			tmp = tmp->next;
 	}

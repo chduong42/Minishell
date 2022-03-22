@@ -6,11 +6,38 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:46:59 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/22 14:44:57 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/22 17:30:24 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+
+/*
+Completely frees the token list, as well as data for each concerned token.
+Returns -1 (for norm and ease of code reasons).
+*/
+int	free_toklist(t_token *list)
+{
+	t_token	*tmp;
+	t_token	*to_free;
+
+	if (list != NULL)
+	{
+		tmp = list;
+		while (tmp)
+		{
+			if (tmp->type == WORD || tmp->type == VAR)
+				free(tmp->data);
+			if (tmp->cmd != NULL)
+				free_tab(tmp->cmd);
+			to_free = tmp;
+			tmp = tmp->next;
+			free(to_free);
+			to_free = NULL;
+		}
+	}
+	return (-1);
+}
 
 bool	ft_is_in_charset(char c, char *charset)
 {
