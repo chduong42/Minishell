@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:48:39 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/22 13:27:44 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/23 11:39:49 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ bool	create_token(t_token_type type, char *data, t_token **list)
 	token->data = data;
 	token->next = NULL;
 	token->cmd = NULL;
+	token->to_delete = true;
 	add_token(list, token);
 	return (true);
 }

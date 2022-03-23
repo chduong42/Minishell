@@ -6,7 +6,7 @@
 #    By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/03/22 17:28:24 by smagdela         ###   ########.fr        #
+#    Updated: 2022/03/23 11:45:08 by smagdela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ NAME		=	minishell
 #########################################
 #				COMMANDS				#
 #########################################
-CC			=	clang
+CC			=	clang -g
 MKDIR		=	mkdir -p
 AR			=	ar rcs
 RM			= 	rm -rf

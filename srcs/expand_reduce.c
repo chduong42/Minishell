@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 17:19:43 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/22 17:23:48 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/23 12:22:03 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,15 @@ if the VAR is found in the environement.
 */
 void	expand(t_token *elem, t_data *env_data)
 {
+	char	*to_free;
+
 	if (elem->type != VAR)
 		return ;
 	elem->type = WORD;
+	to_free = elem->data;
 	elem->data = find_envar(elem->data + 1, env_data);
+	free(to_free);
+	to_free = NULL;
 	if (elem->data == NULL)
 	{
 		perror("Environment variable expansion : malloc failed.\n");
@@ -50,8 +55,11 @@ void	relink_toklist(t_token *elem, t_token *tmp, char *new_data,
 
 	if (elem->next == tmp)
 		return ;
+	if ((elem->type == WORD || elem->type == VAR) && elem->data != NULL)
+		free(elem->data);
 	elem->data = new_data;
 	elem->type = WORD;
+	elem->to_delete = false;
 	to_free = elem->next;
 	while (to_free != NULL && to_free != tmp)
 	{
