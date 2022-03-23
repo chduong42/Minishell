@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/21 15:57:02 by chduong          ###   ########.fr       */
+/*   Updated: 2022/03/23 17:22:53 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
 # include <readline/history.h>
 # include <errno.h>
 # include "libft.h"
+
+# define PROMPT "\x1B[1;35mMiniShell >: \x1B[0m"
+# define PROMPT_NO_COLOR "\x1B[0m\x1B[0m\x1B[0m"
 
 //	TYPEDEF
 typedef struct s_data

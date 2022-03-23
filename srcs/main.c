@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/23 12:12:42 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/23 17:23:48 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,21 +72,22 @@ int	main(int ac, char **av, char **envp)
 		ft_print_title();
 		while (1)
 		{
-			data.line = readline("\e[1;35mMiniShell >: \e[0m");
+//			printf(PROMPT);
+			data.line = readline(PROMPT);
 			if (data.line && *data.line)
 			{
 				add_history(data.line);
 				token_list = lexer(data.line);
 				if (token_list != NULL)
 				{
-					printf("\n	\e[0;33m\e[4;33mTokenizer output :\e[0m\n\n");
-					display_toklist(token_list);
+//					printf("\n	\e[0;33m\e[4;33mTokenizer output :\e[0m\n\n");
+//					display_toklist(token_list);
 					token_list = analyzer(token_list, &data);
 					if (token_list != NULL)
 					{
-						printf("\n	\e[0;33m\e[4;33mAnalyzer output :\e[0m\n\n");
-						display_toklist(token_list);
-						printf("\n----------------------------------------\n");
+//						printf("\n	\e[0;33m\e[4;33mAnalyzer output :\e[0m\n\n");
+//						display_toklist(token_list);
+//						printf("\n----------------------------------------\n");
 						executor(token_list, envp, &data);
 					}
 				}
