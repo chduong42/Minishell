@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/21 16:55:01 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/24 09:16:54 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ static void	exec_cmd(char **arg, char **envp, t_data *data)
 	char	*cmd;
 	int		i;
 
-	// if (ft_strncmp(arg[1], "./", 2) == 0)
-	// 	cmd = path_join()
 	i = 0;
 	while (data->path[i])
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:08:07 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/21 13:24:41 by chduong          ###   ########.fr       */
+/*   Updated: 2022/03/24 12:29:13 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,21 @@ static void	free_exit(char **arg, t_data *data, int opt)
 {
 	if (arg)
 		free_tab(arg);
+	printf("free arg");
 	if (data->line)
 		free(data->line);
+	printf("free line");
 	if (data->path)
 		free_tab(data->path);
+	printf("free path");
 	if (data->export)
 		free_tab(data->export);
+	printf("free export");
 	if (data->env)
 		ft_lstclear(&data->env, free);
-	rl_clear_history();
+	printf("lstclear env");
+	clear_history();
+	printf("clear history");
 	exit(opt);
 }
 

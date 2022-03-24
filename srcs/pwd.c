@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:51:32 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/03/21 16:41:32 by chduong          ###   ########.fr       */
+/*   Updated: 2022/03/24 09:18:24 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void	pwd(void)
 {
-	getcwd()
+	printf("%s\n", getcwd(NULL, 0));
 }

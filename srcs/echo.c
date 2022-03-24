@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:51:21 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/03/21 16:33:12 by chduong          ###   ########.fr       */
+/*   Updated: 2022/03/24 13:08:55 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,27 @@ void	print_echo(char **arg, int nl)
 		printf("\n");
 }
 
+int	check_nflag(char *str)
+{
+	if (strncmp(str, "-n", 2) == 0)
+	{
+		++str;
+		while (*str == 'n')
+			++str;
+		if (*str == '\0')
+			return (1);
+		else
+			return (0);
+	}
+	else
+		return (0);
+}
+
 void	echo(char **arg)
 {
 	if (arg[1] == NULL)
 		ft_putchar_fd('\n', 1);
-	else if (strncmp(arg[1], "-n", 3) == 0)
+	else if (check_nflag(arg[1]))
 	{
 		if (arg[2] == NULL)
 			return ;
