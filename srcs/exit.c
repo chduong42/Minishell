@@ -6,7 +6,7 @@
 /*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:08:07 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/24 12:29:13 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/03/24 13:25:17 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,21 @@ static void	free_exit(char **arg, t_data *data, int opt)
 {
 	if (arg)
 		free_tab(arg);
-	printf("free arg");
+	printf("free arg\n");
 	if (data->line)
 		free(data->line);
-	printf("free line");
+	printf("free line\n");
 	if (data->path)
 		free_tab(data->path);
-	printf("free path");
+	printf("free path\n");
 	if (data->export)
 		free_tab(data->export);
-	printf("free export");
+	printf("free export\n");
 	if (data->env)
 		ft_lstclear(&data->env, free);
-	printf("lstclear env");
+	printf("lstclear env\n");
 	clear_history();
-	printf("clear history");
+	printf("clear history\n");
 	exit(opt);
 }
 

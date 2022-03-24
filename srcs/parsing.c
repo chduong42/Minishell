@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 20:17:23 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/21 13:41:15 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/24 13:32:34 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	parse_line(char **arg, char **envp, t_data *data)
 		exit_ms(arg, data);
 	else if (ft_strncmp(arg[0], "export", 7) == 0)
 		export(arg, data);
-	// else if (ft_strncmp(arg[0], "pwd", 4) == 0)
-	// 	pwd();
+	else if (ft_strncmp(arg[0], "pwd", 4) == 0)
+		pwd();
 	else if (ft_strncmp(arg[0], "unset", 6) == 0)
 		unset(arg, data);
 	else

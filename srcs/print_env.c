@@ -6,7 +6,7 @@
 /*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:47:38 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/15 20:22:19 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/03/24 14:00:02 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	print_env(t_list *env)
 	}
 }
 
-static char	**cpy_env(t_list *env)
+char	**cpy_env(t_list *env)
 {
 	char	**sort;
 	int		i;

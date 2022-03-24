@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/21 15:57:02 by chduong          ###   ########.fr       */
+/*   Updated: 2022/03/24 15:45:30 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,22 @@ typedef struct s_data
 int		count_str(char **str);
 void	free_tab(char **tab);
 bool	is_in_charset(char c, char *charset);
-t_list	*grep(t_list *env, char *varname);
+char	**cpy_env(t_list *env);
 
 //	PARSING
+void	data_init(t_data *data, char **envp);
 void	parse_line(char **arg, char **envp, t_data *data);
+
+t_list	*grep(t_list *env, char *varname);
 
 //	BUILTINS
 void	echo(char **arg);
 void	exit_ms(char **arg, t_data *data);
+void	export(char **arg, t_data *data);
 void	fork_exec(char **arg, char **envp, t_data *data);
 void	print_env(t_list *env);
 void	print_export(t_data *data);
-void	export(char **arg, t_data *data);
+void	pwd(void);
 void	unset(char **arg, t_data *data);
 
 #endif

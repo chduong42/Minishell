@@ -6,7 +6,7 @@
 /*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/24 09:16:54 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/03/24 13:51:51 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	exec_cmd(char **arg, char **envp, t_data *data)
 	}
 	cmd = path_join(getcwd(NULL, 0), arg[0]);
 	if (access(cmd, X_OK) == 0)
-		execve(cmd, arg, envp);
+		execve(cmd, arg, data->export);
 	free(cmd);
 	perror("Error");
 }

@@ -6,7 +6,7 @@
 /*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 12:11:03 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/03/15 20:17:00 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/03/24 13:56:06 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,17 @@ void	export(char **arg, t_data *data)
 
 	if (arg[1])
 	{
-		// while (arg[i])
-		// {
-			i = 0;
-			tmp = ft_split(arg[1], '=');
-			
-			// if (is_new_var(tmp[0], data))
+		i = 1;
+		while (arg[i])
+		{
+			tmp = ft_split(arg[i], '=');
+			if (is_new_var(tmp[0], data))
 				ft_lstadd_back(&data->env, ft_lstnew(arg[1], tmp[0], tmp[1]));
-			// else
-			// 	change_var(arg[i], tmp, data);
+			else
+				change_var(arg[i], tmp, data);
 			free_tab(tmp);
 			++i;
-		// }
+		}
 		data->newenv = true;
 	}
 	else

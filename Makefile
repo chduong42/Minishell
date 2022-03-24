@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: chduong <chduong@student.42.fr>            +#+  +:+       +#+         #
+#    By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/03/21 15:58:04 by chduong          ###   ########.fr        #
+#    Updated: 2022/03/24 15:48:30 by kennyduong       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,8 +71,8 @@ MS_SRC		=	main.c				parsing.c			exit.c\
 				analyzer.c			parsing_utils.c		parsing_utils_2.c\
 				checker_quotes.c	checker_redir.c		checker_words.c\
 				print_env.c			export.c			unset.c\
-				expand_reduce.c		pipeline.c		parsing_utils_3.c\
-        echo.c
+				expand_reduce.c		pipeline.c			parsing_utils_3.c\
+        		echo.c				pwd.c				init.c
 
 #########################################
 #            OBJECT FILES    	        #
