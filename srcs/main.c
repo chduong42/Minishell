@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/23 17:23:48 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/24 11:07:30 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,7 @@ int	main(int ac, char **av, char **envp)
 		ft_print_title();
 		while (1)
 		{
-//			printf(PROMPT);
-			data.line = readline(PROMPT);
+			data.line = readline(RL_PROMPT);
 			if (data.line && *data.line)
 			{
 				add_history(data.line);
