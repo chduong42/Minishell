@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:46:59 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/23 12:27:33 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/24 12:40:22 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,10 @@ void	expand_remaining_envar(t_token *token_list, t_data *env_data)
 	{
 		if (tmp->type == VAR)
 		{
-			expand(tmp, env_data);
+			if (ft_strlen(tmp->data) == 1)
+				tmp->type = WORD;
+			else
+				expand(tmp, env_data);
 			glue_together(&tmp, &token_list);
 		}
 		tmp = tmp->next;

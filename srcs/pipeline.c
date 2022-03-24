@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 12:47:56 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/21 11:22:49 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/24 12:32:42 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@ static void	pipexator(t_token *token_list, char **envp, t_data *data)
 {
 	t_token	*tmp;
 
+	(void)envp;
+	(void)data;
+
 	tmp = token_list;
 	while (tmp)
 	{
-		if (tmp->type == WORD)
-			parse_line(tmp->cmd, envp, data);
+//		if (tmp->type == PIPE)
+//			pipex(tmp->previous->cmd, tmp->next->cmd);
 		tmp = tmp->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 17:19:43 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/23 12:22:03 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/24 12:39:34 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,12 @@ void	reduce(t_token *elem, t_token *end, t_data *env_data,
 	while (tmp != NULL && tmp->index < end->index)
 	{
 		if (tmp->type == VAR)
-			expand(tmp, env_data);
+		{
+			if (ft_strlen(tmp->data) == 1)
+				tmp->type = WORD;
+			else
+				expand(tmp, env_data);
+		}
 		new_data = my_strcat(new_data, tmp->data);
 		if (tmp->next == NULL)
 			break ;
