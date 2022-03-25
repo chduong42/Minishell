@@ -6,12 +6,12 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/25 12:19:23 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/25 15:16:56 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "parsing.h"
+#include "minishell.h"
 
 void	init_env(t_data *data, char **envp)
 {
@@ -77,16 +77,17 @@ int	main(int ac, char **av, char **envp)
 			{
 				add_history(data.line);
 				data.token_list = lexer(data.line);
+				data.line = NULL;
 				if (data.token_list != NULL)
 				{
-					printf("\n	\e[0;33m\e[4;33mTokenizer output :\e[0m\n\n");
-					display_toklist(data.token_list);
+//					printf("\n	\e[0;33m\e[4;33mTokenizer output :\e[0m\n\n");
+//					display_toklist(data.token_list);
 					data.token_list = analyzer(data.token_list, &data);
 					if (data.token_list != NULL)
 					{
-						printf("\n	\e[0;33m\e[4;33mAnalyzer output :\e[0m\n\n");
-						display_toklist(data.token_list);
-						printf("\n----------------------------------------\n");
+//						printf("\n	\e[0;33m\e[4;33mAnalyzer output :\e[0m\n\n");
+//						display_toklist(data.token_list);
+//						printf("\n----------------------------------------\n");
 						executor(data.token_list, envp, &data);
 					}
 				}

@@ -6,11 +6,11 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 15:15:08 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/08 14:37:49 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/25 14:45:14 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "minishell.h"
 
 static bool	is_valid_pipe(t_token *elem)
 {

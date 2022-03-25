@@ -6,11 +6,11 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 15:26:15 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/23 11:51:52 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/25 14:45:14 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "minishell.h"
 
 static void	str_copy(char *str1, char *str2)
 {

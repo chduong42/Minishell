@@ -6,12 +6,11 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/25 13:05:08 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/25 14:59:00 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "parsing.h"
 
 /*Your shell must implement the following builtins:
 ◦ echo with option -n
@@ -64,7 +63,7 @@ static bool	builtins_1(char **arg, t_data *data)
 		unset(arg, data);
 		return (true);
 	}
-	return (builtins_2);
+	return (builtins_2(arg, data));
 }
 
 static char	*path_join(char *path, char *cmd)
@@ -111,7 +110,7 @@ void	fork_exec(t_token *elem, char **envp, t_data *data)
 {
 	pid_t	pid;
 
-	if (builtins(elem->cmd, data) == true)
+	if (builtins_1(elem->cmd, data) == true)
 		return ;
 	pid = fork();
 	if (pid < 0)
@@ -127,7 +126,9 @@ void	fork_exec(t_token *elem, char **envp, t_data *data)
 			dup2(elem->out, 1);
 		exec_cmd(elem->cmd, envp, data);
 	}
-	close(elem->in);
-	close(elem->out);
+	if (elem->in != -1)
+		close(elem->in);
+	if (elem->out != -1)
+		close(elem->out);
 	waitpid(pid, NULL, 0);
 }

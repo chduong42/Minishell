@@ -6,11 +6,11 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 18:55:04 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/24 12:42:36 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/25 14:45:14 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "minishell.h"
 
 /*
 Redirections 1 category.

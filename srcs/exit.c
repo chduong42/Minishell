@@ -6,12 +6,12 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:08:07 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/25 12:20:08 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/25 14:45:14 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "parsing.h"
+#include "minishell.h"
 
 static int	only_digit(char *arg)
 {

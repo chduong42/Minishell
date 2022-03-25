@@ -6,11 +6,11 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 18:04:58 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/22 14:59:29 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/25 14:45:14 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "minishell.h"
 
 bool	checker_words(t_token *token_list)
 {

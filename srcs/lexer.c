@@ -6,12 +6,15 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:48:39 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/23 11:39:49 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/25 15:18:49 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "minishell.h"
 
+/*
+Trims spaces from "str_in", frees it, and returns a newly malloc'd string.
+*/
 char	*cleaner(char *str_in)
 {
 	char	*str_out;
@@ -65,6 +68,8 @@ bool	create_token(t_token_type type, char *data, t_token **list)
 	token->next = NULL;
 	token->cmd = NULL;
 	token->to_delete = true;
+	token->in = -1;
+	token->out = -1;
 	add_token(list, token);
 	return (true);
 }
@@ -96,7 +101,8 @@ size_t	find_char_set(const char *str, char *charset)
 }
 
 /*
-Converts input string to token list exploitable by the analyzer.
+Converts "input" string to token list exploitable by the analyzer.
+Frees the "input" string (through cleaner function).
 */
 t_token	*lexer(char *input)
 {
