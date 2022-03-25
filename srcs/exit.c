@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:08:07 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/24 13:25:17 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/03/25 16:57:36 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ static void	free_exit(char **arg, t_data *data, int opt)
 	if (data->env)
 		ft_lstclear(&data->env, free);
 	printf("lstclear env\n");
-	clear_history();
+	if (data->token_list)
+		free_toklist(data->token_list);
+	printf("free tokenlist\n");
+	rl_clear_history();
 	printf("clear history\n");
 	exit(opt);
 }

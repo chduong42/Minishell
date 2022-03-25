@@ -6,11 +6,11 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 17:19:43 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/22 11:00:36 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/25 14:45:14 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "minishell.h"
 
 /*
 Replace current VAR token with the expanded WORD version of it,
@@ -18,10 +18,15 @@ if the VAR is found in the environement.
 */
 void	expand(t_token *elem, t_data *env_data)
 {
+	char	*to_free;
+
 	if (elem->type != VAR)
 		return ;
 	elem->type = WORD;
+	to_free = elem->data;
 	elem->data = find_envar(elem->data + 1, env_data);
+	free(to_free);
+	to_free = NULL;
 	if (elem->data == NULL)
 	{
 		perror("Environment variable expansion : malloc failed.\n");
@@ -43,18 +48,22 @@ elem-> | elem+1->elem+2->...->tmp-1-> | tmp->tmp+1->...
 
 Refreshes to the new indexes too.
 */
-static void	relink_toklist(t_token *elem, t_token *tmp, char *new_data)
+void	relink_toklist(t_token *elem, t_token *tmp, char *new_data,
+		t_token **token_list)
 {
 	t_token	*to_free;
 
 	if (elem->next == tmp)
 		return ;
+	if ((elem->type == WORD || elem->type == VAR) && elem->data != NULL)
+		free(elem->data);
 	elem->data = new_data;
 	elem->type = WORD;
+	elem->to_delete = false;
 	to_free = elem->next;
 	while (to_free != NULL && to_free != tmp)
 	{
-		lst_pop(to_free);
+		lst_pop(to_free, token_list);
 		to_free = elem->next;
 	}
 	while (to_free != NULL)
@@ -73,7 +82,8 @@ Meaning everything (including environment variables) will become one and
 only one token of type WORD, WITHOUT the quotes on each sides.
 To use with single quotes.
 */
-void	reduce_all(t_token *elem, t_token *end)
+void	reduce_all(t_token *elem, t_token *end,
+		t_token *token_list)
 {
 	t_token	*tmp;
 	char	*new_data;
@@ -90,7 +100,7 @@ void	reduce_all(t_token *elem, t_token *end)
 			break ;
 		tmp = tmp->next;
 	}
-	relink_toklist(elem, tmp->next, new_data);
+	relink_toklist(elem, tmp->next, new_data, &token_list);
 }
 
 /*
@@ -100,7 +110,8 @@ only one token of type WORD, AFTER EXPANDING ENVIRONMENT VARIABLES,
 WITHOUT the quotes on each sides.
 To use with double quotes.
 */
-void	reduce(t_token *elem, t_token *end, t_data *env_data)
+void	reduce(t_token *elem, t_token *end, t_data *env_data,
+		t_token *token_list)
 {
 	t_token	*tmp;
 	char	*new_data;
@@ -113,13 +124,18 @@ void	reduce(t_token *elem, t_token *end, t_data *env_data)
 	while (tmp != NULL && tmp->index < end->index)
 	{
 		if (tmp->type == VAR)
-			expand(tmp, env_data);
+		{
+			if (ft_strlen(tmp->data) == 1)
+				tmp->type = WORD;
+			else
+				expand(tmp, env_data);
+		}
 		new_data = my_strcat(new_data, tmp->data);
 		if (tmp->next == NULL)
 			break ;
 		tmp = tmp->next;
 	}
-	relink_toklist(elem, tmp->next, new_data);
+	relink_toklist(elem, tmp->next, new_data, &token_list);
 }
 
 /*
@@ -129,17 +145,14 @@ only one token of type WORD, merging every data attributes from them in one
 array of strings "cmd", including data from "elem" and "end"th token.
 To use with checker_words.
 */
-bool	reduce_words(t_token *elem, size_t end)
+bool	reduce_words(t_token *elem, size_t end, t_token *token_list)
 {
 	t_token	*tmp;
 	char	**cmd;
 	size_t	i;
 
 	if (elem == NULL || elem->index > end)
-	{
-//		printf("elem ptr = %p\nelem index = %lu\nend = %lu\n", elem, elem->index, end);
 		return (false);
-	}
 	cmd = (char **)malloc(sizeof(char *) * (end - elem->index + 2));
 	if (cmd == NULL)
 	{
@@ -155,7 +168,7 @@ bool	reduce_words(t_token *elem, size_t end)
 		++i;
 	}
 	cmd[i] = NULL;
-	relink_toklist(elem, tmp, NULL);
+	relink_toklist(elem, tmp, NULL, &token_list);
 	elem->cmd = cmd;
 	return (true);
 }

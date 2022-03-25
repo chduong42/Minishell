@@ -3,14 +3,87 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/24 13:51:51 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/03/25 16:59:37 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static bool	builtins_2(t_token *elem, t_data *data)
+{
+/*	if (ft_strncmp(elem->cmd[0], "cd", 3) == 0)
+	{
+		if (elem->in != -1)
+			dup2(elem->in, 0);
+		if (elem->out != -1)
+			dup2(elem->out, 1);
+		cd();
+		return (true);
+	}
+*/	if (ft_strncmp(elem->cmd[0], "echo", 5) == 0)
+	{
+		if (elem->in != -1)
+			dup2(elem->in, 0);
+		if (elem->out != -1)
+			dup2(elem->out, 1);
+		echo(elem->cmd);
+		return (true);
+	}
+	else if (ft_strncmp(elem->cmd[0], "env", 4) == 0)
+	{
+		if (elem->in != -1)
+			dup2(elem->in, 0);
+		if (elem->out != -1)
+			dup2(elem->out, 1);
+		print_env(data->env);
+		return (true);
+	}
+	else if (ft_strncmp(elem->cmd[0], "exit", 5) == 0)
+	{
+		if (elem->in != -1)
+			dup2(elem->in, 0);
+		if (elem->out != -1)
+			dup2(elem->out, 1);
+		exit_ms(elem->cmd, data);
+		return (true);
+	}
+	return (false);
+}
+
+static bool	builtins(t_token *elem, t_data *data)
+{
+	if (ft_strncmp(elem->cmd[0], "export", 7) == 0)
+	{
+		if (elem->in != -1)
+			dup2(elem->in, 0);
+		if (elem->out != -1)
+			dup2(elem->out, 1);
+		export(elem->cmd, data);
+		return (true);
+	}
+/*	 else if (ft_strncmp(elem->cmd[0], "pwd", 4) == 0)
+	{
+		if (elem->in != -1)
+			dup2(elem->in, 0);
+		if (elem->out != -1)
+			dup2(elem->out, 1);
+	 	pwd();
+		return (true);
+	}
+*/	else if (ft_strncmp(elem->cmd[0], "unset", 6) == 0)
+	{
+		if (elem->in != -1)
+			dup2(elem->in, 0);
+		if (elem->out != -1)
+			dup2(elem->out, 1);
+		unset(elem->cmd, data);
+		return (true);
+	}
+	return (builtins_2(elem, data));
+}
 
 static char	*path_join(char *path, char *cmd)
 {
@@ -52,13 +125,29 @@ static void	exec_cmd(char **arg, char **envp, t_data *data)
 	perror("Error");
 }
 
-void	fork_exec(char **arg, char **envp, t_data *data)
+void	fork_exec(t_token *elem, char **envp, t_data *data)
 {
 	pid_t	pid;
 
+	if (builtins(elem, data) == true)
+		return ;
 	pid = fork();
-	if (pid == 0)
-		exec_cmd(arg, envp, data);
-	else
-		wait(0);
+	if (pid < 0)
+	{
+		perror("Fork failed.");
+		exit_ms(NULL, data);
+	}
+	else if (pid == 0)
+	{
+		if (elem->in != -1)
+			dup2(elem->in, 0);
+		if (elem->out != -1)
+			dup2(elem->out, 1);
+		exec_cmd(elem->cmd, envp, data);
+	}
+	if (elem->in != -1)
+		close(elem->in);
+	if (elem->out != -1)
+		close(elem->out);
+	waitpid(pid, NULL, 0);
 }
