@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
-/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/25 11:15:22 by kennyduong       ###   ########.fr       */
-=======
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/25 15:16:56 by smagdela         ###   ########.fr       */
->>>>>>> 1707d5b057298f74fc241ce68081ebdbd2da16e1
+/*   Updated: 2022/03/25 17:08:37 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +22,7 @@ int	main(int ac, char **av, char **envp)
 		ft_print_title();
 		while (1)
 		{
-			data.line = readline(RL_PROMPT);
+			data.line = readline(PROMPT);
 			if (data.line && *data.line)
 			{
 				add_history(data.line);

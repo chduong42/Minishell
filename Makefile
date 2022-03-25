@@ -6,7 +6,7 @@
 #    By: chduong <chduong@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/03/25 17:00:33 by chduong          ###   ########.fr        #
+#    Updated: 2022/03/25 17:07:26 by chduong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,11 +68,11 @@ LIBFT		=	$(LIBFT_DIR)libft.a
 MS_SRC		=	main.c				pipeline.c			exit.c\
 				utils.c				exec.c				lexer.c\
 				scanner.c			categorizer.c		analyzer.c\
-				parsing_utils.c		parsing_utils_2.c	parsing_utils_3.c\\
+				parsing_utils.c		parsing_utils_2.c	parsing_utils_3.c\
 				checker_quotes.c	checker_redir.c		checker_words.c\
 				env.c				export.c			unset.c\
 				expand_reduce.c		echo.c				pwd.c\
-				export_utils.c		init.c\
+				export_utils.c		init.c
 
 #########################################
 #            OBJECT FILES    	        #

@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/25 16:59:37 by chduong          ###   ########.fr       */
+/*   Updated: 2022/03/25 17:22:08 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static bool	builtins_2(t_token *elem, t_data *data)
 			dup2(elem->in, 0);
 		if (elem->out != -1)
 			dup2(elem->out, 1);
-		print_env(data->env);
+		env(data->env);
 		return (true);
 	}
 	else if (ft_strncmp(elem->cmd[0], "exit", 5) == 0)
@@ -64,7 +64,7 @@ static bool	builtins(t_token *elem, t_data *data)
 		export(elem->cmd, data);
 		return (true);
 	}
-/*	 else if (ft_strncmp(elem->cmd[0], "pwd", 4) == 0)
+	else if (ft_strncmp(elem->cmd[0], "pwd", 4) == 0)
 	{
 		if (elem->in != -1)
 			dup2(elem->in, 0);
@@ -73,7 +73,7 @@ static bool	builtins(t_token *elem, t_data *data)
 	 	pwd();
 		return (true);
 	}
-*/	else if (ft_strncmp(elem->cmd[0], "unset", 6) == 0)
+	else if (ft_strncmp(elem->cmd[0], "unset", 6) == 0)
 	{
 		if (elem->in != -1)
 			dup2(elem->in, 0);
