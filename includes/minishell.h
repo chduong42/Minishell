@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/25 15:37:06 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/25 16:19:33 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 # include <errno.h>
 # include "libft.h"
  
-
 # define PROMPT "\x1B[1;35mMiniShell >: \x1B[0m"
 # define RL_PROMPT "MiniShell >: "
 
@@ -85,29 +84,44 @@ typedef struct s_data
 
 //	UTILS
 void	ft_print_title(void);
-int		count_str(char **str);
 void	free_tab(char **tab);
+
+int		count_str(char **str);
+
 bool	is_in_charset(char c, char *charset);
+bool	ft_is_in_charset(char c, char *charset);
+
 t_list	*grep(t_list *env, char *varname);
+
 char	*my_strcat(char *dest, char *str);
 char	*cleaner(char *str_in);
+
 size_t	find_char_set(const char *str, char *charset);
-bool	ft_is_in_charset(char c, char *charset);
 
 //	PARSING
 t_token	*lexer(char *input);
 t_token	*scanner(const char *str);
 t_token	*analyzer(t_token *token_list, t_data *env_data);
+
 int		free_toklist(t_token *list);
+int		categ_1(t_input *input, t_token **token_list);
+int		categ_2(t_input *input, t_token **token_list);
+int		categ_3(t_input *input, t_token **token_list);
+int		categ_4(t_input *input, t_token **token_list);
+int		categ_5(t_input *input, t_token **token_list);
+
 char	*find_envar(char *envar, t_data *env_data);
+
 size_t	ft_envarlen(const char *str);
 size_t	is_closed(t_token *elem, t_token_type elem_type);
+
 bool	create_token(t_token_type type, char *data, t_token **list);
 bool	categorizer(t_input *input, t_token **token_list);
 bool	checker_quotes(t_token *token_list, t_data *env_data);
 bool	checker_words(t_token *token_list);
 bool	reduce_words(t_token *elem, size_t end, t_token *token_list);
 bool	checker_redir(t_token *token_list);
+
 void	display_toklist(t_token *token_list);
 void	relink_toklist(t_token *elem, t_token *tmp,
 			char *new_data, t_token **token_list);
@@ -118,12 +132,6 @@ void	reduce(t_token *elem, t_token *end, t_data *env_data,
 			t_token *token_list);
 void	expand_remaining_envar(t_token *token_list, t_data *env_data);
 void	suppress_spaces(t_token **token_list);
-
-int		categ_1(t_input *input, t_token **token_list);
-int		categ_2(t_input *input, t_token **token_list);
-int		categ_3(t_input *input, t_token **token_list);
-int		categ_4(t_input *input, t_token **token_list);
-int		categ_5(t_input *input, t_token **token_list);
 
 //	EXEC
 bool	executor(t_token *token_list, char **envp, t_data *data);

@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/25 14:59:00 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/25 15:51:43 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,49 +21,77 @@
 ◦ env with no options or arguments
 ◦ exit with no options*/
 
-static bool	builtins_2(char **arg, t_data *data)
+static bool	builtins_2(t_token *elem, t_data *data)
 {
-/*	if (ft_strncmp(arg[0], "cd", 3) == 0)
+/*	if (ft_strncmp(elem->cmd[0], "cd", 3) == 0)
 	{
+		if (elem->in != -1)
+			dup2(elem->in, 0);
+		if (elem->out != -1)
+			dup2(elem->out, 1);
 		cd();
 		return (true);
 	}
-*/	if (ft_strncmp(arg[0], "echo", 5) == 0)
+*/	if (ft_strncmp(elem->cmd[0], "echo", 5) == 0)
 	{
-		echo(arg);
+		if (elem->in != -1)
+			dup2(elem->in, 0);
+		if (elem->out != -1)
+			dup2(elem->out, 1);
+		echo(elem->cmd);
 		return (true);
 	}
-	else if (ft_strncmp(arg[0], "env", 4) == 0)
+	else if (ft_strncmp(elem->cmd[0], "env", 4) == 0)
 	{
+		if (elem->in != -1)
+			dup2(elem->in, 0);
+		if (elem->out != -1)
+			dup2(elem->out, 1);
 		print_env(data->env);
 		return (true);
 	}
-	else if (ft_strncmp(arg[0], "exit", 5) == 0)
+	else if (ft_strncmp(elem->cmd[0], "exit", 5) == 0)
 	{
-		exit_ms(arg, data);
+		if (elem->in != -1)
+			dup2(elem->in, 0);
+		if (elem->out != -1)
+			dup2(elem->out, 1);
+		exit_ms(elem->cmd, data);
 		return (true);
 	}
 	return (false);
 }
 
-static bool	builtins_1(char **arg, t_data *data)
+static bool	builtins(t_token *elem, t_data *data)
 {
-	if (ft_strncmp(arg[0], "export", 7) == 0)
+	if (ft_strncmp(elem->cmd[0], "export", 7) == 0)
 	{
-		export(arg, data);
+		if (elem->in != -1)
+			dup2(elem->in, 0);
+		if (elem->out != -1)
+			dup2(elem->out, 1);
+		export(elem->cmd, data);
 		return (true);
 	}
-/*	 else if (ft_strncmp(arg[0], "pwd", 4) == 0)
+/*	 else if (ft_strncmp(elem->cmd[0], "pwd", 4) == 0)
 	{
+		if (elem->in != -1)
+			dup2(elem->in, 0);
+		if (elem->out != -1)
+			dup2(elem->out, 1);
 	 	pwd();
 		return (true);
 	}
-*/	else if (ft_strncmp(arg[0], "unset", 6) == 0)
+*/	else if (ft_strncmp(elem->cmd[0], "unset", 6) == 0)
 	{
-		unset(arg, data);
+		if (elem->in != -1)
+			dup2(elem->in, 0);
+		if (elem->out != -1)
+			dup2(elem->out, 1);
+		unset(elem->cmd, data);
 		return (true);
 	}
-	return (builtins_2(arg, data));
+	return (builtins_2(elem, data));
 }
 
 static char	*path_join(char *path, char *cmd)
@@ -110,7 +138,7 @@ void	fork_exec(t_token *elem, char **envp, t_data *data)
 {
 	pid_t	pid;
 
-	if (builtins_1(elem->cmd, data) == true)
+	if (builtins(elem, data) == true)
 		return ;
 	pid = fork();
 	if (pid < 0)

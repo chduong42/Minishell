@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:47:38 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/15 20:22:19 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/03/25 15:54:17 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static char	**cpy_env(t_list *env)
 {
 	char	**sort;
 	int		i;
-	
+
 	sort = malloc(sizeof(char*) * (ft_lstsize(env) + 1));
 	i = 0;
 	while (env)
