@@ -6,7 +6,7 @@
 /*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 12:11:03 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/03/24 13:56:06 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/03/25 11:05:43 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,15 @@ void	change_var(char *envl, char **arg, t_data *data)
 		}
 		env = env->next;
 	}
+}
+
+void	print_export(t_data *data)
+{
+	int i;
+
+	i = 0;
+	while (data->export[i])
+		printf("%s\n", data->export[i++]);
 }
 
 void	export(char **arg, t_data *data)

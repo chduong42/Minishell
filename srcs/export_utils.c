@@ -1,25 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_env.c                                        :+:      :+:    :+:   */
+/*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/08 16:47:38 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/24 14:00:02 by kennyduong       ###   ########.fr       */
+/*   Created: 2022/03/25 10:31:59 by kennyduong        #+#    #+#             */
+/*   Updated: 2022/03/25 11:09:48 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	print_env(t_list *env)
-{
-	while (env)
-	{
-		printf("%s\n", env->line);
-		env = env->next;
-	}
-}
 
 char	**cpy_env(t_list *env)
 {
@@ -38,7 +29,7 @@ char	**cpy_env(t_list *env)
 	return (sort);
 }
 
-static void	sort_export(char **sort)
+void	sort_export(char **sort)
 {
 	char	*tmp;
 	int		i;
@@ -62,22 +53,24 @@ static void	sort_export(char **sort)
 	}
 }
 
-void	print_export(t_data *data)
+void	new_export(t_data *data)
 {
-	int	i;
-
-	if (data->newenv && data->export)
+	if (data->newenv)
 	{
 		free_tab(data->export);
 		data->export = NULL;
+		data->export = cpy_env(data->env);
 		data->newenv = false;
 	}
-	if (!data->export)
+}
+
+void	new_path(t_data *data)
+{
+	if (data->newpath)
 	{
-		data->export = cpy_env(data->env);
-		sort_export(data->export);	
+		free_tab(data->path);
+		data->path = NULL;
+		data->path = ft_split(getenv("PATH"), ':');
+		data->newpath = false;
 	}
-	i = 0;
-	while (data->export[i])
-		printf("%s\n", data->export[i++]);
 }

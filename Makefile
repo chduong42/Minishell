@@ -6,7 +6,7 @@
 #    By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/03/24 15:48:30 by kennyduong       ###   ########.fr        #
+#    Updated: 2022/03/25 10:35:42 by kennyduong       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,9 +70,10 @@ MS_SRC		=	main.c				parsing.c			exit.c\
 				scanner.c			categorizer.c		categorizer_2.c\
 				analyzer.c			parsing_utils.c		parsing_utils_2.c\
 				checker_quotes.c	checker_redir.c		checker_words.c\
-				print_env.c			export.c			unset.c\
+				env.c				export.c			unset.c\
 				expand_reduce.c		pipeline.c			parsing_utils_3.c\
-        		echo.c				pwd.c				init.c
+        		echo.c				pwd.c				init.c\
+				export_utils.c
 
 #########################################
 #            OBJECT FILES    	        #
@@ -86,7 +87,7 @@ MS_OBJ		:=	$(addprefix $(OBJ_DIR), $(MS_OBJ))
 
 $(NAME): $(OBJ_DIR) $(MS_OBJ) $(LIBFT)
 	@echo "> $(CYAN)Generate objects$(END) : \t\t[$(GREEN)OK$(END)]"
-	@$(CC) $(LINK) -o $@ $(MS_OBJ) $(LIBFT)
+	@$(CC) $(DEBUG) $(LINK) -o $@ $(MS_OBJ) $(LIBFT)
 	@echo "> $(WHITE)$(BOLD)MiniShell Compilation$(END) : \t[$(YELLOW)COMPLETE$(END)]"
 
 $(LIBFT):

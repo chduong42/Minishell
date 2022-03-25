@@ -6,7 +6,7 @@
 /*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 15:37:56 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/03/24 15:44:17 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/03/25 10:01:20 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,6 @@ void	data_init(t_data *data, char **envp)
 		create_env(data);
 	data->newenv = 0;
 	data->export = cpy_env(data->env);
+	sort_export(data->export);
+
 }
