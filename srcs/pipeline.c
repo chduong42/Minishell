@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 12:47:56 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/24 13:59:35 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/25 13:00:26 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 Reproduce the behavior of multiple pipes, adding file redirectors too.
 */
-static void	pipexator(t_token *token_list, char **envp, t_data *data)
+static void	redirection_handler(t_token *token_list, char **envp, t_data *data)
 {
 	t_token	*tmp;
 
@@ -23,7 +23,25 @@ static void	pipexator(t_token *token_list, char **envp, t_data *data)
 	while (tmp)
 	{
 		if (tmp->type == PIPE)
-			pipex(tmp->previous->cmd, tmp->next->cmd);
+		{
+			if (pipe(tmp->pipefd) == -1)
+			{
+				perror("pipe failed.");
+				exit_ms(NULL, data);
+			}
+			tmp->previous->out = tmp->pipefd[0];
+			tmp->next->in = tmp->pipefd[1];
+		}
+		tmp = tmp->next;
+	}
+	tmp = token_list;
+	while (tmp)
+	{
+		if (tmp->type == WORD)
+		{
+			
+			fork_exec(tmp, envp, data);
+		}
 		tmp = tmp->next;
 	}
 }
@@ -38,7 +56,8 @@ bool	executor(t_token *token_list, char **envp, t_data *data)
 	if (token_list->next == NULL)
 		parse_line(token_list->cmd, envp, data);
 	else
-		pipexator(token_list, envp, data);
-	free_toklist(token_list);
+		redirection_handler(token_list, envp, data);
+	if (token_list)
+		free_toklist(token_list);
 	return (true);
 }

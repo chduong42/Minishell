@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/24 12:34:02 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/25 12:19:23 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	data_init(t_data *data, char **envp)
 	data->newenv = 0;
 	data->newpath = 0;
 	data->path = ft_split(getenv("PATH"), ':');
+	data->token_list = NULL;
 	if (*envp)
 		init_env(data, envp);
 	else
@@ -64,7 +65,6 @@ void	data_init(t_data *data, char **envp)
 int	main(int ac, char **av, char **envp)
 {
 	t_data	data;
-	t_token	*token_list;
 
 	if (ac == 1)
 	{
@@ -76,18 +76,18 @@ int	main(int ac, char **av, char **envp)
 			if (data.line && *data.line)
 			{
 				add_history(data.line);
-				token_list = lexer(data.line);
-				if (token_list != NULL)
+				data.token_list = lexer(data.line);
+				if (data.token_list != NULL)
 				{
 					printf("\n	\e[0;33m\e[4;33mTokenizer output :\e[0m\n\n");
-					display_toklist(token_list);
-					token_list = analyzer(token_list, &data);
-					if (token_list != NULL)
+					display_toklist(data.token_list);
+					data.token_list = analyzer(data.token_list, &data);
+					if (data.token_list != NULL)
 					{
 						printf("\n	\e[0;33m\e[4;33mAnalyzer output :\e[0m\n\n");
-						display_toklist(token_list);
+						display_toklist(data.token_list);
 						printf("\n----------------------------------------\n");
-						executor(token_list, envp, &data);
+						executor(data.token_list, envp, &data);
 					}
 				}
 			}

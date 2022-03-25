@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:08:07 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/21 13:24:41 by chduong          ###   ########.fr       */
+/*   Updated: 2022/03/25 12:20:08 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "parsing.h"
 
 static int	only_digit(char *arg)
 {
@@ -39,6 +40,8 @@ static void	free_exit(char **arg, t_data *data, int opt)
 		free_tab(data->export);
 	if (data->env)
 		ft_lstclear(&data->env, free);
+	if (data->token_list)
+		free_toklist(data->token_list);
 	rl_clear_history();
 	exit(opt);
 }

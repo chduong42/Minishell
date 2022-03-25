@@ -6,11 +6,66 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/23 12:29:14 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/25 13:05:08 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "parsing.h"
+
+/*Your shell must implement the following builtins:
+◦ echo with option -n
+◦ cd with only a relative or absolute path
+◦ pwd with no options
+◦ export with no options
+◦ unset with no options
+◦ env with no options or arguments
+◦ exit with no options*/
+
+static bool	builtins_2(char **arg, t_data *data)
+{
+/*	if (ft_strncmp(arg[0], "cd", 3) == 0)
+	{
+		cd();
+		return (true);
+	}
+*/	if (ft_strncmp(arg[0], "echo", 5) == 0)
+	{
+		echo(arg);
+		return (true);
+	}
+	else if (ft_strncmp(arg[0], "env", 4) == 0)
+	{
+		print_env(data->env);
+		return (true);
+	}
+	else if (ft_strncmp(arg[0], "exit", 5) == 0)
+	{
+		exit_ms(arg, data);
+		return (true);
+	}
+	return (false);
+}
+
+static bool	builtins_1(char **arg, t_data *data)
+{
+	if (ft_strncmp(arg[0], "export", 7) == 0)
+	{
+		export(arg, data);
+		return (true);
+	}
+/*	 else if (ft_strncmp(arg[0], "pwd", 4) == 0)
+	{
+	 	pwd();
+		return (true);
+	}
+*/	else if (ft_strncmp(arg[0], "unset", 6) == 0)
+	{
+		unset(arg, data);
+		return (true);
+	}
+	return (builtins_2);
+}
 
 static char	*path_join(char *path, char *cmd)
 {
@@ -52,13 +107,27 @@ static void	exec_cmd(char **arg, char **envp, t_data *data)
 	perror("Error");
 }
 
-void	fork_exec(char **arg, char **envp, t_data *data)
+void	fork_exec(t_token *elem, char **envp, t_data *data)
 {
 	pid_t	pid;
 
+	if (builtins(elem->cmd, data) == true)
+		return ;
 	pid = fork();
-	if (pid == 0)
-		exec_cmd(arg, envp, data);
-	else
-		wait(0);
+	if (pid < 0)
+	{
+		perror("Fork failed.");
+		exit_ms(NULL, data);
+	}
+	else if (pid == 0)
+	{
+		if (elem->in != -1)
+			dup2(elem->in, 0);
+		if (elem->out != -1)
+			dup2(elem->out, 1);
+		exec_cmd(elem->cmd, envp, data);
+	}
+	close(elem->in);
+	close(elem->out);
+	waitpid(pid, NULL, 0);
 }

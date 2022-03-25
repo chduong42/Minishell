@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/24 11:21:41 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/25 13:07:39 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <readline/history.h>
 # include <errno.h>
 # include "libft.h"
+# include "parsing.h"
 
 # define PROMPT "\x1B[1;35mMiniShell >: \x1B[0m"
 # define RL_PROMPT "MiniShell >: "
@@ -38,6 +39,7 @@ typedef struct s_data
 	bool	newenv;
 	bool	newpath;
 	t_list	*env;
+	t_token	*token_list;
 }			t_data;
 
 //	UTILS
@@ -46,13 +48,14 @@ void	free_tab(char **tab);
 bool	is_in_charset(char c, char *charset);
 t_list	*grep(t_list *env, char *varname);
 
-//	PARSING
-void	parse_line(char **arg, char **envp, t_data *data);
+//	EXEC
+void	fork_exec(char **arg, char **envp, t_data *data);
+bool	executor(t_token *token_list, char **envp, t_data *data);
+void	fork_exec(t_token *elem, char **envp, t_data *data);
 
 //	BUILTINS
 void	echo(char **arg);
 void	exit_ms(char **arg, t_data *data);
-void	fork_exec(char **arg, char **envp, t_data *data);
 void	print_env(t_list *env);
 void	print_export(t_data *data);
 void	export(char **arg, t_data *data);
