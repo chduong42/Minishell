@@ -6,11 +6,11 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 10:53:09 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/22 11:01:28 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/25 14:45:14 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "minishell.h"
 
 /*
 Finds the next "elem_type" element in toklist,
@@ -57,65 +57,44 @@ static void	trim_wordspaces(t_token *elem)
 }
 */
 
-static void	squote_manager(t_token *tmp, size_t *ends)
+static bool	squote_manager(t_token *tmp, t_token *token_list)
 {
 	t_token	*ends_elem;
+	size_t	ends;
 
-	*ends = is_closed(tmp, SQUOTE);
-	if (*ends != 0)
+	ends = is_closed(tmp, SQUOTE);
+	if (ends != 0)
 	{
 		ends_elem = tmp;
-		while (ends_elem != NULL && ends_elem->index < *ends)
+		while (ends_elem != NULL && ends_elem->index < ends)
 			ends_elem = ends_elem->next;
-		reduce_all(tmp, ends_elem);
+		if (ends_elem != tmp->next)
+			reduce_all(tmp, ends_elem, token_list);
+		else
+			relink_toklist(tmp, tmp->next->next, ft_strdup(""), &token_list);
+		return (true);
 	}
-	else
-	{
-		tmp->type = WORD;
-		tmp->data = ft_strdup("\'");
-	}
+	return (false);
 }
 
-static void	dquote_manager(t_token *tmp, size_t *endd, t_data *env_data)
+static bool	dquote_manager(t_token *tmp, t_data *env_data, t_token *token_list)
 {
 	t_token	*endd_elem;
+	size_t	endd;
 
-	*endd = is_closed(tmp, DQUOTE);
-	if (*endd != 0)
+	endd = is_closed(tmp, DQUOTE);
+	if (endd != 0)
 	{
 		endd_elem = tmp;
-		while (endd_elem != NULL && endd_elem->index < *endd)
+		while (endd_elem != NULL && endd_elem->index < endd)
 			endd_elem = endd_elem->next;
-		reduce(tmp, endd_elem, env_data);
-	}
-	else
-	{
-		tmp->type = WORD;
-		tmp->data = ft_strdup("\"");
-	}
-}
-
-/*
-Deletes every WORD token which are only spaces.
-*/
-void	suppress_spaces(t_token *token_list)
-{
-	t_token	*tmp;
-	t_token	*to_pop;
-
-	tmp = token_list;
-	while (tmp != NULL)
-	{
-		if (tmp->type == WORD
-			&& !ft_strncmp(tmp->data, " ", ft_strlen(tmp->data)))
-		{
-			to_pop = tmp;
-			tmp = tmp->next;
-			lst_pop(to_pop);
-		}
+		if (endd_elem != tmp->next)
+			reduce(tmp, endd_elem, env_data, token_list);
 		else
-			tmp = tmp->next;
+			relink_toklist(tmp, tmp->next->next, ft_strdup(""), &token_list);
+		return (true);
 	}
+	return (false);
 }
 
 /*
@@ -124,21 +103,20 @@ or unclosed, and convert to non-special token WORD.
 In the ends, calls "suppress_spaces" function in order to delete
 any spaces which were not inside quotes, therefore unecessary.
 */
-void	checker_quotes(t_token *token_list, t_data *env_data)
+bool	checker_quotes(t_token *token_list, t_data *env_data)
 {
 	t_token	*tmp;
-	size_t	ends;
-	size_t	endd;
+	bool	ret;
 
 	tmp = token_list;
-	ends = 42;
-	endd = 42;
-	while (tmp != NULL)
+	ret = true;
+	while (tmp != NULL && ret == true)
 	{
 		if (tmp->type == SQUOTE)
-			squote_manager(tmp, &ends);
+			ret = squote_manager(tmp, token_list);
 		else if (tmp->type == DQUOTE)
-			dquote_manager(tmp, &endd, env_data);
+			ret = dquote_manager(tmp, env_data, token_list);
 		tmp = tmp->next;
 	}
+	return (ret);
 }

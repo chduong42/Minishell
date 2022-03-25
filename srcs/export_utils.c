@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 10:31:59 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/03/25 11:09:48 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/03/25 16:59:07 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	**cpy_env(t_list *env)
 {
 	char	**sort;
 	int		i;
-	
+
 	sort = malloc(sizeof(char*) * (ft_lstsize(env) + 1));
 	i = 0;
 	while (env)
