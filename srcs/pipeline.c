@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 12:47:56 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/25 15:05:21 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/28 14:46:56 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,15 @@ static void	redirection_handler(t_token *token_list, char **envp, t_data *data)
 /*
 Launch the execution of the whole token_list, and frees it.
 */
-bool	executor(t_token *token_list, char **envp, t_data *data)
+bool	executor(char **envp, t_data *data)
 {
-	if (token_list == NULL)
+	if (data->token_list == NULL)
 		return (false);
-	if (token_list->next == NULL)
-		fork_exec(token_list, envp, data);
+	if (data->token_list->next == NULL)
+		fork_exec(data->token_list, envp, data);
 	else
-		redirection_handler(token_list, envp, data);
-	if (token_list)
-		free_toklist(token_list);
+		redirection_handler(data->token_list, envp, data);
+	if (data->token_list)
+		free_toklist(&data->token_list);
 	return (true);
 }

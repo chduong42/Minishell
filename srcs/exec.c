@@ -6,55 +6,31 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/28 12:21:58 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/28 14:16:26 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static bool	builtins_2(t_token *elem, t_data *data)
-{
-/*	if (ft_strncmp(elem->cmd[0], "cd", 3) == 0)
-	{
-		cd();
-		return (true);
-	}
-*/	if (ft_strncmp(elem->cmd[0], "echo", 5) == 0)
-	{
-		echo(elem->cmd);
-		return (true);
-	}
-	else if (ft_strncmp(elem->cmd[0], "env", 4) == 0)
-	{
-		env(data->env);
-		return (true);
-	}
-	else if (ft_strncmp(elem->cmd[0], "exit", 5) == 0)
-	{
-		exit_ms(elem->cmd, data);
-		return (true);
-	}
-	return (false);
-}
-
 static bool	builtins(t_token *elem, t_data *data)
 {
-	if (ft_strncmp(elem->cmd[0], "export", 7) == 0)
-	{
+	/*	if (ft_strncmp(elem->cmd[0], "cd", 3) == 0)
+		cd();
+*/	if (ft_strncmp(elem->cmd[0], "echo", 5) == 0)
+		echo(elem->cmd);
+	else if (ft_strncmp(elem->cmd[0], "env", 4) == 0)
+		env(data->env);
+	else if (ft_strncmp(elem->cmd[0], "exit", 5) == 0)
+		exit_ms(elem->cmd, data);
+	else if (ft_strncmp(elem->cmd[0], "export", 7) == 0)
 		export(elem->cmd, data);
-		return (true);
-	}
 	else if (ft_strncmp(elem->cmd[0], "pwd", 4) == 0)
-	{
 		pwd();
-		return (true);
-	}
 	else if (ft_strncmp(elem->cmd[0], "unset", 6) == 0)
-	{
 		unset(elem->cmd, data);
-		return (true);
-	}
-	return (builtins_2(elem, data));
+	else
+		return (false);
+	return (true);
 }
 
 static char	*path_join(char *path, char *cmd)

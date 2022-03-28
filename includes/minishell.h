@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/28 11:51:00 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/28 14:47:37 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ t_token	*lexer(char *input);
 t_token	*scanner(const char *str);
 t_token	*analyzer(t_token *token_list, t_data *env_data);
 
-int		free_toklist(t_token *list);
+int		free_toklist(t_token **list);
 int		categ_1(t_input *input, t_token **token_list);
 int		categ_2(t_input *input, t_token **token_list);
 int		categ_3(t_input *input, t_token **token_list);
@@ -142,7 +142,7 @@ void	expand_remaining_envar(t_token *token_list, t_data *env_data);
 void	suppress_spaces(t_token **token_list);
 
 //	EXEC
-bool	executor(t_token *token_list, char **envp, t_data *data);
+bool	executor(char **envp, t_data *data);
 void	fork_exec(t_token *elem, char **envp, t_data *data);
 
 t_list	*grep(t_list *env, char *varname);

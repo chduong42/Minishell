@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 15:37:56 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/03/25 10:01:20 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/03/28 15:06:16 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	shlvl_up(t_data *data, char *lvl)
 {
 	char	*newlvl;
 	char	*shlvl;
-	
+
 	newlvl = ft_itoa(ft_atoi(lvl) + 1);
 	shlvl = malloc(sizeof(char) * (ft_strlen(newlvl) + 7));
 	ft_strlcpy(shlvl, "SHLVL=", 7);
@@ -25,7 +25,7 @@ static void	shlvl_up(t_data *data, char *lvl)
 	free(newlvl);
 	free(shlvl);
 }
-		   
+
 static void	init_env(t_data *data, char **envp)
 {
 	int		i;
@@ -49,7 +49,7 @@ static void	create_env(t_data *data)
 	char	*tmp;
 	char	*cwd;
 	int		len;
-	
+
 	cwd = getcwd(NULL, 0);
 	len = ft_strlen(cwd);
 	tmp = malloc(sizeof(char) * (len + 5));
@@ -59,7 +59,8 @@ static void	create_env(t_data *data)
 	free(tmp);
 	free(cwd);
 	ft_lstadd_back(&data->env, ft_lstnew("SHLVL=1", "SHLVL", "1"));
-	ft_lstadd_back(&data->env, ft_lstnew("_=/usr/bin/env", "_", "/usr/bin/env"));
+	ft_lstadd_back(&data->env,
+		ft_lstnew("_=/usr/bin/env", "_", "/usr/bin/env"));
 }
 
 void	data_init(t_data *data, char **envp)
