@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 10:31:59 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/03/25 16:59:07 by chduong          ###   ########.fr       */
+/*   Updated: 2022/03/28 15:23:22 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	**cpy_env(t_list *env)
 	char	**sort;
 	int		i;
 
-	sort = malloc(sizeof(char*) * (ft_lstsize(env) + 1));
+	sort = malloc(sizeof(char *) * (ft_lstsize(env) + 1));
 	i = 0;
 	while (env)
 	{
@@ -34,7 +34,7 @@ void	sort_export(char **sort)
 	char	*tmp;
 	int		i;
 	int		j;
-	
+
 	i = 0;
 	while (sort[i])
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:08:07 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/25 16:57:36 by chduong          ###   ########.fr       */
+/*   Updated: 2022/03/28 15:05:16 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,28 +27,39 @@ static int	only_digit(char *arg)
 	return (1);
 }
 
-static void	free_exit(char **arg, t_data *data, int opt)
+static void	clear_list(t_list **list)
 {
-	if (arg)
-		free_tab(arg);
-	printf("free arg\n");
+	t_list	*tmp;
+	t_list	*to_free;
+
+	tmp = *list;
+	while (tmp)
+	{
+		if (tmp->content)
+			free(tmp->content);
+		if (tmp->var)
+			free(tmp->var);
+		to_free = tmp;
+		tmp = tmp->next;
+		free(to_free);
+		to_free = NULL;
+	}
+	*list = NULL;
+}
+
+static void	free_exit(t_data *data, int opt)
+{
 	if (data->line)
 		free(data->line);
-	printf("free line\n");
 	if (data->path)
 		free_tab(data->path);
-	printf("free path\n");
 	if (data->export)
 		free_tab(data->export);
-	printf("free export\n");
 	if (data->env)
-		ft_lstclear(&data->env, free);
-	printf("lstclear env\n");
+		clear_list(&data->env);
 	if (data->token_list)
-		free_toklist(data->token_list);
-	printf("free tokenlist\n");
+		free_toklist(&data->token_list);
 	rl_clear_history();
-	printf("clear history\n");
 	exit(opt);
 }
 
@@ -58,15 +69,15 @@ void	exit_ms(char **arg, t_data *data)
 
 	nb_arg = count_str(arg);
 	if (nb_arg == 1)
-		free_exit(arg, data, EXIT_SUCCESS);
+		free_exit(data, EXIT_SUCCESS);
 	else if (nb_arg == 2)
 	{
 		if (only_digit(arg[1]))
-			free_exit(arg, data, ft_atoi(arg[1]));
+			free_exit(data, ft_atoi(arg[1]));
 		else
 		{
 			printf("Minishell: exit: %s: numeric argument required\n", arg[1]);
-			free_exit(arg, data, EXIT_SUCCESS);
+			free_exit(data, EXIT_SUCCESS);
 		}
 	}
 	else

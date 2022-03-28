@@ -3,12 +3,11 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:51:15 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/03/24 13:35:52 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/03/28 15:24:48 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
