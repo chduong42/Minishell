@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/28 15:23:57 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/28 16:31:12 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,24 +71,26 @@ static void	exec_cmd(char **arg, char **envp, t_data *data)
 		execve(cmd, arg, data->export);
 	free(cmd);
 	perror("Error");
+	exit(EXIT_FAILURE);
 }
 
 static bool	in_pipeline(t_token *elem)
 {
 	if (elem == NULL)
 		return (false);
-	else if ((elem->previous == NULL || elem->previous->type != PIPE)
-		&& (elem->next == NULL || elem->next->type != PIPE))
-		return (false);
-	else
-		return (true);
+	if (elem->previous == NULL || elem->previous->type != PIPE)
+	{
+		if (elem->next == NULL || elem->next->type != PIPE)
+			return (false);
+	}
+	return (true);
 }
 
 void	fork_exec(t_token *elem, char **envp, t_data *data)
 {
 	pid_t	pid;
 
-	if (in_pipeline(elem) && builtins(elem, data))
+	if (in_pipeline(elem) == false && builtins(elem, data) == true)
 		return ;
 	pid = fork();
 	if (pid < 0)
