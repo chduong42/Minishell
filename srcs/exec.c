@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/28 14:16:26 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/28 15:23:57 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static bool	builtins(t_token *elem, t_data *data)
 {
-	/*	if (ft_strncmp(elem->cmd[0], "cd", 3) == 0)
-		cd();
-*/	if (ft_strncmp(elem->cmd[0], "echo", 5) == 0)
+/*	if (ft_strncmp(elem->cmd[0], "cd", 3) == 0)
+		cd();	*/
+	if (ft_strncmp(elem->cmd[0], "echo", 5) == 0)
 		echo(elem->cmd);
 	else if (ft_strncmp(elem->cmd[0], "env", 4) == 0)
 		env(data->env);
@@ -73,14 +73,23 @@ static void	exec_cmd(char **arg, char **envp, t_data *data)
 	perror("Error");
 }
 
+static bool	in_pipeline(t_token *elem)
+{
+	if (elem == NULL)
+		return (false);
+	else if ((elem->previous == NULL || elem->previous->type != PIPE)
+		&& (elem->next == NULL || elem->next->type != PIPE))
+		return (false);
+	else
+		return (true);
+}
+
 void	fork_exec(t_token *elem, char **envp, t_data *data)
 {
 	pid_t	pid;
 
-	if ((elem->previous == NULL || elem->previous->type != PIPE)
-		&& (elem->next == NULL || elem->next->type != PIPE))
-		if (builtins(elem, data) == true)
-			return ;
+	if (in_pipeline(elem) && builtins(elem, data))
+		return ;
 	pid = fork();
 	if (pid < 0)
 	{

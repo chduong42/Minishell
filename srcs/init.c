@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 15:37:56 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/03/28 15:06:16 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/28 15:22:18 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,4 @@ void	data_init(t_data *data, char **envp)
 	data->newenv = 0;
 	data->export = cpy_env(data->env);
 	sort_export(data->export);
-
 }

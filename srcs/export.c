@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 12:11:03 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/03/25 11:05:43 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/03/28 15:24:21 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	is_new_var(char *var, t_data *data)
 {
-	t_list *env;
+	t_list	*env;
 
 	env = data->env;
 	while (env)
@@ -28,7 +28,7 @@ bool	is_new_var(char *var, t_data *data)
 
 void	change_var(char *envl, char **arg, t_data *data)
 {
-	t_list *env;
+	t_list	*env;
 
 	env = data->env;
 	while (env)
@@ -47,7 +47,7 @@ void	change_var(char *envl, char **arg, t_data *data)
 
 void	print_export(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (data->export[i])
