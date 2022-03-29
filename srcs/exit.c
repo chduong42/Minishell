@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:08:07 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/29 11:56:22 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/29 17:51:04 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	free_exit(t_data *data, int opt)
 		clear_list(&data->env);
 	if (data->token_list)
 		free_toklist(&data->token_list);
-//	rl_clear_history();
+	rl_clear_history();
 	exit(opt);
 }
 
@@ -69,15 +69,19 @@ void	exit_ms(char **arg, t_data *data)
 
 	nb_arg = count_str(arg);
 	if (nb_arg == 1)
+	{
+		printf("exit\n");
 		free_exit(data, EXIT_SUCCESS);
+	}
 	else if (nb_arg == 2)
 	{
+		printf("exit\n");
 		if (only_digit(arg[1]))
 			free_exit(data, ft_atoi(arg[1]));
 		else
 		{
 			printf("Minishell: exit: %s: numeric argument required\n", arg[1]);
-			free_exit(data, EXIT_SUCCESS);
+			free_exit(data, 2);
 		}
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/29 12:31:18 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/29 17:05:04 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ static bool	in_pipeline(t_token *elem)
 void	fork_exec(t_token *elem, char **envp, t_data *data)
 {
 	pid_t	pid;
+	int		wstatus;
 
 	if (in_pipeline(elem) == false && builtins(elem, data) == true)
 		return ;
@@ -118,5 +119,7 @@ void	fork_exec(t_token *elem, char **envp, t_data *data)
 		close(elem->in);
 	if (elem->out != -1)
 		close(elem->out);
-	waitpid(pid, NULL, 0);
+	waitpid(pid, &wstatus, 0);
+	if (WIFEXITED(wstatus) == true)
+		data->status = WEXITSTATUS(wstatus);
 }

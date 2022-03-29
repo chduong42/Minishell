@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/29 11:28:51 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/29 17:02:50 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <errno.h>
 # include "libft.h"
 
 # define PROMPT "\x1B[1;35mMiniShell >: \x1B[0m"
@@ -80,6 +79,7 @@ typedef struct s_data
 	bool	newpath;
 	t_list	*env;
 	t_token	*token_list;
+	int		status;
 }			t_data;
 
 //	UTILS

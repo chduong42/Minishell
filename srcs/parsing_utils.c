@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 15:26:15 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/25 14:45:14 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/29 17:04:44 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ char	*find_envar(char *envar, t_data *env_data)
 	tmp = env_data->env;
 	envar_len = ft_strlen(envar);
 	if (envar_len == 1 && envar[0] == '?')
-		return (ft_strdup(ft_itoa(errno)));
+		return (ft_strdup(ft_itoa(env_data->status)));
 	while (tmp != NULL)
 	{
 		env_var_len = ft_strlen(tmp->var);
