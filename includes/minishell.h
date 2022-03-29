@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/28 14:47:37 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/29 11:28:51 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct s_data
 void	ft_print_title(void);
 void	free_tab(char **tab);
 void	sort_export(char **sort);
+void	free_exit(t_data *data, int opt);
 
 char	**cpy_env(t_list *env);
 

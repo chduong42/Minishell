@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:08:07 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/28 16:33:53 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/29 11:56:22 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	clear_list(t_list **list)
 	*list = NULL;
 }
 
-static void	free_exit(t_data *data, int opt)
+void	free_exit(t_data *data, int opt)
 {
 	if (data->line)
 		free(data->line);
@@ -59,7 +59,7 @@ static void	free_exit(t_data *data, int opt)
 		clear_list(&data->env);
 	if (data->token_list)
 		free_toklist(&data->token_list);
-	rl_clear_history();
+//	rl_clear_history();
 	exit(opt);
 }
 
