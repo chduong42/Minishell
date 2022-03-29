@@ -6,7 +6,7 @@
 /*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:51:21 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/03/29 16:32:59 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/03/29 19:02:25 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	echo(char **arg)
 		ft_putchar_fd('\n', 1);
 	else if (check_nflag(arg[i++]))
 	{
-		while (check_nflag(arg[i]))
+		while (arg[i] && check_nflag(arg[i]))
 			++i;
 		if (arg[i] == NULL)
 			return ;
