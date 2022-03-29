@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+         #
+#    By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/03/29 11:45:34 by smagdela         ###   ########.fr        #
+#    Updated: 2022/03/29 20:31:17 by kennyduong       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,15 +65,18 @@ LIBFT		=	$(LIBFT_DIR)libft.a
 #########################################
 #			SOURCES	FILES				#
 #########################################
-MS_SRC		=	main.c				pipeline.c			exit.c\
-				utils.c				exec.c				lexer.c\
-				scanner.c			categorizer.c		analyzer.c\
-				parsing_utils.c		parsing_utils_2.c	parsing_utils_3.c\
-				checker_quotes.c	checker_redir.c		checker_words.c\
-				env.c				export.c			unset.c\
-				expand_reduce.c		echo.c				pwd.c\
-				export_utils.c		init.c
-
+MS_SRC		=	main.c				pipeline.c			utils.c\
+				exec.c				init.c\
+				${addprefix parsing/,\
+					lexer.c				scanner.c			categorizer.c\
+					analyzer.c			parsing_utils.c		parsing_utils_2.c\
+					parsing_utils_3.c	checker_quotes.c	checker_redir.c\
+					checker_words.c		expand_reduce.c}\
+				${addprefix builtins/,\
+					echo.c				env.c				exit.c\
+					export.c			export_utils.c		pwd.c\
+					unset.c}
+				
 #########################################
 #            OBJECT FILES    	        #
 #########################################
@@ -95,7 +98,7 @@ $(LIBFT):
 	@echo "> $(CYAN)Libft Compilation$(END) : \t\t[$(GREEN)OK$(END)]"
 
 ${OBJ_DIR}%.o:	${SRC_DIR}%.c
-# @${MKDIR} ${@D}
+	@${MKDIR} ${@D}
 	@${CC} ${CFLAGS} ${INC} -c -o $@ $<
 
 $(OBJ_DIR):
