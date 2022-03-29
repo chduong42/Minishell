@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/28 15:23:57 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/29 17:05:04 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,47 +55,54 @@ static char	*path_join(char *path, char *cmd)
 static void	exec_cmd(char **arg, char **envp, t_data *data)
 {
 	char	*cmd;
+	char	*pwd;
 	int		i;
 
-	i = 0;
-	while (data->path[i])
+	if (ft_strncmp("./", arg[0], 2) == 0)
 	{
-		cmd = path_join(data->path[i], arg[0]);
+		pwd = getcwd(NULL, 0);
+		cmd = path_join(pwd, arg[0]);
+		free(pwd);
 		if (access(cmd, X_OK) == 0)
-			execve(cmd, arg, envp);
+			execve(cmd, arg, data->export);
 		free(cmd);
-		++i;
 	}
-	cmd = path_join(getcwd(NULL, 0), arg[0]);
-	if (access(cmd, X_OK) == 0)
-		execve(cmd, arg, data->export);
-	free(cmd);
-	perror("Error");
+	else
+	{
+		i = 0;
+		while (data->path[i])
+		{
+			cmd = path_join(data->path[i], arg[0]);
+			if (access(cmd, X_OK) == 0)
+				execve(cmd, arg, envp);
+			free(cmd);
+			++i;
+		}
+	}
 }
 
 static bool	in_pipeline(t_token *elem)
 {
 	if (elem == NULL)
 		return (false);
-	else if ((elem->previous == NULL || elem->previous->type != PIPE)
-		&& (elem->next == NULL || elem->next->type != PIPE))
-		return (false);
-	else
-		return (true);
+	if (elem->previous == NULL || elem->previous->type != PIPE)
+	{
+		if (elem->next == NULL || elem->next->type != PIPE)
+			return (false);
+	}
+	return (true);
 }
 
 void	fork_exec(t_token *elem, char **envp, t_data *data)
 {
 	pid_t	pid;
+	int		wstatus;
 
-	if (in_pipeline(elem) && builtins(elem, data))
+	if (in_pipeline(elem) == false && builtins(elem, data) == true)
 		return ;
 	pid = fork();
 	if (pid < 0)
-	{
-		perror("Fork failed.");
-		exit_ms(NULL, data);
-	}
+		return (perror("Fork failed."));
 	else if (pid == 0)
 	{
 		if (elem->in != -1)
@@ -103,12 +110,16 @@ void	fork_exec(t_token *elem, char **envp, t_data *data)
 		if (elem->out != -1)
 			dup2(elem->out, 1);
 		if (builtins(elem, data) == true)
-			exit(EXIT_SUCCESS);
+			free_exit(data, EXIT_SUCCESS);
 		exec_cmd(elem->cmd, envp, data);
+		perror("MiniShell: Error");
+		free_exit(data, 127);
 	}
 	if (elem->in != -1)
 		close(elem->in);
 	if (elem->out != -1)
 		close(elem->out);
-	waitpid(pid, NULL, 0);
+	waitpid(pid, &wstatus, 0);
+	if (WIFEXITED(wstatus) == true)
+		data->status = WEXITSTATUS(wstatus);
 }

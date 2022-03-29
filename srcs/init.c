@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 15:37:56 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/03/28 15:22:18 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/29 17:03:14 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	data_init(t_data *data, char **envp)
 	data->env = NULL;
 	data->path = ft_split(getenv("PATH"), ':');
 	data->newpath = 0;
+	data->status = 0;
 	if (*envp)
 		init_env(data, envp);
 	else
