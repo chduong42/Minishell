@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 12:47:56 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/30 14:07:29 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/30 18:04:27 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static char	*get_filepath(char *filename)
 	filepath = path_join(pwd, filename);
 	free(pwd);
 	free(filename);
-	filename = NULL;
 	return (filepath);
 }
 
@@ -72,8 +71,8 @@ static void	file_handler(t_data *data)
 /*		else if (tmp->type == DLESS)
 		{
 			heredoc(pop_first_cmd(tmp->next));
-		}
-*/		else if (tmp->type == DGREAT)
+		}*/
+		else if (tmp->type == DGREAT)
 		{
 			filepath = get_filepath(pop_last_cmd(tmp->next));
 			if (access(filepath, W_OK) == 0 || access(filepath, F_OK) == -1)

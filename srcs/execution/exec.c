@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/30 13:55:00 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/30 18:49:36 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static bool	builtins(t_token *elem, t_data *data)
 {
-/*	if (ft_strncmp(elem->cmd[0], "cd", 3) == 0)
-		cd();	*/
-	if (ft_strncmp(elem->cmd[0], "echo", 5) == 0)
+	if (ft_strncmp(elem->cmd[0], "cd", 3) == 0)
+		cd();
+	else if (ft_strncmp(elem->cmd[0], "echo", 5) == 0)
 		echo(elem->cmd);
 	else if (ft_strncmp(elem->cmd[0], "env", 4) == 0)
 		env(data->env);
@@ -58,32 +58,12 @@ static void	exec_cmd(char **arg, char **envp, t_data *data)
 	char	*pwd;
 	int		i;
 
-	if (ft_strncmp("./", arg[0], 2) == 0)
-	{
-		pwd = getcwd(NULL, 0);
-		cmd = path_join(pwd, arg[0]);
-		free(pwd);
-		if (access(cmd, X_OK) == 0)
-			execve(cmd, arg, data->export);
-		free(cmd);
-	}
-	else if (arg[0][0] == '/')
-	{
-		if (access(arg[0], X_OK) == 0)
-			execve(arg[0], arg, data->export);
-	}
-	else
-	{
-		i = 0;
-		while (data->path[i])
-		{
-			cmd = path_join(data->path[i], arg[0]);
-			if (access(cmd, X_OK) == 0)
-				execve(cmd, arg, envp);
-			free(cmd);
-			++i;
-		}
-	}
+	cmd = get_binpath(arg[0], data);
+	if (access(cmd, X_OK) == 0)
+		execve(cmd, arg, envp);
+	free(cmd);
+	perror("MiniShell: Error");
+	free_exit(data, 127);
 }
 
 static bool	in_pipeline(t_token *elem)
@@ -117,8 +97,6 @@ void	fork_exec(t_token *elem, char **envp, t_data *data)
 		if (builtins(elem, data) == true)
 			free_exit(data, EXIT_SUCCESS);
 		exec_cmd(elem->cmd, envp, data);
-		perror("MiniShell: Error");
-		free_exit(data, 127);
 	}
 	if (elem->in != -1)
 		close(elem->in);

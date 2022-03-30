@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: chduong <chduong@student.42.fr>            +#+  +:+       +#+         #
+#    By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/03/30 14:33:09 by smagdela         ###   ########.fr        #
+#    Updated: 2022/03/30 17:51:37 by smagdela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,8 @@ MS_SRC		=	main.c				utils.c			init.c\
 					export.c			export_utils.c		pwd.c\
 					unset.c}\
 				${addprefix execution/,\
-					exec.c				pipeline.c			pipeline_utils.c}
+					exec.c				pipeline.c			pipeline_utils.c\
+					exec_utils.c}
 
 #########################################
 #            OBJECT FILES    	        #

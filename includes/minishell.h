@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/30 16:14:14 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/30 18:47:20 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ t_list	*grep(t_list *env, char *varname);
 char	*path_join(char *path, char *cmd);
 char	*pop_first_cmd(t_token *elem);
 char	*pop_last_cmd(t_token *elem);
+char	*get_binpath(char *filename, t_data *data);
 
 //	BUILTINS
 void	echo(char **arg);
