@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/30 11:56:54 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/30 13:55:00 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,11 @@ static void	exec_cmd(char **arg, char **envp, t_data *data)
 		if (access(cmd, X_OK) == 0)
 			execve(cmd, arg, data->export);
 		free(cmd);
+	}
+	else if (arg[0][0] == '/')
+	{
+		if (access(arg[0], X_OK) == 0)
+			execve(arg[0], arg, data->export);
 	}
 	else
 	{

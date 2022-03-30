@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 12:47:56 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/30 12:17:11 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/30 14:07:29 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static char	*get_filepath(char *filename)
 
 	if (filename == NULL)
 		return (NULL);
+	if (filename[0] == '/')
+		return (filename);
 	pwd = getcwd(NULL, 0);
 	filepath = path_join(pwd, filename);
 	free(pwd);
@@ -27,7 +29,7 @@ static char	*get_filepath(char *filename)
 	return (filepath);
 }
 
-static void	file_handler(char **envp, t_data *data)
+static void	file_handler(t_data *data)
 {
 	t_token	*tmp;
 	char	*filepath;
@@ -42,6 +44,11 @@ static void	file_handler(char **envp, t_data *data)
 			if (access(filepath, R_OK) == 0)
 			{
 				fd = open(filepath, O_RDONLY);
+				if (tmp->previous == NULL)
+					tmp->next->in = fd;
+				else
+					tmp->previous->in = fd;
+//				When close() ?
 			}
 			else
 				perror("Minishell: Error");
@@ -50,10 +57,12 @@ static void	file_handler(char **envp, t_data *data)
 		}
 		else if (tmp->type == GREAT)
 		{
-			filepath = get_filepath(pop_first_cmd(tmp->next));
+			filepath = get_filepath(pop_last_cmd(tmp->next));
 			if (access(filepath, W_OK) == 0 || access(filepath, F_OK) == -1)
 			{
 				fd = open(filepath, O_WRONLY | O_CREAT);
+				tmp->previous->out = fd;
+//				When close() ?
 			}
 			else
 				perror("Minishell: Error");
@@ -66,10 +75,12 @@ static void	file_handler(char **envp, t_data *data)
 		}
 */		else if (tmp->type == DGREAT)
 		{
-			filepath = get_filepath(pop_first_cmd(tmp->next));
+			filepath = get_filepath(pop_last_cmd(tmp->next));
 			if (access(filepath, W_OK) == 0 || access(filepath, F_OK) == -1)
 			{
-				fd = open(filepath, O_WRONLY | O_CREAT);
+				fd = open(filepath, O_WRONLY | O_CREAT | O_APPEND);
+				tmp->previous->out = fd;
+//				When close() ?
 			}
 			else
 				perror("Minishell: Error");
@@ -87,6 +98,7 @@ static void	redirection_handler(char **envp, t_data *data)
 {
 	t_token	*tmp;
 
+	file_handler(data);
 	tmp = data->token_list;
 	while (tmp)
 	{
