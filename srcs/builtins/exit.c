@@ -60,6 +60,7 @@ void	free_exit(t_data *data, int opt)
 	if (data->token_list)
 		free_toklist(&data->token_list);
 	rl_clear_history();
+//clear_history();  
 	exit(opt);
 }
 

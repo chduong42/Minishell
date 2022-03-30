@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+         #
+#    By: chduong <chduong@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
 #    Updated: 2022/03/30 14:33:09 by smagdela         ###   ########.fr        #
@@ -99,7 +99,7 @@ $(LIBFT):
 	@echo "> $(CYAN)Libft Compilation$(END) : \t\t[$(GREEN)OK$(END)]"
 
 ${OBJ_DIR}%.o:	${SRC_DIR}%.c
-# @${MKDIR} ${@D}
+	@${MKDIR} ${@D}
 	@${CC} ${CFLAGS} ${INC} -c -o $@ $<
 
 $(OBJ_DIR):
