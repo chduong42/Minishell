@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/29 17:05:04 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/30 13:55:00 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static bool	builtins(t_token *elem, t_data *data)
 	return (true);
 }
 
-static char	*path_join(char *path, char *cmd)
+char	*path_join(char *path, char *cmd)
 {
 	char	*p;
 	int		len1;
@@ -66,6 +66,11 @@ static void	exec_cmd(char **arg, char **envp, t_data *data)
 		if (access(cmd, X_OK) == 0)
 			execve(cmd, arg, data->export);
 		free(cmd);
+	}
+	else if (arg[0][0] == '/')
+	{
+		if (access(arg[0], X_OK) == 0)
+			execve(arg[0], arg, data->export);
 	}
 	else
 	{

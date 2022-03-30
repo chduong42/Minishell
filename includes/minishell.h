@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/29 17:02:50 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/30 12:01:33 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,9 +144,14 @@ void	suppress_spaces(t_token **token_list);
 
 //	EXEC
 bool	executor(char **envp, t_data *data);
+
 void	fork_exec(t_token *elem, char **envp, t_data *data);
 
 t_list	*grep(t_list *env, char *varname);
+
+char	*path_join(char *path, char *cmd);
+char	*pop_first_cmd(t_token *elem);
+char	*pop_last_cmd(t_token *elem);
 
 //	BUILTINS
 void	echo(char **arg);
