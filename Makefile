@@ -6,7 +6,7 @@
 #    By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/03/29 11:45:34 by smagdela         ###   ########.fr        #
+#    Updated: 2022/03/30 12:00:37 by smagdela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,7 @@ MS_SRC		=	main.c				pipeline.c			exit.c\
 				checker_quotes.c	checker_redir.c		checker_words.c\
 				env.c				export.c			unset.c\
 				expand_reduce.c		echo.c				pwd.c\
-				export_utils.c		init.c
+				export_utils.c		init.c				pipeline_utils.c\
 
 #########################################
 #            OBJECT FILES    	        #

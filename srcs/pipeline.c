@@ -6,35 +6,103 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 12:47:56 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/29 14:58:35 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/30 12:17:11 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static char	*get_filepath(char *filename)
+{
+	char	*pwd;
+	char	*filepath;
+
+	if (filename == NULL)
+		return (NULL);
+	pwd = getcwd(NULL, 0);
+	filepath = path_join(pwd, filename);
+	free(pwd);
+	free(filename);
+	filename = NULL;
+	return (filepath);
+}
+
+static void	file_handler(char **envp, t_data *data)
+{
+	t_token	*tmp;
+	char	*filepath;
+	int		fd;
+
+	tmp = data->token_list;
+	while (tmp)
+	{
+		if (tmp->type == LESS)
+		{
+			filepath = get_filepath(pop_first_cmd(tmp->next));
+			if (access(filepath, R_OK) == 0)
+			{
+				fd = open(filepath, O_RDONLY);
+			}
+			else
+				perror("Minishell: Error");
+			free(filepath);
+			filepath = NULL;
+		}
+		else if (tmp->type == GREAT)
+		{
+			filepath = get_filepath(pop_first_cmd(tmp->next));
+			if (access(filepath, W_OK) == 0 || access(filepath, F_OK) == -1)
+			{
+				fd = open(filepath, O_WRONLY | O_CREAT);
+			}
+			else
+				perror("Minishell: Error");
+			free(filepath);
+			filepath = NULL;
+		}
+/*		else if (tmp->type == DLESS)
+		{
+			heredoc(pop_first_cmd(tmp->next));
+		}
+*/		else if (tmp->type == DGREAT)
+		{
+			filepath = get_filepath(pop_first_cmd(tmp->next));
+			if (access(filepath, W_OK) == 0 || access(filepath, F_OK) == -1)
+			{
+				fd = open(filepath, O_WRONLY | O_CREAT);
+			}
+			else
+				perror("Minishell: Error");
+			free(filepath);
+			filepath = NULL;
+		}
+		tmp = tmp->next;
+	}
+}
+
 /*
 Reproduce the behavior of multiple pipes, adding file redirectors too.
 */
-static void	redirection_handler(t_token *token_list, char **envp, t_data *data)
+static void	redirection_handler(char **envp, t_data *data)
 {
 	t_token	*tmp;
 
-	tmp = token_list;
+	tmp = data->token_list;
 	while (tmp)
 	{
 		if (tmp->type == PIPE)
 		{
 			if (pipe(tmp->pipefd) == -1)
+				perror("MiniShell: Pipe failed");
+			else
 			{
-				perror("pipe failed.");
-				exit_ms(NULL, data);
+				tmp->previous->out = tmp->pipefd[1];
+				tmp->next->in = tmp->pipefd[0];
 			}
-			tmp->previous->out = tmp->pipefd[1];
-			tmp->next->in = tmp->pipefd[0];
 		}
 		tmp = tmp->next;
 	}
-	tmp = token_list;
+	tmp = data->token_list;
 	while (tmp)
 	{
 		if (tmp->type == WORD)
@@ -53,7 +121,7 @@ bool	executor(char **envp, t_data *data)
 	if (data->token_list->next == NULL)
 		fork_exec(data->token_list, envp, data);
 	else
-		redirection_handler(data->token_list, envp, data);
+		redirection_handler(envp, data);
 	if (data->token_list)
 		free_toklist(&data->token_list);
 	return (true);

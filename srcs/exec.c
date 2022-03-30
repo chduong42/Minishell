@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/29 17:05:04 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/30 11:56:54 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static bool	builtins(t_token *elem, t_data *data)
 	return (true);
 }
 
-static char	*path_join(char *path, char *cmd)
+char	*path_join(char *path, char *cmd)
 {
 	char	*p;
 	int		len1;
