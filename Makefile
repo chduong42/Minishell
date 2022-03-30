@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+         #
+#    By: chduong <chduong@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/03/29 20:31:17 by kennyduong       ###   ########.fr        #
+#    Updated: 2022/03/30 14:04:13 by chduong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,8 +65,7 @@ LIBFT		=	$(LIBFT_DIR)libft.a
 #########################################
 #			SOURCES	FILES				#
 #########################################
-MS_SRC		=	main.c				pipeline.c			utils.c\
-				exec.c				init.c\
+MS_SRC		=	main.c				utils.c			init.c\
 				${addprefix parsing/,\
 					lexer.c				scanner.c			categorizer.c\
 					analyzer.c			parsing_utils.c		parsing_utils_2.c\
@@ -75,7 +74,9 @@ MS_SRC		=	main.c				pipeline.c			utils.c\
 				${addprefix builtins/,\
 					echo.c				env.c				exit.c\
 					export.c			export_utils.c		pwd.c\
-					unset.c}
+					unset.c}\
+				${addprefix execution/,\
+					exec.c				pipeline.c}
 				
 #########################################
 #            OBJECT FILES    	        #
