@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:46:59 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/28 14:45:26 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/30 16:51:34 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,30 @@ bool	ft_is_in_charset(char c, char *charset)
 	return (false);
 }
 
-static void	glue_together(t_token **tmp, t_token **token_list)
+static bool	is_legit(t_token *elem)
+{
+	if (elem->type == WORD && ft_strlen(elem->data) == 1
+		&& elem->data[0] == ' ')
+	{
+		if (elem->to_delete == true)
+			return (false);
+		else
+			return (true);
+	}
+	return (true);
+}
+
+void	glue_together(t_token **tmp, t_token **token_list)
 {
 	if ((*tmp)->previous && (*tmp)->previous->type == WORD
-		&& ft_strncmp((*tmp)->previous->data, " ",
-			ft_strlen((*tmp)->previous->data)))
+		&& is_legit((*tmp)->previous) == true)
 	{
 		*tmp = (*tmp)->previous;
 		(*tmp)->data = my_strcat((*tmp)->data, (*tmp)->next->data);
 		lst_pop((*tmp)->next, token_list);
 	}
 	if ((*tmp)->next && (*tmp)->next->type == WORD
-		&& ft_strncmp((*tmp)->next->data, " ",
-			ft_strlen((*tmp)->next->data)))
+		&& is_legit((*tmp)->next) == true)
 	{
 		(*tmp)->data = my_strcat((*tmp)->data, (*tmp)->next->data);
 		lst_pop((*tmp)->next, token_list);

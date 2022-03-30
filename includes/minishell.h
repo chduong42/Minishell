@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/30 12:01:33 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/30 16:14:14 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ typedef struct s_token
 	int				pipefd[2];
 	int				in;
 	int				out;
-	int				err;
 	struct s_token	*previous;
 	struct s_token	*next;
 }	t_token;
@@ -141,6 +140,7 @@ void	reduce(t_token *elem, t_token *end, t_data *env_data,
 			t_token *token_list);
 void	expand_remaining_envar(t_token *token_list, t_data *env_data);
 void	suppress_spaces(t_token **token_list);
+void	glue_together(t_token **tmp, t_token **token_list);
 
 //	EXEC
 bool	executor(char **envp, t_data *data);

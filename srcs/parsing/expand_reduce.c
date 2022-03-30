@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 17:19:43 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/25 14:45:14 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/30 16:16:20 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void	reduce_all(t_token *elem, t_token *end,
 		tmp = tmp->next;
 	}
 	relink_toklist(elem, tmp->next, new_data, &token_list);
+	glue_together(&elem, &token_list);
 }
 
 /*
@@ -136,6 +137,7 @@ void	reduce(t_token *elem, t_token *end, t_data *env_data,
 		tmp = tmp->next;
 	}
 	relink_toklist(elem, tmp->next, new_data, &token_list);
+	glue_together(&elem, &token_list);
 }
 
 /*
