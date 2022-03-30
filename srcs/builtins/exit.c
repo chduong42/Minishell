@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:08:07 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/29 18:59:20 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/03/30 14:19:04 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,17 @@ void	exit_ms(char **arg, t_data *data)
 
 	nb_arg = count_str(arg);
 	if (nb_arg == 1)
+	{
+		printf("exit\n");
 		free_exit(data, EXIT_SUCCESS);
+	}
 	else if (nb_arg == 2)
 	{
 		if (only_digit(arg[1]))
+		{
+			printf("exit\n");
 			free_exit(data, ft_atoi(arg[1]));
+		}
 		else
 		{
 			printf("Minishell: exit: %s: numeric argument required\n", arg[1]);
