@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 16:20:51 by chduong           #+#    #+#             */
-/*   Updated: 2021/06/14 18:50:28 by chduong          ###   ########.fr       */
+/*   Updated: 2022/03/30 19:48:29 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_lstiter(t_list *lst, void (*f)(void *))
 		return ;
 	while (lst)
 	{
-		f(lst->content);
+		f(lst->value);
 		lst = lst->next;
 	}
 }

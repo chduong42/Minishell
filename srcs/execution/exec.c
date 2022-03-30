@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/30 13:55:00 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/30 17:47:03 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static bool	builtins(t_token *elem, t_data *data)
 {
-/*	if (ft_strncmp(elem->cmd[0], "cd", 3) == 0)
-		cd();	*/
-	if (ft_strncmp(elem->cmd[0], "echo", 5) == 0)
-		echo(elem->cmd);
+	if (ft_strncmp(elem->cmd[0], "cd", 3) == 0)
+		cd(elem->cmd[1], data);
+	else if (ft_strncmp(elem->cmd[0], "echo", 5) == 0)
+		echo(elem->cmd, data);
 	else if (ft_strncmp(elem->cmd[0], "env", 4) == 0)
 		env(data->env);
 	else if (ft_strncmp(elem->cmd[0], "exit", 5) == 0)
@@ -31,25 +31,6 @@ static bool	builtins(t_token *elem, t_data *data)
 	else
 		return (false);
 	return (true);
-}
-
-char	*path_join(char *path, char *cmd)
-{
-	char	*p;
-	int		len1;
-	int		len2;
-
-	if (!path || !cmd)
-		return (NULL);
-	len1 = ft_strlen(path);
-	len2 = ft_strlen(cmd);
-	p = malloc(sizeof(char) * (len1 + len2 + 2));
-	if (!p)
-		return (NULL);
-	ft_strlcpy(p, path, len1 + 1);
-	ft_strlcat(p, "/", len1 + 2);
-	ft_strlcat(p, cmd, len1 + len2 + 2);
-	return (p);
 }
 
 static void	exec_cmd(char **arg, char **envp, t_data *data)

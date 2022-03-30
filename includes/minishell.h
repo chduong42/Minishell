@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/30 12:01:33 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/30 20:29:48 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,24 +88,22 @@ void	free_tab(char **tab);
 void	sort_export(char **sort);
 void	free_exit(t_data *data, int opt);
 
+char	*cleaner(char *str_in);
 char	**cpy_env(t_list *env);
+char	*my_strcat(char *dest, char *str);
+char	*path_join(char *path, char *cmd);
+char	*var_join(char *var, char *value);
+
+bool	is_in_charset(char c, char *charset);
+bool	ft_is_in_charset(char c, char *charset);
+
+size_t	find_char_set(const char *str, char *charset);
+t_list	*grep(char *varname, t_data *data);
 
 // DATA INIT
 void	new_export(t_data *data);
 void	new_path(t_data *data);
 void	data_init(t_data *data, char **envp);
-
-int		count_str(char **str);
-
-bool	is_in_charset(char c, char *charset);
-bool	ft_is_in_charset(char c, char *charset);
-
-t_list	*grep(t_list *env, char *varname);
-
-char	*my_strcat(char *dest, char *str);
-char	*cleaner(char *str_in);
-
-size_t	find_char_set(const char *str, char *charset);
 
 //	PARSING
 t_token	*lexer(char *input);
@@ -144,17 +142,13 @@ void	suppress_spaces(t_token **token_list);
 
 //	EXEC
 bool	executor(char **envp, t_data *data);
-
 void	fork_exec(t_token *elem, char **envp, t_data *data);
-
-t_list	*grep(t_list *env, char *varname);
-
-char	*path_join(char *path, char *cmd);
 char	*pop_first_cmd(t_token *elem);
 char	*pop_last_cmd(t_token *elem);
 
 //	BUILTINS
-void	echo(char **arg);
+void    cd(char *path, t_data *data);
+void	echo(char **arg, t_data *data);
 void	exit_ms(char **arg, t_data *data);
 void	export(char **arg, t_data *data);
 void	env(t_list *env);

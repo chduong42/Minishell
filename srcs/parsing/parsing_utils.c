@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 15:26:15 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/29 17:04:44 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/30 19:48:19 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ char	*find_envar(char *envar, t_data *env_data)
 		if (envar_len == env_var_len
 			&& ft_strncmp(tmp->var, envar, envar_len) == 0)
 		{
-			return (ft_strdup(tmp->content));
+			return (ft_strdup(tmp->value));
 		}
 		tmp = tmp->next;
 	}
