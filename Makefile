@@ -6,7 +6,7 @@
 #    By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/03/30 12:00:37 by smagdela         ###   ########.fr        #
+#    Updated: 2022/03/30 14:33:09 by smagdela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,14 +65,18 @@ LIBFT		=	$(LIBFT_DIR)libft.a
 #########################################
 #			SOURCES	FILES				#
 #########################################
-MS_SRC		=	main.c				pipeline.c			exit.c\
-				utils.c				exec.c				lexer.c\
-				scanner.c			categorizer.c		analyzer.c\
-				parsing_utils.c		parsing_utils_2.c	parsing_utils_3.c\
-				checker_quotes.c	checker_redir.c		checker_words.c\
-				env.c				export.c			unset.c\
-				expand_reduce.c		echo.c				pwd.c\
-				export_utils.c		init.c				pipeline_utils.c\
+MS_SRC		=	main.c				utils.c			init.c\
+				${addprefix parsing/,\
+					lexer.c				scanner.c			categorizer.c\
+					analyzer.c			parsing_utils.c		parsing_utils_2.c\
+					parsing_utils_3.c	checker_quotes.c	checker_redir.c\
+					checker_words.c		expand_reduce.c}\
+				${addprefix builtins/,\
+					echo.c				env.c				exit.c\
+					export.c			export_utils.c		pwd.c\
+					unset.c}\
+				${addprefix execution/,\
+					exec.c				pipeline.c			pipeline_utils.c}
 
 #########################################
 #            OBJECT FILES    	        #
