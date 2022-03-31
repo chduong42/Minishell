@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:08:07 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/31 15:08:07 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/30 19:50:20 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ static void	clear_list(t_list **list)
 	tmp = *list;
 	while (tmp)
 	{
-		if (tmp->content)
-			free(tmp->content);
+		if (tmp->value)
+			free(tmp->value);
 		if (tmp->var)
 			free(tmp->var);
 		to_free = tmp;
@@ -61,6 +61,16 @@ void	free_exit(t_data *data, int opt)
 		free_toklist(&data->token_list);
 	rl_clear_history();
 	exit(opt);
+}
+
+int	count_str(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		++i;
+	return (i);
 }
 
 void	exit_ms(char **arg, t_data *data)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/31 16:43:23 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/31 16:57:24 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,28 +84,24 @@ typedef struct s_data
 
 //	UTILS
 void	ft_print_title(void);
-void	free_tab(char **tab);
-void	sort_export(char **sort);
-void	free_exit(t_data *data, int opt);
-
-char	**cpy_env(t_list *env);
-
-// DATA INIT
-void	new_export(t_data *data);
-void	new_path(t_data *data);
-void	data_init(t_data *data, char **envp);
-
-int		count_str(char **str);
-
-bool	is_in_charset(char c, char *charset);
-bool	ft_is_in_charset(char c, char *charset);
-
-t_list	*grep(t_list *env, char *varname);
 
 char	*my_strcat(char *dest, char *str);
+char	*path_join(char *path, char *cmd);
+char	*var_join(char *var, char *value);
+
+bool	ft_is_in_charset(char c, char *charset);
+size_t	find_char_set(const char *str, char *charset);
+
+t_list	*grep(char *varname, t_data *data);
+
+//	FREE MEMORIES
 char	*cleaner(char *str_in);
 
-size_t	find_char_set(const char *str, char *charset);
+void	free_tab(char **tab);
+void	free_exit(t_data *data, int opt);
+
+// DATA INIT
+void	data_init(t_data *data, char **envp);
 
 //	PARSING
 t_token	*lexer(char *input);
@@ -124,12 +120,12 @@ char	*find_envar(char *envar, t_data *env_data);
 size_t	ft_envarlen(const char *str);
 size_t	is_closed(t_token *elem, t_token_type elem_type);
 
-bool	create_token(t_token_type type, char *data, t_token **list);
 bool	categorizer(t_input *input, t_token **token_list);
+bool	create_token(t_token_type type, char *data, t_token **list);
 bool	checker_quotes(t_token *token_list, t_data *env_data);
+bool	checker_redir(t_token *token_list);
 bool	checker_words(t_token *token_list);
 bool	reduce_words(t_token *elem, size_t end, t_token *token_list);
-bool	checker_redir(t_token *token_list);
 
 void	display_toklist(t_token *token_list);
 void	relink_toklist(t_token *elem, t_token *tmp,
@@ -145,23 +141,27 @@ void	glue_together(t_token **tmp, t_token **token_list);
 
 //	EXEC
 bool	executor(char **envp, t_data *data);
-
 void	fork_exec(t_token *elem, char **envp, t_data *data);
-
-t_list	*grep(t_list *env, char *varname);
-
-char	*path_join(char *path, char *cmd);
 char	*pop_first_cmd(t_token *elem);
 char	*pop_last_cmd(t_token *elem);
 char	*get_binpath(char *filename, t_data *data);
 char	*get_filepath(char *filename);
 
 //	BUILTINS
-void	echo(char **arg);
+void    cd(char *path, t_data *data);
+void	echo(char **arg, t_data *data);
 void	exit_ms(char **arg, t_data *data);
 void	export(char **arg, t_data *data);
 void	env(t_list *env);
 void	pwd(void);
 void	unset(char **arg, t_data *data);
+
+// BUILTINS UTILS
+char	**cpy_env(t_list *env);
+
+void	new_export(t_data *data);
+void	new_path(t_data *data);
+void	sort_export(char **sort);
+void	update_pwd(char *newpwd, t_data *data);
 
 #endif

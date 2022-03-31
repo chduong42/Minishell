@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scanner.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 18:31:12 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/28 14:47:00 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/31 16:57:19 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 Returns true if "c" is in "charset", false otherwise.
 */
-bool	is_in_charset(char c, char *charset)
+bool	ft_is_in_charset(char c, char *charset)
 {
 	int		i;
 

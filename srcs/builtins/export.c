@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 12:11:03 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/03/29 18:30:19 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/30 19:48:52 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	change_var(char *envl, char **arg, t_data *data)
 		{
 			free(env->line);
 			env->line = ft_strdup(envl);
-			free(env->content);
-			env->content = ft_strdup(arg[1]);
+			free(env->value);
+			env->value = ft_strdup(arg[1]);
 			break ;
 		}
 		env = env->next;

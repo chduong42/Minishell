@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/09 15:21:12 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/30 19:44:58 by chduong          ###   ########.fr       */
+/*   Created: 2022/03/31 16:44:51 by chduong           #+#    #+#             */
+/*   Updated: 2022/03/31 16:45:13 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-t_list	*ft_lstnew(char *envp, char *var, char *value)
+void	update_pwd(char *newpwd, t_data *data)
 {
-	t_list	*a;
-
-	a = malloc(sizeof(t_list));
-	if (!a)
-		return (NULL);
-	a->line = NULL;
-	a->var = NULL;
-	a->value = NULL;
-	if (envp)
-		a->line = ft_strdup(envp);
-	if (var)
-		a->var = ft_strdup(var);
-	if (value)
-		a->value = ft_strdup(value);
-	a->prev = NULL;
-	a->next = NULL;
-	return (a);
+	t_list	*pwd_env;
+	
+	pwd_env = grep("PWD", data);
+	free(pwd_env->value);
+	pwd_env->value = ft_strdup(newpwd);
+	free(pwd_env->line);
+	pwd_env->line = var_join("PWD", newpwd);
 }

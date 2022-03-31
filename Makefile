@@ -6,7 +6,7 @@
 #    By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/03/30 17:51:37 by smagdela         ###   ########.fr        #
+#    Updated: 2022/03/30 15:10:04 by chduong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,17 +26,17 @@ RM			= 	rm -rf
 #########################################
 #				COLORS					#
 #########################################
-GREY       =   $'\033[0;30m
-RED        =   $'\033[0;31m
-GREEN      =   $'\033[0;92m
-YELLOW     =   $'\033[0;33m
-BLUE       =   $'\033[0;34m
-U_BLUE     =   $'\033[4;34m
-PURPLE     =   $'\033[0;35m
-CYAN       =   $'\033[0;96m
-WHITE      =   $'\033[0;37m
-END        =   $'\033[0;m
-BOLD       =   $'\033[1m
+GREY		=	$'\033[0;30m
+RED			=	$'\033[0;31m
+GREEN		=	$'\033[0;92m
+YELLOW		=	$'\033[0;33m
+BLUE		=	$'\033[0;34m
+U_BLUE		=	$'\033[4;34m
+PURPLE		=	$'\033[0;35m
+CYAN		=	$'\033[0;96m
+WHITE		=	$'\033[0;37m
+END			=	$'\033[0;m
+BOLD		=	$'\033[1m
 
 #########################################
 #			FLAGS COMPILATION			#
@@ -44,7 +44,7 @@ BOLD       =   $'\033[1m
 CFLAGS		=	-Wall -Wextra -Werror
 DEBUG		=	-fsanitize=address -g3
 
-INC			= 	-I includes $(INC_LFT)
+INC			=	-I includes $(INC_LFT)
 INC_LFT		=	-I libft/inc
 
 LINK		=	$(LINK_LFT) -lreadline
@@ -74,7 +74,7 @@ MS_SRC		=	main.c				utils.c			init.c\
 				${addprefix builtins/,\
 					echo.c				env.c				exit.c\
 					export.c			export_utils.c		pwd.c\
-					unset.c}\
+					unset.c				cd.c}\
 				${addprefix execution/,\
 					exec.c				pipeline.c			pipeline_utils.c\
 					exec_utils.c}

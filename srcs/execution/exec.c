@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/31 16:46:03 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/30 17:47:03 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static bool	builtins(t_token *elem, t_data *data)
 {
-/*	if (ft_strncmp(elem->cmd[0], "cd", 3) == 0)
-		cd();*/
-	if (ft_strncmp(elem->cmd[0], "echo", 5) == 0)
-		echo(elem->cmd);
+	if (ft_strncmp(elem->cmd[0], "cd", 3) == 0)
+		cd(elem->cmd[1], data);
+	else if (ft_strncmp(elem->cmd[0], "echo", 5) == 0)
+		echo(elem->cmd, data);
 	else if (ft_strncmp(elem->cmd[0], "env", 4) == 0)
 		env(data->env);
 	else if (ft_strncmp(elem->cmd[0], "exit", 5) == 0)
