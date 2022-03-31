@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:51:15 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/03/30 20:30:43 by chduong          ###   ########.fr       */
+/*   Updated: 2022/03/31 16:45:07 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	go_home(t_data *data)
 {
 	char 	*tmp;
-	t_list	*pwd_env;
 	
 	tmp = getenv("HOME");
 	if (tmp)
@@ -26,37 +25,31 @@ void	go_home(t_data *data)
 		data->status = 1;
 	}
 	if (data->status == 0)
-	{
-		pwd_env = grep("PWD", data);
-		free(pwd_env->value)
-		pwd_env->value = ft_strdup(tmp);
-		free(pwd_env->line);
-		pwd_env->line = var_join("PWD", pwd_env->value);
-	}
+		update_pwd(tmp, data);
 }
 
 void	go_back(t_data *data)
 {
 	int		i;
-	char	*pwd;
+	char	*cwd;
 	char	*tmp;
-	
-	pwd = getcwd(NULL, 0);
+	t_list	*pwd_env;
+
+	cwd = getcwd(NULL, 0);
 	i = 0;
-	while (pwd[i])
+	while (cwd[i])
 		++i;
-	while (pwd[i] != '/')
+	while (cwd[i] != '/')
 		--i;
 	tmp = malloc(sizeof(char) * i + 1);
-	ft_strlcpy(tmp, pwd, i + 1);
+	ft_strlcpy(tmp, cwd, i + 1);
+	free(cwd);
 	data->status = chdir(tmp) * -1;
 	if (data->status == 0)
-		
-	free(pwd);
-	free(tmp);
+		update_pwd(tmp, data);
 }
 
-void	old_pwd(char *old_value, t_data *data)
+void	update_oldpwd(t_data *data)
 {
 	t_list	*old;
 	
@@ -64,10 +57,12 @@ void	old_pwd(char *old_value, t_data *data)
 	free(old->line);
 	free(old->value);
 	old->value = old_value;
+	old->line = var_join("OLDPWD", old_value);
 }
 
 void    cd(char *path, t_data *data)
 {
+	update_oldpwd(data);
 	if (!path)
 		go_home(data);
 	else if (ft_strncmp(path, "../", 4) == 0 || ft_strncmp(path, "..", 3) == 0)
