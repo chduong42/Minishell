@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/30 18:49:36 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/31 12:33:40 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static bool	builtins(t_token *elem, t_data *data)
 {
-	if (ft_strncmp(elem->cmd[0], "cd", 3) == 0)
-		cd();
-	else if (ft_strncmp(elem->cmd[0], "echo", 5) == 0)
+/*	if (ft_strncmp(elem->cmd[0], "cd", 3) == 0)
+		cd();*/
+	if (ft_strncmp(elem->cmd[0], "echo", 5) == 0)
 		echo(elem->cmd);
 	else if (ft_strncmp(elem->cmd[0], "env", 4) == 0)
 		env(data->env);
@@ -33,30 +33,9 @@ static bool	builtins(t_token *elem, t_data *data)
 	return (true);
 }
 
-char	*path_join(char *path, char *cmd)
-{
-	char	*p;
-	int		len1;
-	int		len2;
-
-	if (!path || !cmd)
-		return (NULL);
-	len1 = ft_strlen(path);
-	len2 = ft_strlen(cmd);
-	p = malloc(sizeof(char) * (len1 + len2 + 2));
-	if (!p)
-		return (NULL);
-	ft_strlcpy(p, path, len1 + 1);
-	ft_strlcat(p, "/", len1 + 2);
-	ft_strlcat(p, cmd, len1 + len2 + 2);
-	return (p);
-}
-
 static void	exec_cmd(char **arg, char **envp, t_data *data)
 {
 	char	*cmd;
-	char	*pwd;
-	int		i;
 
 	cmd = get_binpath(arg[0], data);
 	if (access(cmd, X_OK) == 0)

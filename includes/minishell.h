@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/30 18:47:20 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/31 12:37:31 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ char	*path_join(char *path, char *cmd);
 char	*pop_first_cmd(t_token *elem);
 char	*pop_last_cmd(t_token *elem);
 char	*get_binpath(char *filename, t_data *data);
+char	*get_filepath(char *filename);
 
 //	BUILTINS
 void	echo(char **arg);
