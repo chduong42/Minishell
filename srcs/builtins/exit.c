@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:08:07 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/31 12:14:49 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/31 15:08:07 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,12 @@ void	exit_ms(char **arg, t_data *data)
 	nb_arg = count_str(arg);
 	if (nb_arg == 1)
 	{
-		printf("exit\n");
+		ft_putstr_fd("exit\n", 2);
 		free_exit(data, EXIT_SUCCESS);
 	}
 	else if (nb_arg == 2)
 	{
-		printf("exit\n");
+		ft_putstr_fd("exit\n", 2);
 		if (only_digit(arg[1]))
 			free_exit(data, ft_atoi(arg[1]));
 		else

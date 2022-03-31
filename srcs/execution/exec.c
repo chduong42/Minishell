@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/31 12:33:40 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/31 16:46:03 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ static void	exec_cmd(char **arg, char **envp, t_data *data)
 	cmd = get_binpath(arg[0], data);
 	if (access(cmd, X_OK) == 0)
 		execve(cmd, arg, envp);
-	free(cmd);
 	perror("MiniShell: Error");
+	free(cmd);
 	free_exit(data, 127);
 }
 
@@ -66,7 +66,7 @@ void	fork_exec(t_token *elem, char **envp, t_data *data)
 		return ;
 	pid = fork();
 	if (pid < 0)
-		return (perror("Fork failed."));
+		return (perror("MiniShell: Fork failed."));
 	else if (pid == 0)
 	{
 		if (elem->in != -1)
@@ -82,6 +82,6 @@ void	fork_exec(t_token *elem, char **envp, t_data *data)
 	if (elem->out != -1)
 		close(elem->out);
 	waitpid(pid, &wstatus, 0);
-	if (WIFEXITED(wstatus) == true)
+	if (WIFEXITED(wstatus) || WIFSIGNALED(wstatus))
 		data->status = WEXITSTATUS(wstatus);
 }

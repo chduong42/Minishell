@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 12:47:56 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/31 12:55:15 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/31 16:35:28 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	file_handler(t_data *data)
 //				When close() ?
 			}
 			else
-				perror("Minishell: Error");
+				perror("MiniShell: Error");
 			free(filepath);
 			filepath = NULL;
 		}
@@ -43,12 +43,12 @@ static void	file_handler(t_data *data)
 			filepath = get_filepath(pop_last_cmd(tmp->next));
 			if (access(filepath, W_OK) == 0 || access(filepath, F_OK) == -1)
 			{
-				fd = open(filepath, O_WRONLY | O_CREAT);
+				fd = open(filepath, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 				tmp->previous->out = fd;
 //				When close() ?
 			}
 			else
-				perror("Minishell: Error");
+				perror("MiniShell: Error");
 			free(filepath);
 			filepath = NULL;
 		}
@@ -61,12 +61,12 @@ static void	file_handler(t_data *data)
 			filepath = get_filepath(pop_last_cmd(tmp->next));
 			if (access(filepath, W_OK) == 0 || access(filepath, F_OK) == -1)
 			{
-				fd = open(filepath, O_WRONLY | O_CREAT | O_APPEND);
+				fd = open(filepath, O_WRONLY | O_CREAT | O_APPEND, 0666);
 				tmp->previous->out = fd;
 //				When close() ?
 			}
 			else
-				perror("Minishell: Error");
+				perror("MiniShell: Error");
 			free(filepath);
 			filepath = NULL;
 		}

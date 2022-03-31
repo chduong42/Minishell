@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 17:50:54 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/31 12:02:57 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/31 15:18:05 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ char	*get_binpath(char *filename, t_data *data)
 			filepath = path_join(data->path[i], filename);
 			if (access(filepath, X_OK) == 0)
 				break ;
-			free(filepath);
-			filepath = NULL;
+			if (data->path[i + 1])
+				free(filepath);
 			++i;
 		}
 	}

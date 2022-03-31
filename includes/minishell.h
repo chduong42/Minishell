@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/31 12:37:31 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/31 16:43:23 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_token
 	char			**cmd;
 	bool			to_delete;
 	int				pipefd[2];
+	int				fd;
 	int				in;
 	int				out;
 	struct s_token	*previous;

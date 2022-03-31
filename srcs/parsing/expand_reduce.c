@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 17:19:43 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/30 16:16:20 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/31 15:05:03 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	expand(t_token *elem, t_data *env_data)
 	to_free = NULL;
 	if (elem->data == NULL)
 	{
-		perror("Environment variable expansion : malloc failed.\n");
+		perror("MiniShell: malloc failed");
 		elem->data = ft_strdup("");
 		return ;
 	}
@@ -158,7 +158,7 @@ bool	reduce_words(t_token *elem, size_t end, t_token *token_list)
 	cmd = (char **)malloc(sizeof(char *) * (end - elem->index + 2));
 	if (cmd == NULL)
 	{
-		perror("malloc : reduce_words failed.");
+		perror("MiniShell: malloc failed");
 		return (false);
 	}
 	tmp = elem;
