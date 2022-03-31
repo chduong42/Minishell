@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 15:54:00 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/30 19:45:10 by chduong          ###   ########.fr       */
+/*   Updated: 2022/03/31 20:16:23 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
+	t_list *prev;
+	t_list *next;
+
+	prev = lst->prev;
+	next = lst->next;
 	if (!lst || !del)
 		return ;
 	if (lst->line)
@@ -23,5 +28,8 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *))
 	if (lst->value)
 		del(lst->value);
 	free(lst);
-	lst = NULL;
+	if (prev)
+		prev->next = next;
+	if (next)
+		next->prev = prev;
 }

@@ -6,11 +6,30 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:46:59 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/31 16:57:17 by chduong          ###   ########.fr       */
+/*   Updated: 2022/03/31 17:30:49 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+Returns true if "c" is in "charset", false otherwise.
+*/
+bool	ft_is_in_charset(char c, char *charset)
+{
+	int		i;
+
+	if (!charset || c == '\0')
+		return (false);
+	i = 0;
+	while (charset[i])
+	{
+		if (charset[i] == c)
+			return (true);
+		++i;
+	}
+	return (false);
+}
 
 /*
 Completely frees the token list, as well as data for each concerned token.

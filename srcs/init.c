@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 15:37:56 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/03/29 17:03:14 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/31 19:21:57 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,25 @@ void	data_init(t_data *data, char **envp)
 	data->newenv = 0;
 	data->export = cpy_env(data->env);
 	sort_export(data->export);
+}
+
+void	update_env(t_data *data)
+{
+	t_list *path;
+	
+	if (data->newenv == true)
+	{
+		free_tab(data->export);
+		data->export = NULL;
+		data->export = cpy_env(data->env);
+		data->newenv = false;
+	}
+	if (data->newpath == true)
+	{
+		path = grep("PATH", data);
+		free_tab(data->path);
+		data->path = NULL;
+		data->path = ft_split(path->value,':');
+		data->newpath = false;
+	}
 }

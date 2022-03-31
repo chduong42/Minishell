@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 10:31:59 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/03/28 15:23:22 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/31 18:48:15 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,27 +50,5 @@ void	sort_export(char **sort)
 			++j;
 		}
 		++i;
-	}
-}
-
-void	new_export(t_data *data)
-{
-	if (data->newenv)
-	{
-		free_tab(data->export);
-		data->export = NULL;
-		data->export = cpy_env(data->env);
-		data->newenv = false;
-	}
-}
-
-void	new_path(t_data *data)
-{
-	if (data->newpath)
-	{
-		free_tab(data->path);
-		data->path = NULL;
-		data->path = ft_split(getenv("PATH"), ':');
-		data->newpath = false;
 	}
 }

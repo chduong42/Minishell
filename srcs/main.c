@@ -3,14 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/31 12:03:49 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/31 18:47:19 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	ft_print_title(void)
+{
+	ft_putstr_fd("\n\033[0;92m::::     :::: ::::::::::: ::::    :::", 1);
+	ft_putstr_fd(" ::::::::::: ::::::::  :::    ::: :::::::::: ::: ", 1);
+	ft_putstr_fd("       :::             :::             \n", 1);
+	ft_putstr_fd("+:+:+: :+:+:+     :+:     :+:+:   :+:     :+:    ", 1);
+	ft_putstr_fd(":+:    :+: :+:    :+: :+:        :+:        :+:  ", 1);
+	ft_putstr_fd("            :+:            \n", 1);
+	ft_putstr_fd("+:+ +:+:+ +:+     +:+     :+:+:+  +:+     +:+    ", 1);
+	ft_putstr_fd("+:+        +:+    +:+ +:+        +:+        +:+  ", 1);
+	ft_putstr_fd("             +:+           \n", 1);
+	ft_putstr_fd("+#+  +:+  +#+     +#+     +#+ +:+ +#+     +#+    ", 1);
+	ft_putstr_fd("+#++:++#++ +#++:++#++ +#++:++#   +#+        +#+  ", 1);
+	ft_putstr_fd("              +#+          \n", 1);
+	ft_putstr_fd("+#+       +#+     +#+     +#+  +#+#+#     +#+    ", 1);
+	ft_putstr_fd("       +#+ +#+    +#+ +#+        +#+        +#+  ", 1);
+	ft_putstr_fd("	       +#+            \n", 1);
+	ft_putstr_fd("#+#       #+#     #+#     #+#   #+#+#     #+#    ", 1);
+	ft_putstr_fd("#+#    #+# #+#    #+# #+#        #+#        #+#  ", 1);
+	ft_putstr_fd("            #+#            \n", 1);
+	ft_putstr_fd("###       ### ########### ###    #### ###########", 1);
+	ft_putstr_fd(" ########  ###    ### ########## ########## #####", 1);
+	ft_putstr_fd("#####      ###    ##########\033[0;m\n\n", 1);
+}
 
 static void	prompt(t_data *data, char **envp)
 {
@@ -48,6 +73,7 @@ int	main(int ac, char **av, char **envp)
 		data_init(&data, envp);
 		ft_print_title();
 		prompt(&data, envp);
+		update_env(&data);
 	}
 	else
 		printf("\e[1;37mUsage:\e[0m %s runs without any argument\n", av[0]);

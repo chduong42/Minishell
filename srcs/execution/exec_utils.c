@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 17:50:54 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/31 15:18:05 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/31 18:06:17 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,23 +52,4 @@ char	*get_binpath(char *filename, t_data *data)
 		}
 	}
 	return (filepath);
-}
-
-char	*path_join(char *path, char *cmd)
-{
-	char	*p;
-	int		len1;
-	int		len2;
-
-	if (!path || !cmd)
-		return (NULL);
-	len1 = ft_strlen(path);
-	len2 = ft_strlen(cmd);
-	p = malloc(sizeof(char) * (len1 + len2 + 2));
-	if (!p)
-		return (NULL);
-	ft_strlcpy(p, path, len1 + 1);
-	ft_strlcat(p, "/", len1 + 2);
-	ft_strlcat(p, cmd, len1 + len2 + 2);
-	return (p);
 }
