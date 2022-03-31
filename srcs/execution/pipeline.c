@@ -6,28 +6,11 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 12:47:56 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/30 14:07:29 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/31 16:35:28 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static char	*get_filepath(char *filename)
-{
-	char	*pwd;
-	char	*filepath;
-
-	if (filename == NULL)
-		return (NULL);
-	if (filename[0] == '/')
-		return (filename);
-	pwd = getcwd(NULL, 0);
-	filepath = path_join(pwd, filename);
-	free(pwd);
-	free(filename);
-	filename = NULL;
-	return (filepath);
-}
 
 static void	file_handler(t_data *data)
 {
@@ -51,7 +34,7 @@ static void	file_handler(t_data *data)
 //				When close() ?
 			}
 			else
-				perror("Minishell: Error");
+				perror("MiniShell: Error");
 			free(filepath);
 			filepath = NULL;
 		}
@@ -60,30 +43,30 @@ static void	file_handler(t_data *data)
 			filepath = get_filepath(pop_last_cmd(tmp->next));
 			if (access(filepath, W_OK) == 0 || access(filepath, F_OK) == -1)
 			{
-				fd = open(filepath, O_WRONLY | O_CREAT);
+				fd = open(filepath, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 				tmp->previous->out = fd;
 //				When close() ?
 			}
 			else
-				perror("Minishell: Error");
+				perror("MiniShell: Error");
 			free(filepath);
 			filepath = NULL;
 		}
 /*		else if (tmp->type == DLESS)
 		{
 			heredoc(pop_first_cmd(tmp->next));
-		}
-*/		else if (tmp->type == DGREAT)
+		}*/
+		else if (tmp->type == DGREAT)
 		{
 			filepath = get_filepath(pop_last_cmd(tmp->next));
 			if (access(filepath, W_OK) == 0 || access(filepath, F_OK) == -1)
 			{
-				fd = open(filepath, O_WRONLY | O_CREAT | O_APPEND);
+				fd = open(filepath, O_WRONLY | O_CREAT | O_APPEND, 0666);
 				tmp->previous->out = fd;
 //				When close() ?
 			}
 			else
-				perror("Minishell: Error");
+				perror("MiniShell: Error");
 			free(filepath);
 			filepath = NULL;
 		}
@@ -91,14 +74,10 @@ static void	file_handler(t_data *data)
 	}
 }
 
-/*
-Reproduce the behavior of multiple pipes, adding file redirectors too.
-*/
-static void	redirection_handler(char **envp, t_data *data)
+static void	pipe_handler(t_data *data)
 {
 	t_token	*tmp;
 
-	file_handler(data);
 	tmp = data->token_list;
 	while (tmp)
 	{
@@ -114,10 +93,21 @@ static void	redirection_handler(char **envp, t_data *data)
 		}
 		tmp = tmp->next;
 	}
+}
+
+/*
+Reproduce the behavior of multiple pipes, adding file redirectors too.
+*/
+static void	redirection_handler(char **envp, t_data *data)
+{
+	t_token	*tmp;
+
+	file_handler(data);
+	pipe_handler(data);
 	tmp = data->token_list;
 	while (tmp)
 	{
-		if (tmp->type == WORD)
+		if (tmp->type == WORD && tmp->cmd != NULL && tmp->cmd[0] != NULL)
 			fork_exec(tmp, envp, data);
 		tmp = tmp->next;
 	}

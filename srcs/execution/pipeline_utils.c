@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 12:00:24 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/30 13:43:40 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/03/31 12:57:25 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,22 @@ char	*pop_last_cmd(t_token *elem)
 	str = elem->cmd[i];
 	elem->cmd[i] = NULL;
 	return (str);
+}
+
+char	*get_filepath(char *filename)
+{
+	char	*pwd;
+	char	*filepath;
+
+	if (filename == NULL)
+		return (NULL);
+	if (filename[0] == '/')
+		return (filename);
+	pwd = getcwd(NULL, 0);
+	filepath = path_join(pwd, filename);
+	free(pwd);
+	pwd = NULL;
+	free(filename);
+	filename = NULL;
+	return (filepath);
 }

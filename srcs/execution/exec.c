@@ -36,35 +36,13 @@ static bool	builtins(t_token *elem, t_data *data)
 static void	exec_cmd(char **arg, char **envp, t_data *data)
 {
 	char	*cmd;
-	char	*pwd;
-	int		i;
 
-	if (ft_strncmp("./", arg[0], 2) == 0)
-	{
-		pwd = getcwd(NULL, 0);
-		cmd = path_join(pwd, arg[0]);
-		free(pwd);
-		if (access(cmd, X_OK) == 0)
-			execve(cmd, arg, data->export);
-		free(cmd);
-	}
-	else if (arg[0][0] == '/')
-	{
-		if (access(arg[0], X_OK) == 0)
-			execve(arg[0], arg, data->export);
-	}
-	else
-	{
-		i = 0;
-		while (data->path[i])
-		{
-			cmd = path_join(data->path[i], arg[0]);
-			if (access(cmd, X_OK) == 0)
-				execve(cmd, arg, envp);
-			free(cmd);
-			++i;
-		}
-	}
+	cmd = get_binpath(arg[0], data);
+	if (access(cmd, X_OK) == 0)
+		execve(cmd, arg, envp);
+	perror("MiniShell: Error");
+	free(cmd);
+	free_exit(data, 127);
 }
 
 static bool	in_pipeline(t_token *elem)
@@ -88,7 +66,7 @@ void	fork_exec(t_token *elem, char **envp, t_data *data)
 		return ;
 	pid = fork();
 	if (pid < 0)
-		return (perror("Fork failed."));
+		return (perror("MiniShell: Fork failed."));
 	else if (pid == 0)
 	{
 		if (elem->in != -1)
@@ -98,14 +76,12 @@ void	fork_exec(t_token *elem, char **envp, t_data *data)
 		if (builtins(elem, data) == true)
 			free_exit(data, EXIT_SUCCESS);
 		exec_cmd(elem->cmd, envp, data);
-		perror("MiniShell: Error");
-		free_exit(data, 127);
 	}
 	if (elem->in != -1)
 		close(elem->in);
 	if (elem->out != -1)
 		close(elem->out);
 	waitpid(pid, &wstatus, 0);
-	if (WIFEXITED(wstatus) == true)
+	if (WIFEXITED(wstatus) || WIFSIGNALED(wstatus))
 		data->status = WEXITSTATUS(wstatus);
 }

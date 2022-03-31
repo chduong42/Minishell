@@ -1,44 +1,57 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/27 15:09:54 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/30 19:50:11 by chduong          ###   ########.fr       */
+/*   Created: 2022/03/30 17:50:54 by smagdela          #+#    #+#             */
+/*   Updated: 2022/03/31 15:18:05 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_tab(char **tab)
+static char	*get_binpath_aux(char *filename)
 {
-	int	i;
+	char	*pwd;
+	char	*filepath;
 
-	i = 0;
-	while (tab && tab[i])
+	filepath = NULL;
+	if (filename == NULL)
+		return (NULL);
+	else if (filename[0] == '/')
+		return (ft_strdup(filename));
+	else if (filename[0] == '.')
 	{
-		free(tab[i]);
-		tab[i++] = NULL;
+		pwd = getcwd(NULL, 0);
+		filepath = path_join(pwd, filename);
+		free(pwd);
 	}
-	if (tab)
-		free(tab);
-	tab = NULL;
+	return (filepath);
 }
 
-t_list	*grep(char *varname, t_data *data)
+char	*get_binpath(char *filename, t_data *data)
 {
-	t_list *env;
+	char	*filepath;
+	size_t	i;
 
-	env = data->env;
-	while (env)
+	if (filename == NULL || filename[0] == '/' || filename[0] == '.')
+		return (get_binpath_aux(filename));
+	else
 	{
-		if (ft_strcmp(env->var, varname) == 0)
-			return (env);
-		env = env->next;
+		i = 0;
+		while (data->path[i])
+		{
+			filepath = path_join(data->path[i], filename);
+			if (access(filepath, X_OK) == 0)
+				break ;
+			if (data->path[i + 1])
+				free(filepath);
+			++i;
+		}
 	}
-	return (NULL);
+	return (filepath);
 }
 
 char	*path_join(char *path, char *cmd)
@@ -57,24 +70,5 @@ char	*path_join(char *path, char *cmd)
 	ft_strlcpy(p, path, len1 + 1);
 	ft_strlcat(p, "/", len1 + 2);
 	ft_strlcat(p, cmd, len1 + len2 + 2);
-	return (p);
-}
-
-char	*var_join(char *var, char *value)
-{
-	char	*p;
-	int		len1;
-	int		len2;
-
-	if (!var || !value)
-		return (NULL);
-	len1 = ft_strlen(var);
-	len2 = ft_strlen(value);
-	p = malloc(sizeof(char) * (len1 + len2 + 2));
-	if (!p)
-		return (NULL);
-	ft_strlcpy(p, var, len1 + 1);
-	ft_strlcat(p, "=", len1 + 2);
-	ft_strlcat(p, value, len1 + len2 + 2);
 	return (p);
 }

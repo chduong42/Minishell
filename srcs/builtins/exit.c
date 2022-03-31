@@ -60,7 +60,6 @@ void	free_exit(t_data *data, int opt)
 	if (data->token_list)
 		free_toklist(&data->token_list);
 	rl_clear_history();
-//clear_history();  
 	exit(opt);
 }
 
@@ -81,12 +80,12 @@ void	exit_ms(char **arg, t_data *data)
 	nb_arg = count_str(arg);
 	if (nb_arg == 1)
 	{
-		printf("exit\n");
+		ft_putstr_fd("exit\n", 2);
 		free_exit(data, EXIT_SUCCESS);
 	}
 	else if (nb_arg == 2)
 	{
-		printf("exit\n");
+		ft_putstr_fd("exit\n", 2);
 		if (only_digit(arg[1]))
 			free_exit(data, ft_atoi(arg[1]));
 		else

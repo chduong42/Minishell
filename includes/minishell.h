@@ -57,9 +57,9 @@ typedef struct s_token
 	char			**cmd;
 	bool			to_delete;
 	int				pipefd[2];
+	int				fd;
 	int				in;
 	int				out;
-	int				err;
 	struct s_token	*previous;
 	struct s_token	*next;
 }	t_token;
@@ -137,12 +137,15 @@ void	reduce(t_token *elem, t_token *end, t_data *env_data,
 			t_token *token_list);
 void	expand_remaining_envar(t_token *token_list, t_data *env_data);
 void	suppress_spaces(t_token **token_list);
+void	glue_together(t_token **tmp, t_token **token_list);
 
 //	EXEC
 bool	executor(char **envp, t_data *data);
 void	fork_exec(t_token *elem, char **envp, t_data *data);
 char	*pop_first_cmd(t_token *elem);
 char	*pop_last_cmd(t_token *elem);
+char	*get_binpath(char *filename, t_data *data);
+char	*get_filepath(char *filename);
 
 //	BUILTINS
 void    cd(char *path, t_data *data);
