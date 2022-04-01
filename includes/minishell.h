@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/01 15:42:59 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/01 16:59:40 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ void	fork_exec(t_token *elem, char **envp, t_data *data);
 char	*pop_first_cmd(t_token *elem, t_data *data);
 char	*get_binpath(char *filename, t_data *data);
 char	*get_filepath(char **filename);
+void	merge_cmd(t_token *elem, t_data *data);
 
 //	BUILTINS
 //void    cd(char *path, t_data *data);

@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 12:47:56 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/01 16:10:48 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/01 16:59:58 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,12 @@ static void	file_handler(t_data *data)
 			else
 				perror("MiniShell: Error");
 			free(filepath);
+			if (tmp->previous)
+			{
+				tmp = tmp->previous;
+				lst_pop(tmp->next, &data->token_list);
+				merge_cmd(tmp, data);
+			}
 			filepath = NULL;
 		}
 		else if (tmp->type == GREAT && tmp->cmd != NULL)
@@ -58,6 +64,12 @@ static void	file_handler(t_data *data)
 			else
 				perror("MiniShell: Error");
 			free(filepath);
+			if (tmp->previous)
+			{
+				tmp = tmp->previous;
+				lst_pop(tmp->next, &data->token_list);
+				merge_cmd(tmp, data);
+			}
 			filepath = NULL;
 		}
 /*		else if (tmp->type == DLESS && tmp->cmd != NULL)
@@ -77,6 +89,12 @@ static void	file_handler(t_data *data)
 			else
 				perror("MiniShell: Error");
 			free(filepath);
+			if (tmp->previous)
+			{
+				tmp = tmp->previous;
+				lst_pop(tmp->next, &data->token_list);
+				merge_cmd(tmp, data);
+			}
 			filepath = NULL;
 		}
 		tmp = tmp->next;

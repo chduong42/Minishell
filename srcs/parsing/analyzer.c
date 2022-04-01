@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 18:42:02 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/01 15:51:55 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/01 17:11:32 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ Displays an optional syntax error message "str", and delete token_list.
 */
 static void	synerror(char *str, t_token **token_list)
 {
-	ft_putstr_fd("Minishell : Syntax Error", 2);
+	ft_putstr_fd("MiniShell : Syntax Error", 2);
 	if (str != NULL)
 		ft_putstr_fd(str, 2);
 	ft_putstr_fd("\n", 2);
