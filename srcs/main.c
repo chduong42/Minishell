@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/31 18:47:19 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/01 13:05:13 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int	main(int ac, char **av, char **envp)
 		data_init(&data, envp);
 		ft_print_title();
 		prompt(&data, envp);
-		update_env(&data);
 	}
 	else
 		printf("\e[1;37mUsage:\e[0m %s runs without any argument\n", av[0]);

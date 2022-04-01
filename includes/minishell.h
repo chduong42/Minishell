@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/31 18:51:12 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/01 13:04:48 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ char	**cpy_env(t_list *env);
 
 void	data_init(t_data *data, char **envp);
 void	sort_export(char **sort);
-void	update_env(t_data *data);
+// void	update_env(t_data *data);
 
 //	PARSING
 t_token	*lexer(char *input);

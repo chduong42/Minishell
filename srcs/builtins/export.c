@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 12:11:03 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/03/31 18:41:55 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/01 13:06:57 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,28 @@ void	print_export(t_data *data)
 		printf("%s\n", data->export[i++]);
 }
 
+void update_env(t_data *data)
+{
+	t_list *path;
+
+	if (data->newenv == true)
+	{
+		free(data->export);
+		data->export = NULL;
+		data->export = cpy_env(data->env);
+		sort_export(data->export);
+		data->newenv = false;
+	}
+	if (data->newpath == true)
+	{
+		path = grep("PATH", data);
+		free_tab(data->path);
+		data->path = NULL;
+		data->path = ft_split(path->value,':');
+		data->newpath = false;
+	}
+}
+
 void	export(char **arg, t_data *data)
 {
 	int		i;
@@ -70,4 +92,5 @@ void	export(char **arg, t_data *data)
 	}
 	else
 		print_export(data);
+	update_env(data);
 }
