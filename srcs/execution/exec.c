@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/30 17:47:03 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/01 15:57:45 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static bool	builtins(t_token *elem, t_data *data)
 {
-	if (ft_strncmp(elem->cmd[0], "cd", 3) == 0)
-		cd(elem->cmd[1], data);
-	else if (ft_strncmp(elem->cmd[0], "echo", 5) == 0)
+/*	if (ft_strncmp(elem->cmd[0], "cd", 3) == 0)
+		cd(elem->cmd[1], data);*/
+	if (ft_strncmp(elem->cmd[0], "echo", 5) == 0)
 		echo(elem->cmd, data);
 	else if (ft_strncmp(elem->cmd[0], "env", 4) == 0)
 		env(data->env);
@@ -78,9 +78,15 @@ void	fork_exec(t_token *elem, char **envp, t_data *data)
 		exec_cmd(elem->cmd, envp, data);
 	}
 	if (elem->in != -1)
+	{
 		close(elem->in);
+		elem->in = -1;
+	}
 	if (elem->out != -1)
+	{
 		close(elem->out);
+		elem->out = -1;
+	}
 	waitpid(pid, &wstatus, 0);
 	if (WIFEXITED(wstatus) || WIFSIGNALED(wstatus))
 		data->status = WEXITSTATUS(wstatus);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/31 16:57:24 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/01 15:42:59 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ char	*path_join(char *path, char *cmd);
 char	*var_join(char *var, char *value);
 
 bool	ft_is_in_charset(char c, char *charset);
+
 size_t	find_char_set(const char *str, char *charset);
 
 t_list	*grep(char *varname, t_data *data);
@@ -123,7 +124,7 @@ size_t	is_closed(t_token *elem, t_token_type elem_type);
 bool	categorizer(t_input *input, t_token **token_list);
 bool	create_token(t_token_type type, char *data, t_token **list);
 bool	checker_quotes(t_token *token_list, t_data *env_data);
-bool	checker_redir(t_token *token_list);
+bool	checker_redir(t_token *token_list, t_data *data);
 bool	checker_words(t_token *token_list);
 bool	reduce_words(t_token *elem, size_t end, t_token *token_list);
 
@@ -142,13 +143,12 @@ void	glue_together(t_token **tmp, t_token **token_list);
 //	EXEC
 bool	executor(char **envp, t_data *data);
 void	fork_exec(t_token *elem, char **envp, t_data *data);
-char	*pop_first_cmd(t_token *elem);
-char	*pop_last_cmd(t_token *elem);
+char	*pop_first_cmd(t_token *elem, t_data *data);
 char	*get_binpath(char *filename, t_data *data);
-char	*get_filepath(char *filename);
+char	*get_filepath(char **filename);
 
 //	BUILTINS
-void    cd(char *path, t_data *data);
+//void    cd(char *path, t_data *data);
 void	echo(char **arg, t_data *data);
 void	exit_ms(char **arg, t_data *data);
 void	export(char **arg, t_data *data);

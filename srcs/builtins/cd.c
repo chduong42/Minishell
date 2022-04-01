@@ -6,12 +6,12 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:51:15 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/03/31 16:45:07 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/01 12:13:26 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*
 void	go_home(t_data *data)
 {
 	char 	*tmp;
@@ -74,3 +74,4 @@ void    cd(char *path, t_data *data)
 	// else
 	// 	chdir(path);
 }
+*/

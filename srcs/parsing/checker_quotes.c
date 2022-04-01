@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 10:53:09 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/25 14:45:14 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/01 14:40:28 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	trim_wordspaces(t_token *elem)
 }
 */
 
-static bool	squote_manager(t_token *tmp, t_token *token_list)
+static bool	squote_manager(t_token *tmp, t_data *env_data, t_token *token_list)
 {
 	t_token	*ends_elem;
 	size_t	ends;
@@ -72,6 +72,9 @@ static bool	squote_manager(t_token *tmp, t_token *token_list)
 			reduce_all(tmp, ends_elem, token_list);
 		else
 			relink_toklist(tmp, tmp->next->next, ft_strdup(""), &token_list);
+		if (tmp->previous && tmp->previous->type == VAR
+			&& ft_strcmp(tmp->previous->data, "$") == 0)
+			expand(tmp->previous, env_data);
 		return (true);
 	}
 	return (false);
@@ -92,6 +95,9 @@ static bool	dquote_manager(t_token *tmp, t_data *env_data, t_token *token_list)
 			reduce(tmp, endd_elem, env_data, token_list);
 		else
 			relink_toklist(tmp, tmp->next->next, ft_strdup(""), &token_list);
+		if (tmp->previous && tmp->previous->type == VAR
+			&& ft_strcmp(tmp->previous->data, "$") == 0)
+			expand(tmp->previous, env_data);
 		return (true);
 	}
 	return (false);
@@ -113,7 +119,7 @@ bool	checker_quotes(t_token *token_list, t_data *env_data)
 	while (tmp != NULL && ret == true)
 	{
 		if (tmp->type == SQUOTE)
-			ret = squote_manager(tmp, token_list);
+			ret = squote_manager(tmp, env_data, token_list);
 		else if (tmp->type == DQUOTE)
 			ret = dquote_manager(tmp, env_data, token_list);
 		tmp = tmp->next;
