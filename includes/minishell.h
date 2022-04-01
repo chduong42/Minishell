@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/01 16:59:40 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/01 19:08:17 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ typedef struct s_data
 
 //	UTILS
 void	ft_print_title(void);
+void	print_tab(char **tab);
 
 char	*my_strcat(char *dest, char *str);
 char	*path_join(char *path, char *cmd);
@@ -124,7 +125,7 @@ size_t	is_closed(t_token *elem, t_token_type elem_type);
 bool	categorizer(t_input *input, t_token **token_list);
 bool	create_token(t_token_type type, char *data, t_token **list);
 bool	checker_quotes(t_token *token_list, t_data *env_data);
-bool	checker_redir(t_token *token_list, t_data *data);
+bool	checker_redir(t_token *token_list);
 bool	checker_words(t_token *token_list);
 bool	reduce_words(t_token *elem, size_t end, t_token *token_list);
 
@@ -143,7 +144,7 @@ void	glue_together(t_token **tmp, t_token **token_list);
 //	EXEC
 bool	executor(char **envp, t_data *data);
 void	fork_exec(t_token *elem, char **envp, t_data *data);
-char	*pop_first_cmd(t_token *elem, t_data *data);
+char	*pop_first_cmd(t_token **elem, t_data *data);
 char	*get_binpath(char *filename, t_data *data);
 char	*get_filepath(char **filename);
 void	merge_cmd(t_token *elem, t_data *data);

@@ -6,13 +6,13 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 13:40:03 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/01 15:34:28 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/01 19:09:29 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	print_tab(char **tab)
+static void	print_tabhere(char **tab)
 {
 	size_t	i;
 
@@ -30,7 +30,7 @@ static void	type_display(t_token *tmp)
 	if (tmp->type == WORD && tmp->cmd != NULL)
 	{
 		printf("%zu WORD (cmd) : ", tmp->index);
-		print_tab(tmp->cmd);
+		print_tabhere(tmp->cmd);
 	}
 	else if (tmp->type == WORD && tmp->data != NULL)
 		printf("%zu WORD (data) : [%s]\n", tmp->index, tmp->data);

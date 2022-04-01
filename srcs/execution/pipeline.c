@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 12:47:56 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/01 16:59:58 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/01 19:08:44 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,20 @@ static void	file_handler(t_data *data)
 	tmp = data->token_list;
 	while (tmp)
 	{
+		if (tmp->type == LESS || tmp->type == DLESS
+			|| tmp->type == GREAT || tmp->type == DGREAT)
+		{
+			tmp->cmd = malloc(sizeof(char *) * 2);
+			if (tmp->cmd == NULL)
+			{
+				perror("MiniShell: malloc failed");
+				return ;
+			}
+			tmp->cmd[0] = pop_first_cmd(&(tmp->next), data);
+			tmp->cmd[1] = NULL;
+			print_tab(tmp->cmd);
+			print_tab(tmp->next->cmd);
+		}
 		if (tmp->type == LESS && tmp->cmd != NULL)
 		{
 			filepath = get_filepath(&tmp->cmd[0]);

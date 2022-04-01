@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:09:54 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/01 17:09:03 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/01 17:44:52 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	free_tab(char **tab)
 
 t_list	*grep(char *varname, t_data *data)
 {
-	t_list *env;
+	t_list	*env;
 
 	env = data->env;
 	while (env)

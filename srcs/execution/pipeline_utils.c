@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 12:00:24 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/01 17:13:26 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/01 19:12:23 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ static char	**ft_tabcat(char **tab1, char **tab2)
 	j = -1;
 	while (tab2 && tab2[++j])
 		new_tab[j + i] = ft_strdup(tab2[j]);
+	if ((j + i) < 0)
+		j = -1 * i;
 	new_tab[j + i] = NULL;
 	free_tab(tab1);
 	return (new_tab);
@@ -64,22 +66,38 @@ void	merge_cmd(t_token *elem, t_data *data)
 	}
 }
 
+void	print_tab(char **tab)
+{
+	size_t	i;
+
+	printf("Printing tab:\n");
+	if (tab == NULL)
+		return ;
+	i = 0;
+	while (tab[i])
+	{
+		printf("%luth element of tab = [%s]\n", i, tab[i]);
+		++i;
+	}
+}
+
 /*
 Removes the first string from the string array "cmd" in token elem.
 Returns this string, or NULL if any error occurs.
 */
-char	*pop_first_cmd(t_token *elem, t_data *data)
+char	*pop_first_cmd(t_token **elem, t_data *data)
 {
 	char	*str;
 	char	**cmd_tmp;
 	size_t	i;
 
-	if (elem == NULL || elem->type != WORD || elem->cmd == NULL)
+	if (*elem == NULL || (*elem)->type != WORD || (*elem)->cmd == NULL)
 		return (NULL);
-	str = ft_strdup(elem->cmd[0]);
-	i = ft_tablen(elem->cmd);
+	str = ft_strdup((*elem)->cmd[0]);
+	printf("popping [%s]\n", (*elem)->cmd[0]);
+	i = ft_tablen((*elem)->cmd);
 	if (i <= 1)
-		lst_pop(elem, &data->token_list);
+		lst_pop(*elem, &data->token_list);
 	else
 	{
 		cmd_tmp = malloc(sizeof(char *) * i);
@@ -90,13 +108,19 @@ char	*pop_first_cmd(t_token *elem, t_data *data)
 			return (NULL);
 		}
 		i = 0;
-		while (elem->cmd[i] != NULL)
+		while ((*elem)->cmd && (*elem)->cmd[i] && (*elem)->cmd[i][0])
 		{
-			cmd_tmp[i] = elem->cmd[i + 1];
+			printf("strduping [%s]\n", (*elem)->cmd[i + 1]);
+			if ((*elem)->cmd[i + 1] == NULL)
+			{
+				cmd_tmp[i] = NULL;
+				break ;
+			}
+			cmd_tmp[i] = ft_strdup((*elem)->cmd[i + 1]);
 			++i;
 		}
-		free(elem->cmd);
-		elem->cmd = cmd_tmp;
+		free_tab((*elem)->cmd);
+		(*elem)->cmd = cmd_tmp;
 	}
 	return (str);
 }

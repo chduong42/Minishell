@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 18:42:02 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/01 17:11:32 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/01 18:13:08 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_token	*analyzer(t_token *token_list, t_data *env_data)
 		synerror(" : Near token word.", &token_list);
 		return (token_list);
 	}
-	if (checker_redir(token_list, env_data) == false)
+	if (checker_redir(token_list) == false)
 	{
 		synerror(" : Near redirection token.", &token_list);
 		return (token_list);
