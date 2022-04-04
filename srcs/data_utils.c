@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_utils.c                                       :+:      :+:    :+:   */
+/*   data_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 10:31:59 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/04/04 14:15:23 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/04 18:20:39 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ void	sort_export(char **sort)
 	}
 }
 
-void update_env(t_data *data)
+void	update_env(t_data *data)
 {
-	t_list *path;
+	t_list	*path;
 
 	if (data->newenv == true)
 	{
@@ -70,7 +70,7 @@ void update_env(t_data *data)
 		path = grep("PATH", data);
 		free_tab(data->path);
 		data->path = NULL;
-		data->path = ft_split(path->value,':');
+		data->path = ft_split(path->value, ':');
 		data->newpath = false;
 	}
 }
