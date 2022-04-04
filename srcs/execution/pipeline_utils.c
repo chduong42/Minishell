@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 12:00:24 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/01 19:12:23 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/04 12:05:12 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,21 +66,6 @@ void	merge_cmd(t_token *elem, t_data *data)
 	}
 }
 
-void	print_tab(char **tab)
-{
-	size_t	i;
-
-	printf("Printing tab:\n");
-	if (tab == NULL)
-		return ;
-	i = 0;
-	while (tab[i])
-	{
-		printf("%luth element of tab = [%s]\n", i, tab[i]);
-		++i;
-	}
-}
-
 /*
 Removes the first string from the string array "cmd" in token elem.
 Returns this string, or NULL if any error occurs.
@@ -94,7 +79,6 @@ char	*pop_first_cmd(t_token **elem, t_data *data)
 	if (*elem == NULL || (*elem)->type != WORD || (*elem)->cmd == NULL)
 		return (NULL);
 	str = ft_strdup((*elem)->cmd[0]);
-	printf("popping [%s]\n", (*elem)->cmd[0]);
 	i = ft_tablen((*elem)->cmd);
 	if (i <= 1)
 		lst_pop(*elem, &data->token_list);
@@ -110,7 +94,6 @@ char	*pop_first_cmd(t_token **elem, t_data *data)
 		i = 0;
 		while ((*elem)->cmd && (*elem)->cmd[i] && (*elem)->cmd[i][0])
 		{
-			printf("strduping [%s]\n", (*elem)->cmd[i + 1]);
 			if ((*elem)->cmd[i + 1] == NULL)
 			{
 				cmd_tmp[i] = NULL;

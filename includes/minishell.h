@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/01 19:08:17 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/04 12:02:05 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ typedef struct s_data
 
 //	UTILS
 void	ft_print_title(void);
-void	print_tab(char **tab);
 
 char	*my_strcat(char *dest, char *str);
 char	*path_join(char *path, char *cmd);

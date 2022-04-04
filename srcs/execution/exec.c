@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/01 15:57:45 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/04 12:59:38 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,19 @@
 
 static bool	builtins(t_token *elem, t_data *data)
 {
+	int	stdin_save;
+	int	stdout_save;
+
+	if (elem->in != -1)
+	{
+		stdin_save = dup(0);
+		dup2(elem->in, 0);
+	}
+	if (elem->out != -1)
+	{
+		stdout_save = dup(1);
+		dup2(elem->out, 1);
+	}
 /*	if (ft_strncmp(elem->cmd[0], "cd", 3) == 0)
 		cd(elem->cmd[1], data);*/
 	if (ft_strncmp(elem->cmd[0], "echo", 5) == 0)
@@ -29,7 +42,31 @@ static bool	builtins(t_token *elem, t_data *data)
 	else if (ft_strncmp(elem->cmd[0], "unset", 6) == 0)
 		unset(elem->cmd, data);
 	else
+	{
+		if (elem->in != -1)
+		{
+			close(elem->in);
+			dup2(0, stdin_save);
+		}
+		if (elem->out != -1)
+		{
+			close(elem->out);
+			dup2(1, stdout_save);
+		}
 		return (false);
+	}
+	if (elem->in != -1)
+	{
+		close(elem->in);
+		dup2(0, stdin_save);
+		elem->in = -1;
+	}
+	if (elem->out != -1)
+	{
+		close(elem->out);
+		dup2(1, stdout_save);
+		elem->out = -1;
+	}
 	return (true);
 }
 
