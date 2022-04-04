@@ -6,46 +6,38 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 12:11:03 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/03/30 19:48:52 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/04 14:22:31 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	is_new_var(char *var, t_data *data)
+static bool	is_new_var(char *var, t_data *data)
 {
 	t_list	*env;
 
-	env = data->env;
-	while (env)
-	{
-		if (ft_strcmp(env->var, var) == 0)
-			return (false);
-		env = env->next;
-	}
-	return (true);
+	env = grep(var, data);
+	if (!env)
+		return (true);
+	else
+		return (false);
 }
 
-void	change_var(char *envl, char **arg, t_data *data)
+static void	change_var(char *envl, char **arg, t_data *data)
 {
 	t_list	*env;
 
-	env = data->env;
-	while (env)
-	{
-		if (ft_strcmp(arg[0], env->var) == 0)
-		{
-			free(env->line);
-			env->line = ft_strdup(envl);
-			free(env->value);
-			env->value = ft_strdup(arg[1]);
-			break ;
-		}
-		env = env->next;
-	}
+	env = grep(arg[0], data);
+	free(env->line);
+	env->line = ft_strdup(envl);
+	free(env->value);
+	if (arg[1])
+		env->value = ft_strdup(arg[1]);
+	else
+		env->value = NULL;
 }
 
-void	print_export(t_data *data)
+static void	print_export(t_data *data)
 {
 	int	i;
 
@@ -65,8 +57,10 @@ void	export(char **arg, t_data *data)
 		while (arg[i])
 		{
 			tmp = ft_split(arg[i], '=');
+			if (ft_strncmp(tmp[0], "PATH", 5) == 0)
+				data->newpath = true;
 			if (is_new_var(tmp[0], data))
-				ft_lstadd_back(&data->env, ft_lstnew(arg[1], tmp[0], tmp[1]));
+				ft_lstadd_back(&data->env, ft_lstnew(arg[i], tmp[0], tmp[1]));
 			else
 				change_var(arg[i], tmp, data);
 			free_tab(tmp);
@@ -76,4 +70,5 @@ void	export(char **arg, t_data *data)
 	}
 	else
 		print_export(data);
+	update_env(data);
 }

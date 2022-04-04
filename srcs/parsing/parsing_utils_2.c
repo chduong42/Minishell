@@ -13,6 +13,25 @@
 #include "minishell.h"
 
 /*
+Returns true if "c" is in "charset", false otherwise.
+*/
+bool	ft_is_in_charset(char c, char *charset)
+{
+	int		i;
+
+	if (!charset || c == '\0')
+		return (false);
+	i = 0;
+	while (charset[i])
+	{
+		if (charset[i] == c)
+			return (true);
+		++i;
+	}
+	return (false);
+}
+
+/*
 Completely frees the token list, as well as data for each concerned token.
 Returns -1 (for norm and ease of code reasons).
 */

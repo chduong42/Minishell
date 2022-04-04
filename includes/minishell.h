@@ -13,6 +13,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include <stdio.h>
+# include <errno.h>
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -82,8 +83,6 @@ typedef struct s_data
 }			t_data;
 
 //	UTILS
-void	ft_print_title(void);
-
 char	*my_strcat(char *dest, char *str);
 char	*path_join(char *path, char *cmd);
 char	*var_join(char *var, char *value);
@@ -96,12 +95,15 @@ t_list	*grep(char *varname, t_data *data);
 
 //	FREE MEMORIES
 char	*cleaner(char *str_in);
-
 void	free_tab(char **tab);
 void	free_exit(t_data *data, int opt);
 
-// DATA INIT
+//	DATA FUNCTIONS
+char	**cpy_env(t_list *env);
+
 void	data_init(t_data *data, char **envp);
+void	sort_export(char **sort);
+void	update_env(t_data *data);
 
 //	PARSING
 t_token	*lexer(char *input);
@@ -162,13 +164,5 @@ void	export(char **arg, t_data *data);
 void	env(t_list *env);
 void	pwd(void);
 void	unset(char **arg, t_data *data);
-
-// BUILTINS UTILS
-char	**cpy_env(t_list *env);
-
-void	new_export(t_data *data);
-void	new_path(t_data *data);
-void	sort_export(char **sort);
-void	update_pwd(char *newpwd, t_data *data);
 
 #endif

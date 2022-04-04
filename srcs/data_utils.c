@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_utils.c                                     :+:      :+:    :+:   */
+/*   init_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 10:31:59 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/03/28 15:23:22 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/04 14:15:23 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,24 +53,24 @@ void	sort_export(char **sort)
 	}
 }
 
-void	new_export(t_data *data)
+void update_env(t_data *data)
 {
-	if (data->newenv)
+	t_list *path;
+
+	if (data->newenv == true)
 	{
-		free_tab(data->export);
+		free(data->export);
 		data->export = NULL;
 		data->export = cpy_env(data->env);
+		sort_export(data->export);
 		data->newenv = false;
 	}
-}
-
-void	new_path(t_data *data)
-{
-	if (data->newpath)
+	if (data->newpath == true)
 	{
+		path = grep("PATH", data);
 		free_tab(data->path);
 		data->path = NULL;
-		data->path = ft_split(getenv("PATH"), ':');
+		data->path = ft_split(path->value,':');
 		data->newpath = false;
 	}
 }

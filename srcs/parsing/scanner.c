@@ -6,30 +6,11 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 18:31:12 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/31 16:57:19 by chduong          ###   ########.fr       */
+/*   Updated: 2022/03/31 17:30:37 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*
-Returns true if "c" is in "charset", false otherwise.
-*/
-bool	ft_is_in_charset(char c, char *charset)
-{
-	int		i;
-
-	if (!charset || c == '\0')
-		return (false);
-	i = 0;
-	while (charset[i])
-	{
-		if (charset[i] == c)
-			return (true);
-		++i;
-	}
-	return (false);
-}
 
 static int	categorizer_aux(t_input *input, t_token **token_list)
 {
@@ -89,32 +70,4 @@ t_token	*scanner(const char *str)
 			break ;
 	}
 	return (token_list);
-}
-
-/*
-Printing introduction banner...
-*/
-void	ft_print_title(void)
-{
-	ft_putstr_fd("\n\033[0;92m::::     :::: ::::::::::: ::::    :::", 1);
-	ft_putstr_fd(" ::::::::::: ::::::::  :::    ::: :::::::::: ::: ", 1);
-	ft_putstr_fd("       :::             :::             \n", 1);
-	ft_putstr_fd("+:+:+: :+:+:+     :+:     :+:+:   :+:     :+:    ", 1);
-	ft_putstr_fd(":+:    :+: :+:    :+: :+:        :+:        :+:  ", 1);
-	ft_putstr_fd("            :+:            \n", 1);
-	ft_putstr_fd("+:+ +:+:+ +:+     +:+     :+:+:+  +:+     +:+    ", 1);
-	ft_putstr_fd("+:+        +:+    +:+ +:+        +:+        +:+  ", 1);
-	ft_putstr_fd("             +:+           \n", 1);
-	ft_putstr_fd("+#+  +:+  +#+     +#+     +#+ +:+ +#+     +#+    ", 1);
-	ft_putstr_fd("+#++:++#++ +#++:++#++ +#++:++#   +#+        +#+  ", 1);
-	ft_putstr_fd("              +#+          \n", 1);
-	ft_putstr_fd("+#+       +#+     +#+     +#+  +#+#+#     +#+    ", 1);
-	ft_putstr_fd("       +#+ +#+    +#+ +#+        +#+        +#+  ", 1);
-	ft_putstr_fd("	       +#+            \n", 1);
-	ft_putstr_fd("#+#       #+#     #+#     #+#   #+#+#     #+#    ", 1);
-	ft_putstr_fd("#+#    #+# #+#    #+# #+#        #+#        #+#  ", 1);
-	ft_putstr_fd("            #+#            \n", 1);
-	ft_putstr_fd("###       ### ########### ###    #### ###########", 1);
-	ft_putstr_fd(" ########  ###    ### ########## ########## #####", 1);
-	ft_putstr_fd("#####      ###    ##########\033[0;m\n\n", 1);
 }

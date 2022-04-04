@@ -3,14 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/04 15:49:53 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/01 13:05:13 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	ft_print_title(void)
+{
+	ft_putstr_fd("\n\033[0;92m::::     :::: ::::::::::: ::::    :::", 1);
+	ft_putstr_fd(" ::::::::::: ::::::::  :::    ::: :::::::::: ::: ", 1);
+	ft_putstr_fd("       :::             :::             \n", 1);
+	ft_putstr_fd("+:+:+: :+:+:+     :+:     :+:+:   :+:     :+:    ", 1);
+	ft_putstr_fd(":+:    :+: :+:    :+: :+:        :+:        :+:  ", 1);
+	ft_putstr_fd("            :+:            \n", 1);
+	ft_putstr_fd("+:+ +:+:+ +:+     +:+     :+:+:+  +:+     +:+    ", 1);
+	ft_putstr_fd("+:+        +:+    +:+ +:+        +:+        +:+  ", 1);
+	ft_putstr_fd("             +:+           \n", 1);
+	ft_putstr_fd("+#+  +:+  +#+     +#+     +#+ +:+ +#+     +#+    ", 1);
+	ft_putstr_fd("+#++:++#++ +#++:++#++ +#++:++#   +#+        +#+  ", 1);
+	ft_putstr_fd("              +#+          \n", 1);
+	ft_putstr_fd("+#+       +#+     +#+     +#+  +#+#+#     +#+    ", 1);
+	ft_putstr_fd("       +#+ +#+    +#+ +#+        +#+        +#+  ", 1);
+	ft_putstr_fd("	       +#+            \n", 1);
+	ft_putstr_fd("#+#       #+#     #+#     #+#   #+#+#     #+#    ", 1);
+	ft_putstr_fd("#+#    #+# #+#    #+# #+#        #+#        #+#  ", 1);
+	ft_putstr_fd("            #+#            \n", 1);
+	ft_putstr_fd("###       ### ########### ###    #### ###########", 1);
+	ft_putstr_fd(" ########  ###    ### ########## ########## #####", 1);
+	ft_putstr_fd("#####      ###    ##########\033[0;m\n\n", 1);
+}
 
 static void	prompt(t_data *data, char **envp)
 {
