@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   data_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 15:37:56 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/04/01 12:56:48 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/04/04 18:37:39 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	data_init(t_data *data, char **envp)
 		init_env(data, envp);
 	else
 		create_env(data);
-	data->newenv = 0;
 	data->export = cpy_env(data->env);
 	sort_export(data->export);
 }

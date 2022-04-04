@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 10:31:59 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/04/04 18:24:48 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/04 18:39:56 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,19 +57,13 @@ void	update_env(t_data *data)
 {
 	t_list	*path;
 
-	if (data->newenv == true)
-	{
-		free(data->export);
-		data->export = NULL;
-		data->export = cpy_env(data->env);
-		sort_export(data->export);
-		data->newenv = false;
-	}
+	free(data->export);
+	data->export = cpy_env(data->env);
+	sort_export(data->export);
 	if (data->newpath == true)
 	{
 		path = grep("PATH", data);
 		free_tab(data->path);
-		data->path = NULL;
 		data->path = ft_split(path->value, ':');
 		data->newpath = false;
 	}
