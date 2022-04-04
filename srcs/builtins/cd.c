@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:51:15 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/04/04 18:02:59 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/04 18:25:24 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	update_oldpwd(t_data *data)
 	t_list	*old;
 	t_list	*pwd;
 	char	*tmp;
-	
+
 	pwd = grep("PWD", data);
 	old = grep("OLDPWD", data);
 	if (old)
@@ -39,7 +39,7 @@ void	update_pwd(char *path, t_data *data)
 {
 	char	*newpwd;
 	t_list	*pwd_env;
-	
+
 	if (data->status == 0)
 	{
 		newpwd = getcwd(NULL, 0);
@@ -71,7 +71,7 @@ void	go_home(t_data *data)
 	}
 }
 
-void    cd(char *path, t_data *data)
+void	cd(char *path, t_data *data)
 {
 	update_oldpwd(data);
 	if (!path)
@@ -84,4 +84,3 @@ void    cd(char *path, t_data *data)
 	data->newenv = true;
 	update_env(data);
 }
-*/
