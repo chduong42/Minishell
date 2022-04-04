@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/04 17:41:16 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/04 17:57:40 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ typedef struct s_token
 	char			**cmd;
 	bool			to_delete;
 	int				pipefd[2];
-	int				fd;
 	int				in;
 	int				out;
 	struct s_token	*previous;
@@ -89,6 +88,7 @@ char	*path_join(char *path, char *cmd);
 char	*var_join(char *var, char *value);
 
 bool	ft_is_in_charset(char c, char *charset);
+
 size_t	find_char_set(const char *str, char *charset);
 
 t_list	*grep(char *varname, t_data *data);
@@ -143,11 +143,18 @@ void	glue_together(t_token **tmp, t_token **token_list);
 
 //	EXEC
 bool	executor(char **envp, t_data *data);
-void	fork_exec(t_token *elem, char **envp, t_data *data);
-char	*pop_first_cmd(t_token *elem);
-char	*pop_last_cmd(t_token *elem);
+bool	in_pipeline(t_token *elem);
+bool	exec_builtins(t_token *elem, t_data *data);
+
+char	*pop_first_cmd(t_token **elem, t_data *data);
 char	*get_binpath(char *filename, t_data *data);
-char	*get_filepath(char *filename);
+char	*get_filepath(char **filename);
+
+void	fork_exec(t_token *elem, char **envp, t_data *data);
+void	merge_cmd(t_token *elem, t_data *data);
+void	file_handler(t_data *data);
+void	for_child(t_token *elem, t_data *data, char **envp);
+void	heredoc(char *delim);
 
 //	BUILTINS
 void    cd(char *path, t_data *data);

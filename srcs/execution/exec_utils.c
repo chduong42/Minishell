@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 17:50:54 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/31 18:06:17 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/04 17:24:55 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,45 @@ char	*get_binpath(char *filename, t_data *data)
 		}
 	}
 	return (filepath);
+}
+
+void	exec_cmd(char **arg, char **envp, t_data *data)
+{
+	char	*cmd;
+
+	cmd = get_binpath(arg[0], data);
+	if (access(cmd, X_OK) == 0)
+		execve(cmd, arg, envp);
+	perror("MiniShell: Error");
+	free(cmd);
+	free_exit(data, 127);
+}
+
+bool	in_pipeline(t_token *elem)
+{
+	if (elem == NULL)
+		return (false);
+	if (elem->previous == NULL || elem->previous->type != PIPE)
+	{
+		if (elem->next == NULL || elem->next->type != PIPE)
+			return (false);
+	}
+	return (true);
+}
+
+void	for_child(t_token *elem, t_data *data, char **envp)
+{
+	if (elem->in != -1)
+	{
+		if (dup2(elem->in, 0) == -1)
+			return (perror("MiniShell: Error"));
+	}
+	if (elem->out != -1)
+	{
+		if (dup2(elem->out, 1) == -1)
+			return (perror("MiniShell: Error"));
+	}
+	if (exec_builtins(elem, data) == true)
+		free_exit(data, EXIT_SUCCESS);
+	exec_cmd(elem->cmd, envp, data);
 }

@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 15:15:08 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/25 14:45:14 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/01 18:18:07 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static bool	is_valid_pipe(t_token *elem)
 	{
 		if (elem->previous == NULL || elem->previous->type != WORD)
 			return (false);
-		if (elem->next == NULL || elem->next->type != WORD)
+		if (elem->next == NULL)
 			return (false);
 		return (true);
 	}
@@ -29,8 +29,6 @@ static bool	is_valid_less(t_token *elem)
 {
 	if (elem->type == LESS || elem->type == DLESS)
 	{
-		if (elem->previous != NULL && elem->previous->type != WORD)
-			return (false);
 		if (elem->next == NULL || elem->next->type != WORD)
 			return (false);
 		return (true);
@@ -42,7 +40,7 @@ static bool	is_valid_great(t_token *elem)
 {
 	if (elem->type == GREAT || elem->type == DGREAT)
 	{
-		if (elem->previous != NULL && elem->previous->type != WORD)
+		if (elem->previous == NULL || elem->previous->type != WORD)
 			return (false);
 		if (elem->next == NULL || elem->next->type != WORD)
 			return (false);

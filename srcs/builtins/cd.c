@@ -84,3 +84,4 @@ void    cd(char *path, t_data *data)
 	data->newenv = true;
 	update_env(data);
 }
+*/

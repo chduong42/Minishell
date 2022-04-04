@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 18:55:04 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/28 14:46:05 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/01 14:27:50 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	categ_3(t_input *input, t_token **token_list)
 }
 
 /*
-Env variables.
+Environment variables.
 */
 int	categ_4(t_input *input, t_token **token_list)
 {

@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 18:42:02 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/30 16:50:02 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/01 18:13:08 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ Displays an optional syntax error message "str", and delete token_list.
 */
 static void	synerror(char *str, t_token **token_list)
 {
-	ft_putstr_fd("Minishell : Syntax Error", 2);
+	ft_putstr_fd("MiniShell : Syntax Error", 2);
 	if (str != NULL)
 		ft_putstr_fd(str, 2);
 	ft_putstr_fd("\n", 2);
@@ -39,7 +39,7 @@ static t_token	*last_check(t_token *token_list)
 			|| tmp->type == SQUOTE
 			|| (token_list->next == NULL && token_list->type != WORD))
 		{
-			synerror(" : Analyzer failure.", &token_list);
+			synerror(NULL, &token_list);
 			break ;
 		}
 		tmp = tmp->next;
@@ -71,6 +71,5 @@ t_token	*analyzer(t_token *token_list, t_data *env_data)
 		synerror(" : Near redirection token.", &token_list);
 		return (token_list);
 	}
-	token_list = last_check(token_list);
-	return (token_list);
+	return (last_check(token_list));
 }

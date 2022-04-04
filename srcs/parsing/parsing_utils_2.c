@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:46:59 by smagdela          #+#    #+#             */
-/*   Updated: 2022/03/31 17:30:49 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/04 14:21:39 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@ int	free_toklist(t_token **list)
 			free(tmp->data);
 		if (tmp->cmd != NULL)
 			free_tab(tmp->cmd);
+		if (tmp->in != -1)
+			close(tmp->in);
+		if (tmp->out != -1)
+			close(tmp->out);
 		to_free = tmp;
 		tmp = tmp->next;
 		free(to_free);
