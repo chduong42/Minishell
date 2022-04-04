@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   data_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 10:31:59 by kennyduong        #+#    #+#             */
 /*   Updated: 2022/04/04 18:24:48 by chduong          ###   ########.fr       */
