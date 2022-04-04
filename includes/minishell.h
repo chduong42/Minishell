@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/04 16:41:44 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/04 17:57:40 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,14 +141,21 @@ void	glue_together(t_token **tmp, t_token **token_list);
 
 //	EXEC
 bool	executor(char **envp, t_data *data);
-void	fork_exec(t_token *elem, char **envp, t_data *data);
+bool	in_pipeline(t_token *elem);
+bool	exec_builtins(t_token *elem, t_data *data);
+
 char	*pop_first_cmd(t_token **elem, t_data *data);
 char	*get_binpath(char *filename, t_data *data);
 char	*get_filepath(char **filename);
+
+void	fork_exec(t_token *elem, char **envp, t_data *data);
 void	merge_cmd(t_token *elem, t_data *data);
+void	file_handler(t_data *data);
+void	for_child(t_token *elem, t_data *data, char **envp);
+void	heredoc(char *delim);
 
 //	BUILTINS
-//void    cd(char *path, t_data *data);
+void    cd(char *path, t_data *data);
 void	echo(char **arg, t_data *data);
 void	exit_ms(char **arg, t_data *data);
 void	export(char **arg, t_data *data);

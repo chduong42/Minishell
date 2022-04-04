@@ -6,7 +6,7 @@
 #    By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/03/30 15:10:04 by chduong          ###   ########.fr        #
+#    Updated: 2022/04/04 17:57:03 by smagdela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,7 +77,7 @@ MS_SRC		=	main.c				utils.c			init.c\
 					unset.c				cd.c}\
 				${addprefix execution/,\
 					exec.c				pipeline.c			pipeline_utils.c\
-					exec_utils.c}
+					exec_utils.c		heredoc.c			file_handler.c}
 
 #########################################
 #            OBJECT FILES    	        #
