@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/01 13:04:48 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/04/04 17:41:16 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include <stdio.h>
+# include <errno.h>
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -97,12 +98,12 @@ char	*cleaner(char *str_in);
 void	free_tab(char **tab);
 void	free_exit(t_data *data, int opt);
 
-//	DATA
+//	DATA FUNCTIONS
 char	**cpy_env(t_list *env);
 
 void	data_init(t_data *data, char **envp);
 void	sort_export(char **sort);
-// void	update_env(t_data *data);
+void	update_env(t_data *data);
 
 //	PARSING
 t_token	*lexer(char *input);
@@ -156,8 +157,5 @@ void	export(char **arg, t_data *data);
 void	env(t_list *env);
 void	pwd(void);
 void	unset(char **arg, t_data *data);
-
-// BUILTINS UTILS
-void	update_pwd(char *newpwd, t_data *data);
 
 #endif

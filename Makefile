@@ -6,7 +6,7 @@
 #    By: chduong <chduong@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/03/31 18:49:52 by chduong          ###   ########.fr        #
+#    Updated: 2022/04/04 14:16:46 by chduong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,7 @@ LIBFT		=	$(LIBFT_DIR)libft.a
 #########################################
 #			SOURCES	FILES				#
 #########################################
-MS_SRC		=	main.c			utils.c			init.c		init_utils.c\
+MS_SRC		=	main.c		utils.c		data_init.c		data_utils.c\
 				${addprefix parsing/,\
 					lexer.c				scanner.c			categorizer.c\
 					analyzer.c			parsing_utils.c		parsing_utils_2.c\
