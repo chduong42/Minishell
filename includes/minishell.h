@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/04 17:57:40 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/05 17:28:13 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define MINISHELL_H
 # include <stdio.h>
 # include <errno.h>
-# include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
@@ -25,6 +24,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft.h"
+# define __USE_GNU 1
+# include <fcntl.h>
 
 # define PROMPT "\x1B[1;35mMiniShell >: \x1B[0m"
 # define RL_PROMPT "MiniShell >: "
@@ -60,6 +61,7 @@ typedef struct s_token
 	int				pipefd[2];
 	int				in;
 	int				out;
+	bool			heredoc_expand;
 	struct s_token	*previous;
 	struct s_token	*next;
 }	t_token;
@@ -128,6 +130,8 @@ bool	checker_quotes(t_token *token_list, t_data *env_data);
 bool	checker_redir(t_token *token_list);
 bool	checker_words(t_token *token_list);
 bool	reduce_words(t_token *elem, size_t end, t_token *token_list);
+bool	is_legit(t_token *elem);
+bool	heredoc_expand_exception(t_token *elem);
 
 void	display_toklist(t_token *token_list);
 void	relink_toklist(t_token *elem, t_token *tmp,
@@ -145,6 +149,10 @@ void	glue_together(t_token **tmp, t_token **token_list);
 bool	executor(char **envp, t_data *data);
 bool	in_pipeline(t_token *elem);
 bool	exec_builtins(t_token *elem, t_data *data);
+bool	is_redir_token(t_token *elem);
+void	dgreat_handler(char *filepath, t_token **tmp, t_data *data);
+void	great_handler(char *filepath, t_token **tmp, t_data *data);
+void	less_handler(char *filepath, t_token **tmp, t_data *data);
 
 char	*pop_first_cmd(t_token **elem, t_data *data);
 char	*get_binpath(char *filename, t_data *data);
@@ -154,7 +162,7 @@ void	fork_exec(t_token *elem, char **envp, t_data *data);
 void	merge_cmd(t_token *elem, t_data *data);
 void	file_handler(t_data *data);
 void	for_child(t_token *elem, t_data *data, char **envp);
-void	heredoc(char *delim);
+void	heredoc(char *delim, t_token **tmp, t_data *data);
 
 //	BUILTINS
 void    cd(char *path, t_data *data);

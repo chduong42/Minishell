@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 10:53:09 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/01 14:40:28 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/05 17:19:51 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ static bool	squote_manager(t_token *tmp, t_data *env_data, t_token *token_list)
 		if (tmp->previous && tmp->previous->type == VAR
 			&& ft_strcmp(tmp->previous->data, "$") == 0)
 			expand(tmp->previous, env_data);
+		if (heredoc_expand_exception(tmp) == true)
+			tmp->heredoc_expand = false;
 		return (true);
 	}
 	return (false);
@@ -98,6 +100,8 @@ static bool	dquote_manager(t_token *tmp, t_data *env_data, t_token *token_list)
 		if (tmp->previous && tmp->previous->type == VAR
 			&& ft_strcmp(tmp->previous->data, "$") == 0)
 			expand(tmp->previous, env_data);
+		if (heredoc_expand_exception(tmp) == true)
+			tmp->heredoc_expand = false;
 		return (true);
 	}
 	return (false);

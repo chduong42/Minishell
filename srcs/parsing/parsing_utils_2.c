@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:46:59 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/04 14:21:39 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/05 16:55:01 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	free_toklist(t_token **list)
 	return (-1);
 }
 
-static bool	is_legit(t_token *elem)
+bool	is_legit(t_token *elem)
 {
 	if (elem->type == WORD && ft_strlen(elem->data) == 1
 		&& elem->data[0] == ' ')

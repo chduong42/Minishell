@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 12:47:56 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/04 16:54:48 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/05 17:32:14 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,34 @@ static void	pipe_handler(t_data *data)
 				tmp->next->in = tmp->pipefd[0];
 			}
 		}
+		tmp = tmp->next;
+	}
+}
+
+void	file_handler(t_data *data)
+{
+	t_token	*tmp;
+
+	tmp = data->token_list;
+	while (tmp)
+	{
+		if (is_redir_token(tmp) == true && tmp->next != NULL)
+		{
+			tmp->heredoc_expand = tmp->next->heredoc_expand;
+			tmp->cmd = malloc(sizeof(char *) * 2);
+			if (tmp->cmd == NULL)
+				return (perror("MiniShell: malloc failed"));
+			tmp->cmd[0] = pop_first_cmd(&(tmp->next), data);
+			tmp->cmd[1] = NULL;
+		}
+		if (tmp->type == LESS && tmp->cmd != NULL)
+			less_handler(get_filepath(&tmp->cmd[0]), &tmp, data);
+		else if (tmp->type == GREAT && tmp->cmd != NULL)
+			great_handler(get_filepath(&tmp->cmd[0]), &tmp, data);
+		else if (tmp->type == DLESS && tmp->cmd != NULL)
+			heredoc(tmp->cmd[0], &tmp, data);
+		else if (tmp->type == DGREAT && tmp->cmd != NULL)
+			dgreat_handler(get_filepath(&tmp->cmd[0]), &tmp, data);
 		tmp = tmp->next;
 	}
 }
