@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/04 18:37:21 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/05 17:12:45 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,7 @@ char	*path_join(char *path, char *cmd);
 char	*var_join(char *var, char *value);
 
 bool	ft_is_in_charset(char c, char *charset);
-
 size_t	find_char_set(const char *str, char *charset);
-
 t_list	*grep(char *varname, t_data *data);
 
 //	FREE MEMORIES
@@ -156,12 +154,16 @@ void	for_child(t_token *elem, t_data *data, char **envp);
 void	heredoc(char *delim);
 
 //	BUILTINS
-void    cd(char *path, t_data *data);
+void	cd(char *path, t_data *data);
 void	echo(char **arg, t_data *data);
 void	exit_ms(char **arg, t_data *data);
 void	export(char **arg, t_data *data);
 void	env(t_list *env);
 void	pwd(void);
 void	unset(char **arg, t_data *data);
+
+//	SIGNALS
+void	signal_ctrl(int signal, siginfo_t *info, void *context);
+
 
 #endif
