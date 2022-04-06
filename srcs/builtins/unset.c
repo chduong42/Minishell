@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 18:42:25 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/04/04 18:40:22 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/06 11:56:48 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ void	unset(char **arg, t_data *data)
 	i = 1;
 	while (arg[i])
 		del_var(arg[i++], data);
-	update_env(data);
+	if (arg[1])
+		update_env(data);
 }
