@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:51:21 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/03/30 16:29:05 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/06 11:38:15 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@ void	print_echo(char **arg, int nl)
 	i = 0;
 	while (arg[i])
 	{
-		printf("%s", arg[i++]);
-		if (arg[i])
+		printf("%s", arg[i]);
+		if (*arg[i] && arg[i + 1])
 			printf(" ");
+		++i;
 	}
 	if (nl)
 		printf("\n");

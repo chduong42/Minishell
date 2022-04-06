@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/05 17:18:44 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/06 11:30:20 by kennyduong       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,14 @@ static void	prompt(t_data *data, char **envp)
 int	main(int ac, char **av, char **envp)
 {
 	t_data				data;
-	struct sigaction	sa;
+	// struct sigaction	sa;
 
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = SA_SIGINFO;
-	sa.sa_sigaction = signal_ctrl;
-	sigaction(SIGINT, &sa, NULL);
-	sigaction(SIGQUIT, &sa, NULL);
-	sigaction(SIGTSTP, &sa, NULL);
+	// sigemptyset(&sa.sa_mask);
+	// sa.sa_flags = SA_SIGINFO;
+	// sa.sa_sigaction = signal_ctrl;
+	// sigaction(SIGINT, &sa, NULL);
+	// sigaction(SIGQUIT, &sa, NULL);
+	// sigaction(SIGTSTP, &sa, NULL);
 	if (ac == 1)
 	{
 		data_init(&data, envp);
