@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 17:19:43 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/05 16:58:27 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/07 17:20:01 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,13 @@ Meaning everything (including environment variables) will become one and
 only one token of type WORD, WITHOUT the quotes on each sides.
 To use with single quotes.
 */
-void	reduce_all(t_token *elem, t_token *end,
-		t_token *token_list)
+void	reduce_all(t_token **elem, t_token *end,
+		t_token **token_list)
 {
 	t_token	*tmp;
 	char	*new_data;
 
-	tmp = elem;
+	tmp = *elem;
 	if (tmp == NULL)
 		return ;
 	tmp = tmp->next;
@@ -102,8 +102,8 @@ void	reduce_all(t_token *elem, t_token *end,
 			break ;
 		tmp = tmp->next;
 	}
-	relink_toklist(elem, tmp->next, new_data, &token_list);
-	glue_together(&elem, &token_list);
+	relink_toklist(*elem, tmp->next, new_data, token_list);
+	glue_together(elem, token_list);
 }
 
 /*
@@ -113,13 +113,13 @@ only one token of type WORD, AFTER EXPANDING ENVIRONMENT VARIABLES,
 WITHOUT the quotes on each sides.
 To use with double quotes.
 */
-void	reduce(t_token *elem, t_token *end, t_data *env_data,
-		t_token *token_list)
+void	reduce(t_token **elem, t_token *end, t_data *env_data,
+		t_token **token_list)
 {
 	t_token	*tmp;
 	char	*new_data;
 
-	tmp = elem;
+	tmp = *elem;
 	if (tmp == NULL)
 		return ;
 	tmp = tmp->next;
@@ -138,8 +138,8 @@ void	reduce(t_token *elem, t_token *end, t_data *env_data,
 			break ;
 		tmp = tmp->next;
 	}
-	relink_toklist(elem, tmp->next, new_data, &token_list);
-	glue_together(&elem, &token_list);
+	relink_toklist(*elem, tmp->next, new_data, token_list);
+	glue_together(elem, token_list);
 }
 
 /*
@@ -149,7 +149,7 @@ only one token of type WORD, merging every data attributes from them in one
 array of strings "cmd", including data from "elem" and "end"th token.
 To use with checker_words.
 */
-bool	reduce_words(t_token *elem, size_t end, t_token *token_list)
+bool	reduce_words(t_token *elem, size_t end, t_token **token_list)
 {
 	t_token	*tmp;
 	char	**cmd;
@@ -172,7 +172,7 @@ bool	reduce_words(t_token *elem, size_t end, t_token *token_list)
 		++i;
 	}
 	cmd[i] = NULL;
-	relink_toklist(elem, tmp, NULL, &token_list);
+	relink_toklist(elem, tmp, NULL, token_list);
 	elem->cmd = cmd;
 	return (true);
 }

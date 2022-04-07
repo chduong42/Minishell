@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:40:24 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/05 18:23:30 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/07 16:31:29 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,19 @@ static size_t	matriochka_aux(char **str, t_data *data, size_t i)
 	char	*envar_name;
 	char	*envar_value;
 	char	*new_data;
+	size_t	len;
 
-	envar_name = ft_substr(*str, i,
-			find_char_set(*str + i, "\t\n\v\f\r$ "));
+	envar_name = ft_substr(*str, i + 1, ft_envarlen(*str + i + 1));
 	envar_value = find_envar(envar_name, data);
-	new_data = ft_substr(*str, 0, ft_strlen(envar_value));
+	new_data = ft_substr(*str, 0, i);
 	new_data = my_strcat(new_data, envar_value);
-	new_data = my_strcat(new_data,
-			ft_substr(*str, i + ft_strlen(envar_name),
-				ft_strlen(*str) - i - ft_strlen(envar_name)));
+	new_data = my_strcat(new_data, *str + i + ft_strlen(envar_name) + 1);
 	free(envar_name);
+	len = ft_strlen(envar_value);
 	free(envar_value);
 	free(*str);
 	*str = new_data;
-	return (ft_strlen(envar_value) - 1);
+	return (len - 1);
 }
 
 /*
@@ -60,10 +59,9 @@ static void	matriochka(char **str, t_data *data)
 	size_t	i;
 
 	i = 0;
-	while (*str[i])
+	while (i < ft_strlen(*str) && (*str)[i])
 	{
-		if (*str[i] == '$'
-			&& find_char_set(*str + i, "\t\n\v\f\r$ ") != 0)
+		if ((*str)[i] == '$')
 		{
 			i += matriochka_aux(str, data, i);
 		}
@@ -71,52 +69,25 @@ static void	matriochka(char **str, t_data *data)
 	}
 }
 
-static void	create_input_file(char *buffer, t_token **tmp)
-{
-	int		fd;
-
-	fd = open("/tmp", O_TMPFILE | O_WRONLY | O_EXCL, 00700);
-	printf("fd = %d\n", fd);
-	if (write(fd , buffer, ft_strlen(buffer) < ft_strlen(buffer)))
-	{
-		perror("MiniShell: Error");
-		close(fd);
-		fd = -1;
-	}
-	free(buffer);
-	if ((*tmp)->previous == NULL && (*tmp)->next)
-	{
-		if ((*tmp)->next->in != -1)
-			close((*tmp)->next->in);
-		(*tmp)->next->in = fd;
-	}
-	else if ((*tmp)->previous)
-	{
-		if ((*tmp)->previous->in != -1)
-			close((*tmp)->previous->in);
-		(*tmp)->previous->in = fd;
-	}
-	else
-		close (fd);
-}
-
-void	heredoc(char *delim, t_token **tmp, t_data *data)
+static void	child_prompt(char *delim, t_token **tmp, t_data *data)
 {
 	char	*buffer;
 	char	*line;
 	char	*to_free;
 
-	if (!delim || !*tmp)
-		return (perror("MiniShell: Bad Heredoc"));
+	close((*tmp)->pipefd[0]);
 	buffer = ft_strdup("");
 	while (1)
 	{
 		line = readline("> ");
+		to_free = buffer;
+		if (ft_strcmp(buffer, ""))
+		{
+			buffer = ft_strjoin(to_free, "\n");
+			free(to_free);
+		}
 		if (ft_strcmp(line, delim) == 0)
 			break ;
-		to_free = buffer;
-		buffer = ft_strjoin(to_free, "\n");
-		free(to_free);
 		to_free = buffer;
 		buffer = ft_strjoin(to_free, line);
 		free(to_free);
@@ -125,5 +96,40 @@ void	heredoc(char *delim, t_token **tmp, t_data *data)
 	free(line);
 	if ((*tmp)->heredoc_expand == true)
 		matriochka(&buffer, data);
-	create_input_file(buffer, tmp);
+	ft_putstr_fd(buffer, (*tmp)->pipefd[1]);
+	close((*tmp)->pipefd[1]);
+	free(buffer);
+	free_exit(data, EXIT_SUCCESS);
+}
+
+void	heredoc(char *delim, t_token **tmp, t_data *data)
+{
+	pid_t	pid;
+
+	if (!delim || !*tmp)
+		return (perror("MiniShell: Bad Heredoc"));
+	if (pipe((*tmp)->pipefd) == -1)
+		return (perror("MiniShell: Pipe failed"));
+	else
+	{
+		if ((*tmp)->previous)
+		{
+			if ((*tmp)->previous->in != -1)
+				close((*tmp)->previous->in);
+			(*tmp)->previous->in = (*tmp)->pipefd[0];
+		}
+		else if ((*tmp)->next)
+		{
+			if ((*tmp)->next->in != -1)
+				close((*tmp)->next->in);
+			(*tmp)->next->in = (*tmp)->pipefd[0];
+		}
+	}
+	pid = fork();
+	if (pid < 0)
+		return (perror("MiniShell: Error"));
+	else if (pid == 0)
+		child_prompt(delim, tmp, data);
+	close((*tmp)->pipefd[1]);
+	waitpid(pid, NULL, 0);
 }

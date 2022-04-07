@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/05 17:28:13 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/07 17:18:06 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ bool	create_token(t_token_type type, char *data, t_token **list);
 bool	checker_quotes(t_token *token_list, t_data *env_data);
 bool	checker_redir(t_token *token_list);
 bool	checker_words(t_token *token_list);
-bool	reduce_words(t_token *elem, size_t end, t_token *token_list);
+bool	reduce_words(t_token *elem, size_t end, t_token **token_list);
 bool	is_legit(t_token *elem);
 bool	heredoc_expand_exception(t_token *elem);
 
@@ -138,9 +138,9 @@ void	relink_toklist(t_token *elem, t_token *tmp,
 			char *new_data, t_token **token_list);
 void	expand(t_token *elem, t_data *env_data);
 void	lst_pop(t_token *elem, t_token **token_list);
-void	reduce_all(t_token *elem, t_token *end, t_token *token_list);
-void	reduce(t_token *elem, t_token *end, t_data *env_data,
-			t_token *token_list);
+void	reduce_all(t_token **elem, t_token *end, t_token **token_list);
+void	reduce(t_token **elem, t_token *end, t_data *env_data,
+			t_token **token_list);
 void	expand_remaining_envar(t_token *token_list, t_data *env_data);
 void	suppress_spaces(t_token **token_list);
 void	glue_together(t_token **tmp, t_token **token_list);
