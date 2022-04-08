@@ -48,7 +48,9 @@ static void	prompt(t_data *data, char **envp)
 			data->token_list = lexer(data->line);
 			if (data->token_list != NULL)
 			{
-				data->token_list = analyzer(data->token_list, data);
+//				printf("\n	\e[0;33m\e[4;33mTokenizer output :\e[0m\n\n");
+//				display_toklist(data->token_list);
+				analyzer(data);
 				if (data->token_list != NULL)
 					executor(envp, data);
 			}

@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 10:53:09 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/01 14:40:28 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/08 11:41:49 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,55 +57,60 @@ static void	trim_wordspaces(t_token *elem)
 }
 */
 
-static bool	squote_manager(t_token *tmp, t_data *env_data, t_token *token_list)
+static bool	squote_manager(t_token **tmp, t_data *env_data, t_token *token_list)
 {
 	t_token	*ends_elem;
 	size_t	ends;
 
-	ends = is_closed(tmp, SQUOTE);
+	ends = is_closed(*tmp, SQUOTE);
 	if (ends != 0)
 	{
-		ends_elem = tmp;
+		ends_elem = *tmp;
 		while (ends_elem != NULL && ends_elem->index < ends)
 			ends_elem = ends_elem->next;
-		if (ends_elem != tmp->next)
-			reduce_all(tmp, ends_elem, token_list);
+		if (ends_elem != (*tmp)->next)
+			reduce_all(&*tmp, ends_elem, &env_data->token_list);
 		else
-			relink_toklist(tmp, tmp->next->next, ft_strdup(""), &token_list);
-		if (tmp->previous && tmp->previous->type == VAR
-			&& ft_strcmp(tmp->previous->data, "$") == 0)
-			expand(tmp->previous, env_data);
+			relink_toklist(*tmp, (*tmp)->next->next, ft_strdup(""),
+				&token_list);
+		if ((*tmp)->previous && (*tmp)->previous->type == VAR
+			&& ft_strcmp((*tmp)->previous->data, "$") == 0)
+			expand((*tmp)->previous, env_data);
+		if (heredoc_expand_exception(*tmp) == true)
+			(*tmp)->heredoc_expand = false;
 		return (true);
 	}
 	return (false);
 }
 
-static bool	dquote_manager(t_token *tmp, t_data *env_data, t_token *token_list)
+static bool	dquote_manager(t_token **tmp, t_data *env_data, t_token *token_list)
 {
 	t_token	*endd_elem;
 	size_t	endd;
 
-	endd = is_closed(tmp, DQUOTE);
+	endd = is_closed((*tmp), DQUOTE);
 	if (endd != 0)
 	{
-		endd_elem = tmp;
+		endd_elem = (*tmp);
 		while (endd_elem != NULL && endd_elem->index < endd)
 			endd_elem = endd_elem->next;
-		if (endd_elem != tmp->next)
-			reduce(tmp, endd_elem, env_data, token_list);
+		if (endd_elem != (*tmp)->next)
+			reduce(&(*tmp), endd_elem, env_data, &env_data->token_list);
 		else
-			relink_toklist(tmp, tmp->next->next, ft_strdup(""), &token_list);
-		if (tmp->previous && tmp->previous->type == VAR
-			&& ft_strcmp(tmp->previous->data, "$") == 0)
-			expand(tmp->previous, env_data);
+			relink_toklist((*tmp), (*tmp)->next->next, ft_strdup(""),
+				&token_list);
+		if ((*tmp)->previous && (*tmp)->previous->type == VAR
+			&& ft_strcmp((*tmp)->previous->data, "$") == 0)
+			expand((*tmp)->previous, env_data);
+		if (heredoc_expand_exception((*tmp)) == true)
+			(*tmp)->heredoc_expand = false;
 		return (true);
 	}
 	return (false);
 }
 
 /*
-Check if quotes are closed, and reduce everything in between accordingly,
-or unclosed, and convert to non-special token WORD.
+Check if quotes are closed, and reduce everything in between accordingly.
 In the ends, calls "suppress_spaces" function in order to delete
 any spaces which were not inside quotes, therefore unecessary.
 */
@@ -119,9 +124,9 @@ bool	checker_quotes(t_token *token_list, t_data *env_data)
 	while (tmp != NULL && ret == true)
 	{
 		if (tmp->type == SQUOTE)
-			ret = squote_manager(tmp, env_data, token_list);
+			ret = squote_manager(&tmp, env_data, token_list);
 		else if (tmp->type == DQUOTE)
-			ret = dquote_manager(tmp, env_data, token_list);
+			ret = dquote_manager(&tmp, env_data, token_list);
 		tmp = tmp->next;
 	}
 	return (ret);

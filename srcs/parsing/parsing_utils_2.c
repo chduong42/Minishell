@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:46:59 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/08 13:53:11 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/08 18:04:22 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	free_toklist(t_token **list)
 	return (-1);
 }
 
-static bool	is_legit(t_token *elem)
+bool	is_legit(t_token *elem)
 {
 	if (elem->type == WORD && ft_strlen(elem->data) == 1
 		&& elem->data[0] == ' ')
@@ -90,11 +90,11 @@ void	glue_together(t_token **tmp, t_token **token_list)
 	}
 }
 
-void	expand_remaining_envar(t_token *token_list, t_data *env_data)
+void	expand_remaining_envar(t_data *data)
 {
 	t_token	*tmp;
 
-	tmp = token_list;
+	tmp = data->token_list;
 	while (tmp != NULL)
 	{
 		if (tmp->type == VAR)
@@ -102,8 +102,8 @@ void	expand_remaining_envar(t_token *token_list, t_data *env_data)
 			if (ft_strlen(tmp->data) == 1)
 				tmp->type = WORD;
 			else
-				expand(tmp, env_data);
-			glue_together(&tmp, &token_list);
+				expand(tmp, data);
+			glue_together(&tmp, &data->token_list);
 		}
 		tmp = tmp->next;
 	}

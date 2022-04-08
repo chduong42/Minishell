@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 17:50:54 by smagdela          #+#    #+#             */
 /*   Updated: 2022/04/08 17:58:04 by chduong          ###   ########.fr       */
@@ -85,11 +85,17 @@ void	for_child(t_token *elem, t_data *data, char **envp)
 	{
 		if (dup2(elem->in, 0) == -1)
 			return (perror("MiniShell: Error"));
+		close(elem->in);
+		if (elem->previous && elem->previous->type == PIPE)
+			close(elem->previous->pipefd[0]);
 	}
 	if (elem->out != -1)
 	{
 		if (dup2(elem->out, 1) == -1)
 			return (perror("MiniShell: Error"));
+		close(elem->out);
+		if (elem->next && elem->next->type == PIPE)
+			close(elem->next->pipefd[1]);
 	}
 	if (exec_builtins(elem, data) == true)
 		free_exit(data, EXIT_SUCCESS);

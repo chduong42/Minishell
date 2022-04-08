@@ -1,42 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker_words.c                                    :+:      :+:    :+:   */
+/*   pipeline_utils_2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/18 18:04:58 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/07 17:19:15 by smagdela         ###   ########.fr       */
+/*   Created: 2022/04/08 12:37:46 by smagdela          #+#    #+#             */
+/*   Updated: 2022/04/08 12:40:24 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	checker_words(t_token *token_list)
+int	count_cmd(t_data *data)
 {
+	int		count;
 	t_token	*tmp;
-	t_token	*tmp2;
-	size_t	end_word;
 
-	tmp = token_list;
-	while (tmp != NULL)
+	count = 0;
+	if (data == NULL || data->token_list == NULL)
+		return (0);
+	tmp = data->token_list;
+	while (tmp)
 	{
-		if (tmp->type == WORD)
-		{
-			tmp2 = tmp;
-			while (tmp2 != NULL)
-			{
-				if (tmp2->next == NULL || tmp2->next->type != WORD)
-				{
-					end_word = tmp2->index;
-					break ;
-				}
-				tmp2 = tmp2->next;
-			}
-			if (reduce_words(tmp, end_word, &token_list) == false)
-				return (false);
-		}
+		if (tmp->type == WORD && tmp->cmd != NULL)
+			++count;
 		tmp = tmp->next;
 	}
-	return (true);
+	return (count);
 }
