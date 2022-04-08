@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:48:39 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/05 16:41:49 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/08 17:43:43 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ bool	create_token(t_token_type type, char *data, t_token **list)
 	token->in = -1;
 	token->out = -1;
 	token->heredoc_expand = true;
+	token->pid = -1;
 	add_token(list, token);
 	return (true);
 }
@@ -119,7 +120,10 @@ t_token	*lexer(char *input)
 		return (NULL);
 	}
 	if (str[0] == '\0')
+	{
+		free(str);
 		return (NULL);
+	}
 	token_list = scanner(str);
 	free(str);
 	if (token_list == NULL)

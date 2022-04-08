@@ -6,7 +6,7 @@
 #    By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/04/08 12:42:37 by smagdela         ###   ########.fr        #
+#    Updated: 2022/04/08 16:36:53 by smagdela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,7 +78,7 @@ MS_SRC		=	main.c		utils.c		data_init.c		data_utils.c\
 				${addprefix execution/,\
 					exec.c				pipeline.c			pipeline_utils.c\
 					exec_utils.c		heredoc.c			file_handler_utils.c\
-					pipeline_utils_2.c}
+					pipeline_utils_2.c	heredoc_utils.c		exec_builtins.c}
 
 #########################################
 #            OBJECT FILES    	        #

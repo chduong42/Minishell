@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/01 13:05:13 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/04/08 18:04:36 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	prompt(t_data *data, char **envp)
 			{
 //				printf("\n	\e[0;33m\e[4;33mTokenizer output :\e[0m\n\n");
 //				display_toklist(data->token_list);
-				data->token_list = analyzer(data->token_list, data);
+				analyzer(data);
 				if (data->token_list != NULL)
 				{
 //					printf("\n	\e[0;33m\e[4;33mAnalyzer output :\e[0m\n\n");

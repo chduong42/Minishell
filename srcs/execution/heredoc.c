@@ -6,30 +6,11 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:40:24 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/07 16:31:29 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/08 16:54:26 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-bool	heredoc_expand_exception(t_token *elem)
-{
-	t_token	*tmp;
-
-	if (elem == NULL)
-		return (false);
-	tmp = elem->previous;
-	while (tmp)
-	{
-		if (tmp->type == DLESS)
-			return (true);
-		else if (is_legit(tmp) == false)
-			tmp = tmp->previous;
-		else
-			return (false);
-	}
-	return (false);
-}
 
 static size_t	matriochka_aux(char **str, t_data *data, size_t i)
 {
@@ -54,7 +35,7 @@ static size_t	matriochka_aux(char **str, t_data *data, size_t i)
 /*
 Expand environement variables inside the already expanded ones, if present.
 */
-static void	matriochka(char **str, t_data *data)
+void	matriochka(char **str, t_data *data)
 {
 	size_t	i;
 
@@ -69,37 +50,20 @@ static void	matriochka(char **str, t_data *data)
 	}
 }
 
-static void	child_prompt(char *delim, t_token **tmp, t_data *data)
+void	heredoc_aux(t_token **tmp)
 {
-	char	*buffer;
-	char	*line;
-	char	*to_free;
-
-	close((*tmp)->pipefd[0]);
-	buffer = ft_strdup("");
-	while (1)
+	if ((*tmp)->previous)
 	{
-		line = readline("> ");
-		to_free = buffer;
-		if (ft_strcmp(buffer, ""))
-		{
-			buffer = ft_strjoin(to_free, "\n");
-			free(to_free);
-		}
-		if (ft_strcmp(line, delim) == 0)
-			break ;
-		to_free = buffer;
-		buffer = ft_strjoin(to_free, line);
-		free(to_free);
-		free(line);
+		if ((*tmp)->previous->in != -1)
+			close((*tmp)->previous->in);
+		(*tmp)->previous->in = (*tmp)->pipefd[0];
 	}
-	free(line);
-	if ((*tmp)->heredoc_expand == true)
-		matriochka(&buffer, data);
-	ft_putstr_fd(buffer, (*tmp)->pipefd[1]);
-	close((*tmp)->pipefd[1]);
-	free(buffer);
-	free_exit(data, EXIT_SUCCESS);
+	else if ((*tmp)->next)
+	{
+		if ((*tmp)->next->in != -1)
+			close((*tmp)->next->in);
+		(*tmp)->next->in = (*tmp)->pipefd[0];
+	}
 }
 
 void	heredoc(char *delim, t_token **tmp, t_data *data)
@@ -111,20 +75,7 @@ void	heredoc(char *delim, t_token **tmp, t_data *data)
 	if (pipe((*tmp)->pipefd) == -1)
 		return (perror("MiniShell: Pipe failed"));
 	else
-	{
-		if ((*tmp)->previous)
-		{
-			if ((*tmp)->previous->in != -1)
-				close((*tmp)->previous->in);
-			(*tmp)->previous->in = (*tmp)->pipefd[0];
-		}
-		else if ((*tmp)->next)
-		{
-			if ((*tmp)->next->in != -1)
-				close((*tmp)->next->in);
-			(*tmp)->next->in = (*tmp)->pipefd[0];
-		}
-	}
+		heredoc_aux(tmp);
 	pid = fork();
 	if (pid < 0)
 		return (perror("MiniShell: Error"));

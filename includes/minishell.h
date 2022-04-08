@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/08 13:03:56 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/08 18:02:54 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_token
 	int				in;
 	int				out;
 	bool			heredoc_expand;
+	pid_t			pid;
 	struct s_token	*previous;
 	struct s_token	*next;
 }	t_token;
@@ -110,7 +111,6 @@ void	update_env(t_data *data);
 //	PARSING
 t_token	*lexer(char *input);
 t_token	*scanner(const char *str);
-t_token	*analyzer(t_token *token_list, t_data *env_data);
 
 int		free_toklist(t_token **list);
 int		categ_1(t_input *input, t_token **token_list);
@@ -132,6 +132,8 @@ bool	checker_words(t_token *token_list);
 bool	reduce_words(t_token *elem, size_t end, t_token **token_list);
 bool	is_legit(t_token *elem);
 bool	heredoc_expand_exception(t_token *elem);
+
+void	analyzer(t_data *data);
 void	display_toklist(t_token *token_list);
 void	relink_toklist(t_token *elem, t_token *tmp,
 			char *new_data, t_token **token_list);
@@ -140,15 +142,16 @@ void	lst_pop(t_token *elem, t_token **token_list);
 void	reduce_all(t_token **elem, t_token *end, t_token **token_list);
 void	reduce(t_token **elem, t_token *end, t_data *env_data,
 			t_token **token_list);
-void	expand_remaining_envar(t_token *token_list, t_data *env_data);
+void	expand_remaining_envar(t_data *env_data);
 void	suppress_spaces(t_token **token_list);
 void	glue_together(t_token **tmp, t_token **token_list);
 
 //	EXEC
-bool	executor(char **envp, t_data *data);
 bool	in_pipeline(t_token *elem);
 bool	exec_builtins(t_token *elem, t_data *data);
 bool	is_redir_token(t_token *elem);
+bool	exec_builtins(t_token *elem, t_data *data);
+bool	is_builtin(char *cmd);
 
 char	*pop_first_cmd(t_token **elem, t_data *data);
 char	*get_binpath(char *filename, t_data *data);
@@ -161,8 +164,12 @@ void	great_handler(char *filepath, t_token **tmp, t_data *data);
 void	less_handler(char *filepath, t_token **tmp, t_data *data);
 void	merge_cmd(t_token *elem, t_data *data);
 void	file_handler(t_data *data);
+void	executor(char **envp, t_data *data);
 void	for_child(t_token *elem, t_data *data, char **envp);
 void	heredoc(char *delim, t_token **tmp, t_data *data);
+void	matriochka(char **str, t_data *data);
+void	child_prompt(char *delim, t_token **tmp, t_data *data);
+void	standalone_builtin(t_token *elem, t_data *data);
 
 int		count_cmd(t_data *data);
 
