@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/08 18:08:23 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/08 18:31:09 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,11 @@ static void	prompt(t_data *data, char **envp)
 		data->line = readline(RL_PROMPT);
 		if (data->line)
 		{
-			add_history(data->line);
+			if (*data->line)
+				add_history(data->line);
 			data->token_list = lexer(data->line);
 			if (data->token_list != NULL)
 			{
-//				printf("\n	\e[0;33m\e[4;33mTokenizer output :\e[0m\n\n");
-//				display_toklist(data->token_list);
 				analyzer(data);
 				if (data->token_list != NULL)
 					executor(envp, data);
