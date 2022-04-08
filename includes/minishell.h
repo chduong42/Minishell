@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/07 17:18:06 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/08 13:03:56 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,6 @@ bool	checker_words(t_token *token_list);
 bool	reduce_words(t_token *elem, size_t end, t_token **token_list);
 bool	is_legit(t_token *elem);
 bool	heredoc_expand_exception(t_token *elem);
-
 void	display_toklist(t_token *token_list);
 void	relink_toklist(t_token *elem, t_token *tmp,
 			char *new_data, t_token **token_list);
@@ -150,19 +149,22 @@ bool	executor(char **envp, t_data *data);
 bool	in_pipeline(t_token *elem);
 bool	exec_builtins(t_token *elem, t_data *data);
 bool	is_redir_token(t_token *elem);
-void	dgreat_handler(char *filepath, t_token **tmp, t_data *data);
-void	great_handler(char *filepath, t_token **tmp, t_data *data);
-void	less_handler(char *filepath, t_token **tmp, t_data *data);
 
 char	*pop_first_cmd(t_token **elem, t_data *data);
 char	*get_binpath(char *filename, t_data *data);
 char	*get_filepath(char **filename);
 
-void	fork_exec(t_token *elem, char **envp, t_data *data);
+pid_t	fork_exec(t_token *elem, char **envp, t_data *data);
+
+void	dgreat_handler(char *filepath, t_token **tmp, t_data *data);
+void	great_handler(char *filepath, t_token **tmp, t_data *data);
+void	less_handler(char *filepath, t_token **tmp, t_data *data);
 void	merge_cmd(t_token *elem, t_data *data);
 void	file_handler(t_data *data);
 void	for_child(t_token *elem, t_data *data, char **envp);
 void	heredoc(char *delim, t_token **tmp, t_data *data);
+
+int		count_cmd(t_data *data);
 
 //	BUILTINS
 void    cd(char *path, t_data *data);

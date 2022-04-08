@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 10:53:09 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/07 17:23:55 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/08 11:41:49 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ static bool	squote_manager(t_token **tmp, t_data *env_data, t_token *token_list)
 		if (ends_elem != (*tmp)->next)
 			reduce_all(&*tmp, ends_elem, &env_data->token_list);
 		else
-			relink_toklist(*tmp, (*tmp)->next->next, ft_strdup(""), &token_list);
+			relink_toklist(*tmp, (*tmp)->next->next, ft_strdup(""),
+				&token_list);
 		if ((*tmp)->previous && (*tmp)->previous->type == VAR
 			&& ft_strcmp((*tmp)->previous->data, "$") == 0)
 			expand((*tmp)->previous, env_data);
@@ -96,7 +97,8 @@ static bool	dquote_manager(t_token **tmp, t_data *env_data, t_token *token_list)
 		if (endd_elem != (*tmp)->next)
 			reduce(&(*tmp), endd_elem, env_data, &env_data->token_list);
 		else
-			relink_toklist((*tmp), (*tmp)->next->next, ft_strdup(""), &token_list);
+			relink_toklist((*tmp), (*tmp)->next->next, ft_strdup(""),
+				&token_list);
 		if ((*tmp)->previous && (*tmp)->previous->type == VAR
 			&& ft_strcmp((*tmp)->previous->data, "$") == 0)
 			expand((*tmp)->previous, env_data);

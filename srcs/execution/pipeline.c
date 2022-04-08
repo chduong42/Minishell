@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 12:47:56 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/06 11:38:42 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/08 13:01:36 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,11 @@ Reproduce the behavior of multiple pipes, adding file redirectors too.
 bool	executor(char **envp, t_data *data)
 {
 	t_token	*tmp;
+	pid_t	exit_process;
+	int		wstatus;
+	int		nb_process;
+	int		*pids;
+	int		i;
 
 	if (data->token_list == NULL)
 		return (false);
@@ -82,12 +87,35 @@ bool	executor(char **envp, t_data *data)
 		file_handler(data);
 		pipe_handler(data);
 		tmp = data->token_list;
-		while (tmp)
+		exit_process = 0;
+		nb_process = count_cmd(data);
+		pids = malloc(sizeof(int) * nb_process);
+		if (pids == NULL)
+			return (false);
+		i = 0;
+		while (tmp && exit_process != -1 && i < nb_process)
 		{
-			if (tmp->type == WORD && tmp->cmd != NULL && tmp->cmd[0])
-				fork_exec(tmp, envp, data);
+			if (tmp->type == WORD && tmp->cmd != NULL)
+			{
+				exit_process = fork_exec(tmp, envp, data);
+				pids[i++] = exit_process;
+			}
 			tmp = tmp->next;
 		}
+		i = -1;
+		while (++i < nb_process)
+			waitpid(pids[i], NULL, 0);
+		wstatus = 0;
+		if (exit_process != -1)
+		{
+			waitpid(exit_process, &wstatus, 0);
+			if (WIFEXITED(wstatus))
+				data->status = WEXITSTATUS(wstatus);
+			if (WIFSIGNALED(wstatus))
+				data->status = 128 + WTERMSIG(wstatus);
+		}
+		else
+			data->status = 1;
 	}
 	if (data->token_list)
 		free_toklist(&data->token_list);

@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/06 11:11:48 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/08 13:00:17 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,16 +95,21 @@ static void	standalone_builtin(t_token *elem, t_data *data)
 	}
 }
 
-void	fork_exec(t_token *elem, char **envp, t_data *data)
+pid_t	fork_exec(t_token *elem, char **envp, t_data *data)
 {
 	pid_t	pid;
-	int		wstatus;
 
 	if (in_pipeline(elem) == false && is_builtin(elem->cmd[0]) == true)
-		return (standalone_builtin(elem, data));
+	{
+		standalone_builtin(elem, data);
+		return (-1);
+	}
 	pid = fork();
 	if (pid < 0)
-		return (perror("MiniShell: Error"));
+	{
+		perror("MiniShell: Error");
+		return (-1);
+	}
 	else if (pid == 0)
 		for_child(elem, data, envp);
 	if (elem->in != -1)
@@ -121,7 +126,5 @@ void	fork_exec(t_token *elem, char **envp, t_data *data)
 		if (elem->next && elem->next->type == PIPE)
 			close(elem->next->pipefd[1]);
 	}
-	waitpid(pid, &wstatus, 0);
-	if (WIFEXITED(wstatus) || WIFSIGNALED(wstatus))
-		data->status = WEXITSTATUS(wstatus);
+	return (pid);
 }
