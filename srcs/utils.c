@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:09:54 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/01 17:44:52 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/08 13:23:14 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ void	free_tab(char **tab)
 
 	i = 0;
 	while (tab && tab[i])
-	{
-		free(tab[i]);
-		tab[i++] = NULL;
-	}
+		free(tab[i++]);
 	if (tab)
 		free(tab);
 	tab = NULL;

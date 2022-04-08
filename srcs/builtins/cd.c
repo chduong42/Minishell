@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:51:15 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/04/04 18:25:24 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/04 18:36:00 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,5 @@ void	cd(char *path, t_data *data)
 		data->status = chdir(path) * -1;
 		update_pwd(path, data);
 	}
-	data->newenv = true;
 	update_env(data);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:08:07 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/08 14:48:35 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/08 13:13:37 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	free_exit(t_data *data, int opt)
 		clear_list(&data->env);
 	if (data->token_list)
 		free_toklist(&data->token_list);
-	clear_history();
+	rl_clear_history();
 	exit(opt);
 }
 
@@ -68,6 +68,8 @@ int	count_str(char **str)
 	int	i;
 
 	i = 0;
+	if (!str)
+		return (0);
 	while (str[i])
 		++i;
 	return (i);

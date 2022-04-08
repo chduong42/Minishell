@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/08 18:02:54 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/08 18:11:58 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ typedef struct s_data
 	char	*line;
 	char	**path;
 	char	**export;
-	bool	newenv;
 	bool	newpath;
 	t_list	*env;
 	t_token	*token_list;
@@ -91,9 +90,7 @@ char	*path_join(char *path, char *cmd);
 char	*var_join(char *var, char *value);
 
 bool	ft_is_in_charset(char c, char *charset);
-
 size_t	find_char_set(const char *str, char *charset);
-
 t_list	*grep(char *varname, t_data *data);
 
 //	FREE MEMORIES
@@ -174,12 +171,17 @@ void	standalone_builtin(t_token *elem, t_data *data);
 int		count_cmd(t_data *data);
 
 //	BUILTINS
-void    cd(char *path, t_data *data);
+void	cd(char *path, t_data *data);
 void	echo(char **arg, t_data *data);
 void	exit_ms(char **arg, t_data *data);
 void	export(char **arg, t_data *data);
 void	env(t_list *env);
 void	pwd(void);
 void	unset(char **arg, t_data *data);
+
+//	SIGNALS
+void	sigint(int signo, siginfo_t *info, void *context);
+void	sigquit(int signo);
+void	set_signal(int mode);
 
 #endif

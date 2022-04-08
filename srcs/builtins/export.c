@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 12:11:03 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/04/04 14:22:31 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/04 18:35:49 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,8 @@ void	export(char **arg, t_data *data)
 			free_tab(tmp);
 			++i;
 		}
-		data->newenv = true;
+		update_env(data);
 	}
 	else
 		print_export(data);
-	update_env(data);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/08 18:04:36 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/08 18:08:23 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,32 +42,37 @@ static void	prompt(t_data *data, char **envp)
 	while (1)
 	{
 		data->line = readline(RL_PROMPT);
-		if (data->line && *data->line)
+		if (data->line)
 		{
 			add_history(data->line);
 			data->token_list = lexer(data->line);
-			data->line = NULL;
 			if (data->token_list != NULL)
 			{
 //				printf("\n	\e[0;33m\e[4;33mTokenizer output :\e[0m\n\n");
 //				display_toklist(data->token_list);
 				analyzer(data);
 				if (data->token_list != NULL)
-				{
-//					printf("\n	\e[0;33m\e[4;33mAnalyzer output :\e[0m\n\n");
-//					display_toklist(data->token_list);
-//					printf("\n----------------------------------------\n");
 					executor(envp, data);
-				}
 			}
+		}
+		else
+		{
+			ft_putstr_fd("exit\n", 2);
+			free_exit(data, EXIT_SUCCESS);
 		}
 	}
 }
 
 int	main(int ac, char **av, char **envp)
 {
-	t_data	data;
+	t_data				data;
+	struct sigaction	sa;
 
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_SIGINFO;
+	sa.sa_sigaction = sigint;
+	sigaction(SIGINT, &sa, NULL);
+	signal(SIGQUIT, SIG_IGN);
 	if (ac == 1)
 	{
 		data_init(&data, envp);
