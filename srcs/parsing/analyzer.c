@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   analyzer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 18:42:02 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/08 18:02:16 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/12 12:20:48 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	synerror(char *str, t_data *data)
 	if (str != NULL)
 		ft_putstr_fd(str, 2);
 	ft_putstr_fd("\n", 2);
-	data->status = 2;
+	g_status = 2;
 	if (data->token_list != NULL)
 	{
 		free_toklist(&data->token_list);

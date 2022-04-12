@@ -6,11 +6,13 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/08 18:31:09 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/12 18:51:39 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	g_status;
 
 static void	ft_print_title(void)
 {
@@ -69,9 +71,9 @@ int	main(int ac, char **av, char **envp)
 
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = SA_SIGINFO;
-	sa.sa_sigaction = sigint;
+	sa.sa_sigaction = sigctrl;
 	sigaction(SIGINT, &sa, NULL);
-	signal(SIGQUIT, SIG_IGN);
+	sigaction(SIGQUIT, &sa, NULL);
 	if (ac == 1)
 	{
 		data_init(&data, envp);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:36:06 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/08 16:39:14 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/12 12:58:48 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ bool	exec_builtins(t_token *elem, t_data *data)
 	if (ft_strncmp(elem->cmd[0], "cd", 3) == 0)
 		cd(elem->cmd[1], data);
 	else if (ft_strncmp(elem->cmd[0], "echo", 5) == 0)
-		echo(elem->cmd, data);
+		echo(elem->cmd);
 	else if (ft_strncmp(elem->cmd[0], "env", 4) == 0)
 		env(data->env);
 	else if (ft_strncmp(elem->cmd[0], "exit", 5) == 0)

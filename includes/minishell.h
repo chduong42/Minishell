@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/08 18:11:58 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/12 18:58:27 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,15 @@
 # define __USE_GNU 1
 # include <fcntl.h>
 
+//	DEFINE MACRO
 # define PROMPT "\x1B[1;35mMiniShell >: \x1B[0m"
 # define RL_PROMPT "MiniShell >: "
 
 # define TERM_CHARS "<>|\"\'$"
 # define TERM_N_SPACE " <>|\"\'$"
+
+// 	GLOBAL
+extern int	g_status;
 
 /* Data structures */
 typedef enum e_token_type
@@ -81,7 +85,6 @@ typedef struct s_data
 	bool	newpath;
 	t_list	*env;
 	t_token	*token_list;
-	int		status;
 }			t_data;
 
 //	UTILS
@@ -172,7 +175,7 @@ int		count_cmd(t_data *data);
 
 //	BUILTINS
 void	cd(char *path, t_data *data);
-void	echo(char **arg, t_data *data);
+void	echo(char **arg);
 void	exit_ms(char **arg, t_data *data);
 void	export(char **arg, t_data *data);
 void	env(t_list *env);
@@ -180,8 +183,6 @@ void	pwd(void);
 void	unset(char **arg, t_data *data);
 
 //	SIGNALS
-void	sigint(int signo, siginfo_t *info, void *context);
-void	sigquit(int signo);
-void	set_signal(int mode);
+void	sigctrl(int signo, siginfo_t *info, void *context);
 
 #endif

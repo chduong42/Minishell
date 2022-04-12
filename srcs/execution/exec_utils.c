@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 17:50:54 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/08 17:58:04 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/12 18:57:51 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ bool	in_pipeline(t_token *elem)
 
 void	for_child(t_token *elem, t_data *data, char **envp)
 {
-	// signal(SIGQUIT, sigquit);
 	if (elem->in != -1)
 	{
 		if (dup2(elem->in, 0) == -1)

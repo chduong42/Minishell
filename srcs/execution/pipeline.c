@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 12:47:56 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/08 17:56:23 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/12 18:19:59 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,14 +131,14 @@ void	executor(char **envp, t_data *data)
 		executor_aux(envp, data, &exit_process);
 	}
 	wstatus = 0;
-	data->status = 1;
+	g_status = 1;
 	if (exit_process != -1)
 	{
 		waitpid(exit_process, &wstatus, 0);
 		if (WIFEXITED(wstatus))
-			data->status = WEXITSTATUS(wstatus);
+			g_status = WEXITSTATUS(wstatus);
 		if (WIFSIGNALED(wstatus))
-			data->status = 128 + WTERMSIG(wstatus);
+			g_status = 128 + WTERMSIG(wstatus);
 	}
 	if (data->token_list)
 		free_toklist(&data->token_list);
