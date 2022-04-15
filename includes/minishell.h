@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/12 18:58:27 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/15 16:39:30 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,13 @@ void	env(t_list *env);
 void	pwd(void);
 void	unset(char **arg, t_data *data);
 
-//	SIGNALS
-void	sigctrl(int signo, siginfo_t *info, void *context);
+//	SIGNAL
+// void	sigctrl(int signo, siginfo_t *info, void *context);
+void	set_signal(void);
+void	set_signal2(void);
+void	set_signal3(void);
+void	sighand(int signo);
+void	sighand2(int signo);
+void	sighand3(int signo);
 
 #endif

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   signal_handlers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/08 17:08:28 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/12 18:58:36 by chduong          ###   ########.fr       */
+/*   Created: 2022/04/15 16:21:41 by chduong           #+#    #+#             */
+/*   Updated: 2022/04/15 19:09:19 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	parent_action(int signo)
+void	sighand(int signo)
 {
 	if (signo == SIGQUIT)
 		ft_putstr_fd("\b\b  \b\b", 2);
@@ -26,7 +26,7 @@ static void	parent_action(int signo)
 	}
 }
 
-static void	child_action(int signo)
+void	sighand2(int signo)
 {
 	if (signo == SIGQUIT)
 	{
@@ -38,13 +38,18 @@ static void	child_action(int signo)
 		ft_putstr_fd("\n", 2);
 		g_status = 130;
 	}
+	else if (signo == SIGSEGV)
+	{
+		ft_putstr_fd("Quit: (core dumped)\n", 2);
+		g_status = 139;
+	}
 }
 
-void	sigctrl(int signo, siginfo_t *info, void *context)
+void	sighand3(int signo)
 {
-	(void)context;
-	if (info->si_pid > 0)
-		parent_action(signo);
-	else
-		child_action(signo);
+	if (signo == SIGINT)
+	{
+		g_status = 130;
+		close(STDIN_FILENO);
+	}
 }
