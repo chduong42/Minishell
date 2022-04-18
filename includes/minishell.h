@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/08 18:11:58 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/18 17:31:34 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft.h"
-# define __USE_GNU 1
 # include <fcntl.h>
 
 # define PROMPT "\x1B[1;35mMiniShell >: \x1B[0m"
@@ -167,6 +166,7 @@ void	heredoc(char *delim, t_token **tmp, t_data *data);
 void	matriochka(char **str, t_data *data);
 void	child_prompt(char *delim, t_token **tmp, t_data *data);
 void	standalone_builtin(t_token *elem, t_data *data);
+void	close_pipes(pid_t pid, t_data *data);
 
 int		count_cmd(t_data *data);
 

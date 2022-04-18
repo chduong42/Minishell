@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 17:50:54 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/08 17:58:04 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/18 17:17:46 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,10 @@ void	for_child(t_token *elem, t_data *data, char **envp)
 			return (perror("MiniShell: Error"));
 		close(elem->in);
 		if (elem->previous && elem->previous->type == PIPE)
+		{
 			close(elem->previous->pipefd[0]);
+			printf("read-end de pipefd precedent [%s] ferme dans le child [%s].\n", elem->cmd[0], elem->cmd[0]);
+		}
 	}
 	if (elem->out != -1)
 	{

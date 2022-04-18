@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/08 18:31:09 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/18 13:26:18 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static void	prompt(t_data *data, char **envp)
 			if (*data->line)
 				add_history(data->line);
 			data->token_list = lexer(data->line);
+			data->line = NULL;
 			if (data->token_list != NULL)
 			{
 				analyzer(data);
