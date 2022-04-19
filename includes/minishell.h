@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/15 16:39:30 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/19 17:42:15 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,12 @@
 
 # define TERM_CHARS "<>|\"\'$"
 # define TERM_N_SPACE " <>|\"\'$"
+
+# define DEFAULT 1
+# define MUTE 2
+# define RESET 3
+# define HEREDOC 4
+
 
 // 	GLOBAL
 extern int	g_status;
@@ -184,11 +190,11 @@ void	unset(char **arg, t_data *data);
 
 //	SIGNAL
 // void	sigctrl(int signo, siginfo_t *info, void *context);
-void	set_signal(void);
-void	set_signal2(void);
-void	set_signal3(void);
-void	sighand(int signo);
+void	set_signal(int mode);
+
+void	default_hdl(int signo);
 void	sighand2(int signo);
-void	sighand3(int signo);
+void	heredoc_hdl(int signo);
+
 
 #endif

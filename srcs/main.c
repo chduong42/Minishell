@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/15 16:36:15 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/19 18:13:15 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	main(int ac, char **av, char **envp)
 {
 	t_data	data;
 
-	set_signal();
+	set_signal(DEFAULT);
 	if (ac == 1)
 	{
 		data_init(&data, envp);
