@@ -6,7 +6,11 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/04/19 18:13:15 by chduong          ###   ########.fr       */
+=======
+/*   Updated: 2022/04/19 12:33:58 by smagdela         ###   ########.fr       */
+>>>>>>> 4c72fa5a64049b3612d5f79a638a3f1dfa76c420
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +53,7 @@ static void	prompt(t_data *data, char **envp)
 			if (*data->line)
 				add_history(data->line);
 			data->token_list = lexer(data->line);
+			data->line = NULL;
 			if (data->token_list != NULL)
 			{
 				analyzer(data);

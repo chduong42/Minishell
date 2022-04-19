@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:37:46 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/08 12:40:24 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/19 15:02:41 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,22 @@ int	count_cmd(t_data *data)
 		tmp = tmp->next;
 	}
 	return (count);
+}
+
+char	*get_filepath(char **filename)
+{
+	char	*pwd;
+	char	*filepath;
+
+	if (*filename == NULL)
+		return (NULL);
+	if (*filename[0] == '/')
+		return (*filename);
+	pwd = getcwd(NULL, 0);
+	filepath = path_join(pwd, *filename);
+	free(pwd);
+	pwd = NULL;
+	free(*filename);
+	*filename = NULL;
+	return (filepath);
 }

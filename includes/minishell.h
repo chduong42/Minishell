@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
 /*   Updated: 2022/04/19 17:42:15 by chduong          ###   ########.fr       */
@@ -24,7 +24,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft.h"
-# define __USE_GNU 1
 # include <fcntl.h>
 
 //	DEFINE MACRO
@@ -171,11 +170,12 @@ void	less_handler(char *filepath, t_token **tmp, t_data *data);
 void	merge_cmd(t_token *elem, t_data *data);
 void	file_handler(t_data *data);
 void	executor(char **envp, t_data *data);
-void	for_child(t_token *elem, t_data *data, char **envp);
 void	heredoc(char *delim, t_token **tmp, t_data *data);
 void	matriochka(char **str, t_data *data);
 void	child_prompt(char *delim, t_token **tmp, t_data *data);
 void	standalone_builtin(t_token *elem, t_data *data);
+void	close_unused_fd(t_token *elem, t_data *data);
+void	exec_cmd(char **arg, char **envp, t_data *data);
 
 int		count_cmd(t_data *data);
 

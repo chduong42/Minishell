@@ -6,7 +6,11 @@
 #    By: chduong <chduong@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2022/04/19 17:50:42 by chduong          ###   ########.fr        #
+=======
+#    Updated: 2022/04/18 15:47:47 by smagdela         ###   ########.fr        #
+>>>>>>> 4c72fa5a64049b3612d5f79a638a3f1dfa76c420
 #                                                                              #
 # **************************************************************************** #
 
@@ -129,5 +133,8 @@ norm:
 
 leak:
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=ignorereadline ./${NAME}
+
+fds:
+	valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=ignorereadline ./${NAME}
 
 .PHONY: all clean fclean re
