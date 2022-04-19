@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 16:21:41 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/15 19:09:19 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/19 14:57:38 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,21 @@ void	sighand3(int signo)
 		g_status = 130;
 		close(STDIN_FILENO);
 	}
+}
+
+static void	__handler(int const sig __attribute__((unused)))
+{
+	g_status = 130;
+	if (write(1, "\n", 1) == -1)
+		perror(__func__);
+	rl_replace_line("", 0);
+	if (close(STDIN_FILENO) == -1)
+		perror(__func__);
+}
+
+int	sigint_here_doc(void)
+{
+	if (signal(SIGINT, __handler) == SIG_ERR)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
