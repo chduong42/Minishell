@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/19 12:34:01 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/19 15:02:44 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,12 +161,12 @@ void	less_handler(char *filepath, t_token **tmp, t_data *data);
 void	merge_cmd(t_token *elem, t_data *data);
 void	file_handler(t_data *data);
 void	executor(char **envp, t_data *data);
-void	for_child(t_token *elem, t_data *data, char **envp);
 void	heredoc(char *delim, t_token **tmp, t_data *data);
 void	matriochka(char **str, t_data *data);
 void	child_prompt(char *delim, t_token **tmp, t_data *data);
 void	standalone_builtin(t_token *elem, t_data *data);
-void	close_pipes(pid_t pid, t_data *data);
+void	close_unused_fd(t_token *elem, t_data *data);
+void	exec_cmd(char **arg, char **envp, t_data *data);
 
 int		count_cmd(t_data *data);
 

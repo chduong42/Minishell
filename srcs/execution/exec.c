@@ -3,14 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/08 18:08:39 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/19 14:57:43 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	for_child(t_token *elem, t_data *data, char **envp)
+{
+// signal(SIGQUIT, sigquit);
+	close_unused_fd(elem, data);
+	if (elem->in != -1)
+	{
+		if (dup2(elem->in, 0) == -1)
+			return (perror("MiniShell: Error"));
+		close(elem->in);
+	}
+	if (elem->out != -1)
+	{
+		if (dup2(elem->out, 1) == -1)
+			return (perror("MiniShell: Error"));
+		close(elem->out);
+	}
+	if (exec_builtins(elem, data) == true)
+		free_exit(data, EXIT_SUCCESS);
+	exec_cmd(elem->cmd, envp, data);
+}
 
 static void	fork_exec_aux(t_token *elem)
 {

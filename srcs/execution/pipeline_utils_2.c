@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:37:46 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/19 13:26:41 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/19 15:02:41 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,25 +46,4 @@ char	*get_filepath(char **filename)
 	free(*filename);
 	*filename = NULL;
 	return (filepath);
-}
-
-void	close_pipes(pid_t pid, t_data *data)
-{
-	t_token	*tmp;
-
-	tmp = data->token_list;
-	while (tmp)
-	{
-		if (tmp->type == WORD && tmp->pid == pid
-			&& tmp->previous && tmp->previous->type == PIPE)
-		{
-			close(tmp->previous->pipefd[0]);
-		}
-		if (tmp->type == WORD && tmp->pid == pid
-			&& tmp->next && tmp->next->type == PIPE)
-		{
-			close(tmp->next->pipefd[1]);
-		}
-		tmp = tmp->next;
-	}
 }

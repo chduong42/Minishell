@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 12:47:56 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/19 13:38:02 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/19 15:02:49 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ static void	wait_cmd(t_data *data, int nb_process, pid_t exit_process)
 	while (nb_process)
 	{
 		pid = wait(&wstatus);
-		close_pipes(pid, data);
 		if (pid == exit_process)
 		{
 			if (WIFEXITED(wstatus))
