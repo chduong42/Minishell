@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 17:50:54 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/18 17:17:46 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/19 13:32:01 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ bool	in_pipeline(t_token *elem)
 
 void	for_child(t_token *elem, t_data *data, char **envp)
 {
-	// signal(SIGQUIT, sigquit);
+// signal(SIGQUIT, sigquit);
 	if (elem->in != -1)
 	{
 		if (dup2(elem->in, 0) == -1)
@@ -88,8 +88,8 @@ void	for_child(t_token *elem, t_data *data, char **envp)
 		close(elem->in);
 		if (elem->previous && elem->previous->type == PIPE)
 		{
-			close(elem->previous->pipefd[0]);
-			printf("read-end de pipefd precedent [%s] ferme dans le child [%s].\n", elem->cmd[0], elem->cmd[0]);
+//			close(elem->previous->pipefd[0]);
+			close(elem->previous->pipefd[1]);
 		}
 	}
 	if (elem->out != -1)
@@ -98,7 +98,10 @@ void	for_child(t_token *elem, t_data *data, char **envp)
 			return (perror("MiniShell: Error"));
 		close(elem->out);
 		if (elem->next && elem->next->type == PIPE)
-			close(elem->next->pipefd[1]);
+		{
+			close(elem->next->pipefd[0]);
+//			close(elem->next->pipefd[1]);
+		}
 	}
 	if (exec_builtins(elem, data) == true)
 		free_exit(data, EXIT_SUCCESS);
