@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:51:21 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/04/06 11:45:19 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/04/12 12:58:22 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	check_nflag(char *str)
 		return (0);
 }
 
-void	echo(char **arg, t_data *data)
+void	echo(char **arg)
 {
 	int	i;
 
@@ -62,5 +62,5 @@ void	echo(char **arg, t_data *data)
 	}
 	else
 		print_echo(arg + 1, 1);
-	data->status = 0;
+	g_status = 0;
 }

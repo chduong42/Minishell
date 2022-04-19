@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 12:47:56 by smagdela          #+#    #+#             */
 /*   Updated: 2022/04/19 15:02:49 by smagdela         ###   ########.fr       */
@@ -99,9 +99,9 @@ static void	wait_cmd(t_data *data, int nb_process, pid_t exit_process)
 		if (pid == exit_process)
 		{
 			if (WIFEXITED(wstatus))
-				data->status = WEXITSTATUS(wstatus);
+				g_status = WEXITSTATUS(wstatus);
 			if (WIFSIGNALED(wstatus))
-				data->status = 128 + WTERMSIG(wstatus);
+				g_status = 128 + WTERMSIG(wstatus);
 		}
 		--nb_process;
 	}

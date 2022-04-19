@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:51:15 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/04/04 18:36:00 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/12 12:20:48 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	update_pwd(char *path, t_data *data)
 	char	*newpwd;
 	t_list	*pwd_env;
 
-	if (data->status == 0)
+	if (g_status == 0)
 	{
 		newpwd = getcwd(NULL, 0);
 		pwd_env = grep("PWD", data);
@@ -61,13 +61,13 @@ void	go_home(t_data *data)
 	env = grep("HOME", data);
 	if (env)
 	{
-		data->status = chdir(env->value) * -1;
+		g_status = chdir(env->value) * -1;
 		update_pwd(env->value, data);
 	}
 	else
 	{
 		printf("Minishell: cd: HOME not set\n");
-		data->status = 1;
+		g_status = 1;
 	}
 }
 
@@ -78,7 +78,7 @@ void	cd(char *path, t_data *data)
 		go_home(data);
 	else
 	{
-		data->status = chdir(path) * -1;
+		g_status = chdir(path) * -1;
 		update_pwd(path, data);
 	}
 	update_env(data);

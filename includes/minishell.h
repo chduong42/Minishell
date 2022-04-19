@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/19 15:02:44 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/15 16:39:30 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,15 @@
 # include "libft.h"
 # include <fcntl.h>
 
+//	DEFINE MACRO
 # define PROMPT "\x1B[1;35mMiniShell >: \x1B[0m"
 # define RL_PROMPT "MiniShell >: "
 
 # define TERM_CHARS "<>|\"\'$"
 # define TERM_N_SPACE " <>|\"\'$"
+
+// 	GLOBAL
+extern int	g_status;
 
 /* Data structures */
 typedef enum e_token_type
@@ -80,7 +84,6 @@ typedef struct s_data
 	bool	newpath;
 	t_list	*env;
 	t_token	*token_list;
-	int		status;
 }			t_data;
 
 //	UTILS
@@ -172,16 +175,20 @@ int		count_cmd(t_data *data);
 
 //	BUILTINS
 void	cd(char *path, t_data *data);
-void	echo(char **arg, t_data *data);
+void	echo(char **arg);
 void	exit_ms(char **arg, t_data *data);
 void	export(char **arg, t_data *data);
 void	env(t_list *env);
 void	pwd(void);
 void	unset(char **arg, t_data *data);
 
-//	SIGNALS
-void	sigint(int signo, siginfo_t *info, void *context);
-void	sigquit(int signo);
-void	set_signal(int mode);
+//	SIGNAL
+// void	sigctrl(int signo, siginfo_t *info, void *context);
+void	set_signal(void);
+void	set_signal2(void);
+void	set_signal3(void);
+void	sighand(int signo);
+void	sighand2(int signo);
+void	sighand3(int signo);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 15:37:56 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/04/08 16:07:38 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/12 13:26:57 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	data_init(t_data *data, char **envp)
 	data->env = NULL;
 	data->path = ft_split(getenv("PATH"), ':');
 	data->newpath = 0;
-	data->status = 0;
+	g_status = 0;
 	data->token_list = NULL;
 	if (*envp)
 		init_env(data, envp);
