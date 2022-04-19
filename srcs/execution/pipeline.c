@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 12:47:56 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/19 15:02:49 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/19 15:20:43 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static int	launch_cmd(char **envp, t_data *data, int nb_process)
 	return (exit_process);
 }
 
-static void	wait_cmd(t_data *data, int nb_process, pid_t exit_process)
+static void	wait_cmd(int nb_process, pid_t exit_process)
 {
 	int		wstatus;
 	pid_t	pid;
@@ -123,7 +123,7 @@ void	executor(char **envp, t_data *data)
 	nb_process = count_cmd(data);
 	exit_process = launch_cmd(envp, data, nb_process);
 	if (exit_process != -1)
-		wait_cmd(data, nb_process, exit_process);
+		wait_cmd(nb_process, exit_process);
 	if (data->token_list)
 		free_toklist(&data->token_list);
 }
