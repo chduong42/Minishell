@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 10:53:09 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/08 11:41:49 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/20 17:55:51 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	trim_wordspaces(t_token *elem)
 }
 */
 
-static bool	squote_manager(t_token **tmp, t_data *env_data, t_token *token_list)
+static bool	squote_manager(t_token **tmp, t_data *env_data)
 {
 	t_token	*ends_elem;
 	size_t	ends;
@@ -69,10 +69,16 @@ static bool	squote_manager(t_token **tmp, t_data *env_data, t_token *token_list)
 		while (ends_elem != NULL && ends_elem->index < ends)
 			ends_elem = ends_elem->next;
 		if (ends_elem != (*tmp)->next)
-			reduce_all(&*tmp, ends_elem, &env_data->token_list);
-		else
-			relink_toklist(*tmp, (*tmp)->next->next, ft_strdup(""),
-				&token_list);
+			reduce_all(tmp, ends_elem, &env_data->token_list);
+		else if (// check if WORD tokens surround the empty quotes)
+		{
+			lst_pop(ends_elem, &env_data->token_list);
+			lst_pop(*tmp, &env_data->token_list);
+			if ((*tmp)->previous != NULL)
+				*tmp = (*tmp)->previous;
+			if ((*tmp)->type == WORD && (*tmp)->next && (*tmp)->next->type == WORD)
+				reduce(tmp, (*tmp)->next, env_data, &env_data->token_list);
+		}
 		if ((*tmp)->previous && (*tmp)->previous->type == VAR
 			&& ft_strcmp((*tmp)->previous->data, "$") == 0)
 			expand((*tmp)->previous, env_data);
@@ -83,7 +89,7 @@ static bool	squote_manager(t_token **tmp, t_data *env_data, t_token *token_list)
 	return (false);
 }
 
-static bool	dquote_manager(t_token **tmp, t_data *env_data, t_token *token_list)
+static bool	dquote_manager(t_token **tmp, t_data *env_data)
 {
 	t_token	*endd_elem;
 	size_t	endd;
@@ -95,10 +101,16 @@ static bool	dquote_manager(t_token **tmp, t_data *env_data, t_token *token_list)
 		while (endd_elem != NULL && endd_elem->index < endd)
 			endd_elem = endd_elem->next;
 		if (endd_elem != (*tmp)->next)
-			reduce(&(*tmp), endd_elem, env_data, &env_data->token_list);
-		else
-			relink_toklist((*tmp), (*tmp)->next->next, ft_strdup(""),
-				&token_list);
+			reduce(tmp, endd_elem, env_data, &env_data->token_list);
+		else if (// check if WORD tokens surround the empty quotes)
+		{
+			lst_pop(endd_elem, &env_data->token_list);
+			lst_pop(*tmp, &env_data->token_list);
+			if ((*tmp)->previous != NULL)
+				*tmp = (*tmp)->previous;
+			if ((*tmp)->type == WORD && (*tmp)->next && (*tmp)->next->type == WORD)
+				reduce(tmp, (*tmp)->next, env_data, &env_data->token_list);
+		}
 		if ((*tmp)->previous && (*tmp)->previous->type == VAR
 			&& ft_strcmp((*tmp)->previous->data, "$") == 0)
 			expand((*tmp)->previous, env_data);
@@ -124,9 +136,9 @@ bool	checker_quotes(t_token *token_list, t_data *env_data)
 	while (tmp != NULL && ret == true)
 	{
 		if (tmp->type == SQUOTE)
-			ret = squote_manager(&tmp, env_data, token_list);
+			ret = squote_manager(&tmp, env_data);
 		else if (tmp->type == DQUOTE)
-			ret = dquote_manager(&tmp, env_data, token_list);
+			ret = dquote_manager(&tmp, env_data);
 		tmp = tmp->next;
 	}
 	return (ret);

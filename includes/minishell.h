@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/20 15:50:38 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/20 17:34:08 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@
 # define MUTE 2
 # define RESET 3
 # define HEREDOC 4
-
 
 // 	GLOBAL
 extern int	g_status;

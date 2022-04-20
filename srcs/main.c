@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/19 18:13:15 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/20 17:02:08 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,11 @@ static void	prompt(t_data *data)
 			{
 				analyzer(data);
 				if (data->token_list != NULL)
+				{
+					// Virer le displayer a la fin.
+					display_toklist(data->token_list);
 					executor(data->export, data);
+				}
 			}
 		}
 		else
