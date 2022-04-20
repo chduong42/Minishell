@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+         #
+#    By: chduong <chduong@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/04/19 15:18:28 by smagdela         ###   ########.fr        #
+#    Updated: 2022/04/19 17:50:42 by chduong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,8 @@ LIBFT		=	$(LIBFT_DIR)libft.a
 #########################################
 #			SOURCES	FILES				#
 #########################################
-MS_SRC		=	main.c		utils.c		data_init.c		data_utils.c\
+MS_SRC		=	main.c				utils.c				data_init.c\
+				data_utils.c		signal.c\
 				${addprefix parsing/,\
 					lexer.c				scanner.c			categorizer.c\
 					analyzer.c			parsing_utils.c		parsing_utils_2.c\
