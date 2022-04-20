@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 15:37:56 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/04/12 13:26:57 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/20 14:19:19 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	data_init(t_data *data, char **envp)
 	data->newpath = 0;
 	g_status = 0;
 	data->token_list = NULL;
-	if (*envp)
+	if (envp && *envp)
 		init_env(data, envp);
 	else
 		create_env(data);

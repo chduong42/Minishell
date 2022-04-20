@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 17:50:54 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/19 14:57:05 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/20 14:34:39 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,9 @@ void	exec_cmd(char **arg, char **envp, t_data *data)
 	cmd = get_binpath(arg[0], data);
 	if (access(cmd, X_OK) == 0)
 		execve(cmd, arg, envp);
-	perror("MiniShell: Error");
+	ft_putstr_fd("MiniShell: ", 2);
+	ft_putstr_fd(arg[0], 2);
+	ft_putstr_fd(": command not found\n", 2);
 	free(cmd);
 	free_exit(data, 127);
 }
