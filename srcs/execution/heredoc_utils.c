@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:28:15 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/08 16:32:23 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/20 17:57:04 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ static char	*heredoc_prompt(char *delim)
 	char	*to_free;
 
 	buffer = ft_strdup("");
-	while (1)
+	line = readline("> ");
+	while (line)
 	{
-		line = readline("> ");
 		to_free = buffer;
 		if (ft_strcmp(buffer, ""))
 		{
@@ -53,6 +53,7 @@ static char	*heredoc_prompt(char *delim)
 		buffer = ft_strjoin(to_free, line);
 		free(to_free);
 		free(line);
+		line = readline("> ");
 	}
 	free(line);
 	return (buffer);
