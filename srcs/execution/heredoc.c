@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:40:24 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/08 16:54:26 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/20 17:51:50 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	heredoc(char *delim, t_token **tmp, t_data *data)
 {
 	pid_t	pid;
 
+	set_signal(HEREDOC);
 	if (!delim || !*tmp)
 		return (perror("MiniShell: Bad Heredoc"));
 	if (pipe((*tmp)->pipefd) == -1)

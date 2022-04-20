@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 17:08:28 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/19 17:51:34 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/20 17:47:14 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	heredoc_hdl(int signo)
 	}
 }
 
-void	set_signals(int mode)
+void	set_signal(int mode)
 {
 	if (mode == DEFAULT)
 	{
@@ -53,34 +53,13 @@ void	set_signals(int mode)
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGPIPE, SIG_IGN);
-		signal(SIGTERM, SIG_IGN);
 	}
 	else if (mode == RESET)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 		signal(SIGPIPE, SIG_DFL);
-		signal(SIGTERM, SIG_DFL);
 	}
 	else if (mode == HEREDOC)
 		signal(SIGINT, heredoc_hdl);
-}
-
-void	sighand2(int signo)
-{
-	if (signo == SIGQUIT)
-	{
-		ft_putstr_fd("Quit (core dumped)\n", 2);
-		g_status = 131;
-	}
-	else if (signo == SIGINT)
-	{
-		ft_putstr_fd("\n", 2);
-		g_status = 130;
-	}
-	else if (signo == SIGSEGV)
-	{
-		ft_putstr_fd("Segmentation fault (core dumped)\n", 2);
-		g_status = 139;
-	}
 }
