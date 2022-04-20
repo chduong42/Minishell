@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/19 17:42:15 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/20 15:50:38 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,10 +191,6 @@ void	unset(char **arg, t_data *data);
 //	SIGNAL
 // void	sigctrl(int signo, siginfo_t *info, void *context);
 void	set_signal(int mode);
-
-void	default_hdl(int signo);
 void	sighand2(int signo);
-void	heredoc_hdl(int signo);
-
 
 #endif

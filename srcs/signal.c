@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 17:08:28 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/19 17:51:34 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/20 15:51:02 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	heredoc_hdl(int signo)
 	}
 }
 
-void	set_signals(int mode)
+void	set_signal(int mode)
 {
 	if (mode == DEFAULT)
 	{
