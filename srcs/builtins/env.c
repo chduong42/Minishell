@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kennyduong <kennyduong@student.42.fr>      +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 16:47:38 by chduong           #+#    #+#             */
-/*   Updated: 2022/03/25 10:33:59 by kennyduong       ###   ########.fr       */
+/*   Updated: 2022/04/20 15:27:35 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,5 @@ void	env(t_list *env)
 		printf("%s\n", env->line);
 		env = env->next;
 	}
+	g_status = 0;
 }

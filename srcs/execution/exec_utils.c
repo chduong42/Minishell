@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 17:50:54 by smagdela          #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2022/04/19 15:42:32 by chduong          ###   ########.fr       */
-=======
-/*   Updated: 2022/04/19 14:57:05 by smagdela         ###   ########.fr       */
->>>>>>> 4c72fa5a64049b3612d5f79a638a3f1dfa76c420
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +36,13 @@ char	*get_binpath(char *filename, t_data *data)
 	char	*filepath;
 	size_t	i;
 
+	filepath = NULL;
 	if (filename == NULL || filename[0] == '/' || filename[0] == '.')
 		return (get_binpath_aux(filename));
 	else
 	{
 		i = 0;
-		while (data->path[i])
+		while (data->path && data->path[i])
 		{
 			filepath = path_join(data->path[i], filename);
 			if (access(filepath, X_OK) == 0)
@@ -65,7 +62,9 @@ void	exec_cmd(char **arg, char **envp, t_data *data)
 	cmd = get_binpath(arg[0], data);
 	if (access(cmd, X_OK) == 0)
 		execve(cmd, arg, envp);
-	perror("MiniShell: Error");
+	ft_putstr_fd("MiniShell: ", 2);
+	ft_putstr_fd(arg[0], 2);
+	ft_putstr_fd(": command not found\n", 2);
 	free(cmd);
 	free_exit(data, 127);
 }

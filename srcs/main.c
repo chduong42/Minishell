@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2022/04/19 18:13:15 by chduong          ###   ########.fr       */
-=======
-/*   Updated: 2022/04/19 12:33:58 by smagdela         ###   ########.fr       */
->>>>>>> 4c72fa5a64049b3612d5f79a638a3f1dfa76c420
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +39,7 @@ static void	ft_print_title(void)
 	ft_putstr_fd("#####      ###    ##########\033[0;m\n\n", 1);
 }
 
-static void	prompt(t_data *data, char **envp)
+static void	prompt(t_data *data)
 {
 	while (1)
 	{
@@ -58,7 +54,7 @@ static void	prompt(t_data *data, char **envp)
 			{
 				analyzer(data);
 				if (data->token_list != NULL)
-					executor(envp, data);
+					executor(data->export, data);
 			}
 		}
 		else
@@ -66,6 +62,31 @@ static void	prompt(t_data *data, char **envp)
 			ft_putstr_fd("exit\n", 2);
 			free_exit(data, EXIT_SUCCESS);
 		}
+	}
+}
+
+static void	launch_ms(t_data *data, char **av)
+{
+	while (av != NULL && *av != NULL)
+	{
+		data->line = ft_strdup(*av);
+		if (data->line)
+		{
+			data->token_list = lexer(data->line);
+			data->line = NULL;
+			if (data->token_list != NULL)
+			{
+				analyzer(data);
+				if (data->token_list != NULL)
+					executor(data->export, data);
+			}
+		}
+		else
+		{
+			ft_putstr_fd("Bad input\n", 2);
+			free_exit(data, EXIT_SUCCESS);
+		}
+		++av;
 	}
 }
 
@@ -78,9 +99,18 @@ int	main(int ac, char **av, char **envp)
 	{
 		data_init(&data, envp);
 		ft_print_title();
-		prompt(&data, envp);
+		prompt(&data);
+	}
+	else if (ac >= 3 && !ft_strncmp(av[1], "-c", 3))
+	{
+		data_init(&data, envp);
+		launch_ms(&data, av + 2);
+		free_exit(&data, g_status);
 	}
 	else
-		printf("\e[1;37mUsage:\e[0m %s runs without any argument\n", av[0]);
+	{
+		printf("\e[1;37mUsage:\e[0m %s runs without any argument,", av[0]);
+		printf(" or in testing mode with -c flag as first argument.\n");
+	}
 	return (0);
 }

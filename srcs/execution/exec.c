@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/19 14:57:43 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/20 15:40:40 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static void	for_child(t_token *elem, t_data *data, char **envp)
 {
-// signal(SIGQUIT, sigquit);
 	close_unused_fd(elem, data);
 	if (elem->in != -1)
 	{
