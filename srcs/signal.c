@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 17:08:28 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/20 17:47:14 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/21 18:55:41 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,8 @@ static void	heredoc_hdl(int signo)
 	if (signo == SIGINT)
 	{
 		g_status = 130;
-		if (write(1, "\n", 1) == -1)
-			perror("");
 		rl_replace_line("", 0);
-		if (close(STDIN_FILENO) == -1)
-			perror("");
+		close(STDIN_FILENO);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:28:15 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/20 17:57:04 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/21 19:01:38 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,30 +31,38 @@ bool	heredoc_expand_exception(t_token *elem)
 	return (false);
 }
 
+static void	warning_eof(char *delim)
+{
+	if (g_status == 130)
+		return ;
+	ft_putstr_fd("MiniShell: warning: here-document ", STDERR_FILENO);
+	ft_putstr_fd("delimited by end-of-file (wanted `", STDERR_FILENO);
+	ft_putstr_fd(delim, STDERR_FILENO);
+	ft_putendl_fd("')", STDERR_FILENO);
+}
+
 static char	*heredoc_prompt(char *delim)
 {
 	char	*line;
+	char	*tmp;
 	char	*buffer;
-	char	*to_free;
 
 	buffer = ft_strdup("");
 	line = readline("> ");
 	while (line)
 	{
-		to_free = buffer;
-		if (ft_strcmp(buffer, ""))
-		{
-			buffer = ft_strjoin(to_free, "\n");
-			free(to_free);
-		}
 		if (ft_strcmp(line, delim) == 0)
 			break ;
-		to_free = buffer;
-		buffer = ft_strjoin(to_free, line);
-		free(to_free);
+		tmp = buffer;
+		buffer = ft_strjoin(tmp, line);
+		free(tmp);
+		tmp = buffer;
+		buffer = ft_strjoin(tmp, "\n");
 		free(line);
 		line = readline("> ");
 	}
+	if (line == NULL)
+		warning_eof(delim);
 	free(line);
 	return (buffer);
 }

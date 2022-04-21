@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline_utils_2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:37:46 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/19 15:02:41 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/21 18:03:39 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,15 @@ char	*get_filepath(char **filename)
 	free(*filename);
 	*filename = NULL;
 	return (filepath);
+}
+
+void	check_exit_status(void)
+{
+	if (g_status == (128 | SIGQUIT))
+		ft_putstr_fd("Quit (core dumped)\n", STDERR_FILENO);
+	else if (g_status == (128 | SIGSEGV))
+		ft_putstr_fd("Segmentation fault (core dumped)\n",
+			STDERR_FILENO);
+	else if (g_status == (128 | SIGINT))
+		ft_putchar_fd('\n', STDERR_FILENO);
 }
