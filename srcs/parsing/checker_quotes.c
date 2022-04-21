@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 10:53:09 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/20 17:55:51 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/21 12:38:57 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,11 @@ static bool	squote_manager(t_token **tmp, t_data *env_data)
 			ends_elem = ends_elem->next;
 		if (ends_elem != (*tmp)->next)
 			reduce_all(tmp, ends_elem, &env_data->token_list);
-		else if (// check if WORD tokens surround the empty quotes)
+		else
 		{
-			lst_pop(ends_elem, &env_data->token_list);
-			lst_pop(*tmp, &env_data->token_list);
-			if ((*tmp)->previous != NULL)
-				*tmp = (*tmp)->previous;
-			if ((*tmp)->type == WORD && (*tmp)->next && (*tmp)->next->type == WORD)
-				reduce(tmp, (*tmp)->next, env_data, &env_data->token_list);
+			relink_toklist(*tmp, (*tmp)->next->next, ft_strdup(""),
+				&env_data->token_list);
+			glue_together(tmp, &env_data->token_list);
 		}
 		if ((*tmp)->previous && (*tmp)->previous->type == VAR
 			&& ft_strcmp((*tmp)->previous->data, "$") == 0)
@@ -102,14 +99,11 @@ static bool	dquote_manager(t_token **tmp, t_data *env_data)
 			endd_elem = endd_elem->next;
 		if (endd_elem != (*tmp)->next)
 			reduce(tmp, endd_elem, env_data, &env_data->token_list);
-		else if (// check if WORD tokens surround the empty quotes)
+		else
 		{
-			lst_pop(endd_elem, &env_data->token_list);
-			lst_pop(*tmp, &env_data->token_list);
-			if ((*tmp)->previous != NULL)
-				*tmp = (*tmp)->previous;
-			if ((*tmp)->type == WORD && (*tmp)->next && (*tmp)->next->type == WORD)
-				reduce(tmp, (*tmp)->next, env_data, &env_data->token_list);
+			relink_toklist(*tmp, (*tmp)->next->next, ft_strdup(""),
+				&env_data->token_list);
+			glue_together(tmp, &env_data->token_list);
 		}
 		if ((*tmp)->previous && (*tmp)->previous->type == VAR
 			&& ft_strcmp((*tmp)->previous->data, "$") == 0)
