@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/20 17:34:08 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/21 18:54:37 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void	update_env(t_data *data);
 //	PARSING
 t_token	*lexer(char *input);
 t_token	*scanner(const char *str);
+t_token	*envar_split(t_token *elem, t_data *data);
 
 int		free_toklist(t_token **list);
 int		categ_1(t_input *input, t_token **token_list);
@@ -149,6 +150,8 @@ void	reduce(t_token **elem, t_token *end, t_data *env_data,
 void	expand_remaining_envar(t_data *env_data);
 void	suppress_spaces(t_token **token_list);
 void	glue_together(t_token **tmp, t_token **token_list);
+void	glue_to_prev(t_token **tmp, t_token **token_list);
+void	glue_to_next(t_token **tmp, t_token **token_list);
 
 //	EXEC
 bool	in_pipeline(t_token *elem);

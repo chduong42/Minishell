@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: chduong <chduong@student.42.fr>            +#+  +:+       +#+         #
+#    By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/04/19 17:50:42 by chduong          ###   ########.fr        #
+#    Updated: 2022/04/21 18:54:57 by smagdela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,7 +71,7 @@ MS_SRC		=	main.c				utils.c				data_init.c\
 					lexer.c				scanner.c			categorizer.c\
 					analyzer.c			parsing_utils.c		parsing_utils_2.c\
 					parsing_utils_3.c	checker_quotes.c	checker_redir.c\
-					checker_words.c		expand_reduce.c}\
+					checker_words.c		expand_reduce.c		parsing_utils_4.c}\
 				${addprefix builtins/,\
 					echo.c				env.c				exit.c\
 					export.c			pwd.c				unset.c\

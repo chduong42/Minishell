@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:46:59 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/18 14:18:48 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/21 18:26:41 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void	glue_together(t_token **tmp, t_token **token_list)
 void	expand_remaining_envar(t_data *data)
 {
 	t_token	*tmp;
+	t_token	*end;
 
 	tmp = data->token_list;
 	while (tmp != NULL)
@@ -99,10 +100,20 @@ void	expand_remaining_envar(t_data *data)
 		if (tmp->type == VAR)
 		{
 			if (ft_strlen(tmp->data) == 1)
+			{
 				tmp->type = WORD;
+				glue_together(&tmp, &data->token_list);
+			}
 			else
+			{
 				expand(tmp, data);
-			glue_together(&tmp, &data->token_list);
+				end = envar_split(tmp, data);
+				if (end != NULL)
+				{
+					glue_to_prev(&tmp, &data->token_list);
+					glue_to_next(&end, &data->token_list);
+				}
+			}
 		}
 		tmp = tmp->next;
 	}
