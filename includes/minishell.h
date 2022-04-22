@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/21 18:54:37 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/22 11:54:47 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	update_env(t_data *data);
 //	PARSING
 t_token	*lexer(char *input);
 t_token	*scanner(const char *str);
-t_token	*envar_split(t_token *elem, t_data *data);
+t_token	*envar_split(t_token **elem);
 
 int		free_toklist(t_token **list);
 int		categ_1(t_input *input, t_token **token_list);
