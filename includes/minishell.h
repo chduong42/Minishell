@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/22 17:10:38 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/22 17:57:30 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ char	*var_join(char *var, char *value);
 
 bool	valid_var(char *varname);
 bool	ft_is_in_charset(char c, char *charset);
+bool	ft_checkint(char *nb);
 
 size_t	find_char_set(const char *str, char *charset);
 t_list	*grep(char *varname, t_data *data);

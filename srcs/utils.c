@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:09:54 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/08 13:23:14 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/22 18:03:05 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,31 @@ char	*var_join(char *var, char *value)
 	ft_strlcat(p, "=", len1 + 2);
 	ft_strlcat(p, value, len1 + len2 + 2);
 	return (p);
+}
+
+bool	ft_checkint(char *nb)
+{
+	char	*int_extremum;
+	int		i;
+
+	i = 0;
+	if (nb[0] == '-')
+	{
+		int_extremum = "-9223372036854775808";
+		i = 1;
+	}
+	else
+		int_extremum = "9223372036854775807";
+	if (ft_strlen(nb) >= ft_strlen(int_extremum))
+	{
+		while (nb[i])
+		{
+			if (nb[i] > int_extremum[i] || !ft_isdigit(nb[i]))
+				return (true);
+			++i;
+		}
+		return (false);
+	}
+	else
+		return (false);
 }

@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:08:07 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/22 14:22:18 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/22 17:48:11 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,17 +85,20 @@ void	exit_ms(char **arg, t_data *data)
 		ft_putstr_fd("exit\n", 2);
 		free_exit(data, EXIT_SUCCESS);
 	}
-	else if (nb_arg == 2)
+	else
 	{
 		ft_putstr_fd("exit\n", 2);
-		if (only_digit(arg[1]))
-			free_exit(data, ft_atoi(arg[1]));
-		else
+		if (only_digit(arg[1]) == false)
 		{
 			printf("Minishell: exit: %s: numeric argument required\n", arg[1]);
 			free_exit(data, 2);
 		}
+		else if (nb_arg > 2)
+		{
+			printf("Minishell: exit: too many argument\n");
+			g_status = 1;
+		}
+		else
+			free_exit(data, ft_atoi(arg[1]));
 	}
-	else
-		printf("Minishell: exit: too many argument\n");
 }
