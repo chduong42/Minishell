@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 18:42:02 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/21 16:23:53 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/22 13:44:41 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	analyzer(t_data *data)
 	if (data->token_list == NULL)
 	{
 		synerror(": Bad input.", data);
+		g_status = 0;
 		return ;
 	}
 	if (checker_words(data->token_list) == false)
