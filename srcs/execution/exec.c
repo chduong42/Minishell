@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/20 15:40:40 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/20 17:43:47 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ pid_t	fork_exec(t_token *elem, char **envp, t_data *data)
 		return (-1);
 	}
 	else if (pid == 0)
+	{
+		set_signal(RESET);
 		for_child(elem, data, envp);
+	}
 	fork_exec_aux(elem);
 	return (pid);
 }

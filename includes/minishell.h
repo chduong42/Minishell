@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
 /*   Updated: 2022/04/22 12:44:24 by smagdela         ###   ########.fr       */
@@ -179,6 +179,7 @@ void	child_prompt(char *delim, t_token **tmp, t_data *data);
 void	standalone_builtin(t_token *elem, t_data *data);
 void	close_unused_fd(t_token *elem, t_data *data);
 void	exec_cmd(char **arg, char **envp, t_data *data);
+void	check_exit_status(void);
 
 int		count_cmd(t_data *data);
 
@@ -194,6 +195,5 @@ void	unset(char **arg, t_data *data);
 //	SIGNAL
 // void	sigctrl(int signo, siginfo_t *info, void *context);
 void	set_signal(int mode);
-void	sighand2(int signo);
 
 #endif

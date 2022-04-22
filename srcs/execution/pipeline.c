@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 12:47:56 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/19 19:08:24 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/21 18:04:43 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,13 @@ static void	wait_cmd(int nb_process, pid_t exit_process)
 		{
 			if (WIFEXITED(wstatus))
 				g_status = WEXITSTATUS(wstatus);
-			if (WIFSIGNALED(wstatus))
+			else if (WIFSIGNALED(wstatus))
+			{
 				g_status = 128 + WTERMSIG(wstatus);
+				check_exit_status();
+			}
+			else if (WIFSTOPPED(wstatus))
+				g_status = 128 + WSTOPSIG(wstatus);
 		}
 		--nb_process;
 	}
@@ -118,6 +123,7 @@ void	executor(char **envp, t_data *data)
 
 	if (data->token_list == NULL)
 		return ;
+	set_signal(MUTE);
 	pipe_handler(data);
 	file_handler(data);
 	nb_process = count_cmd(data);
@@ -126,4 +132,5 @@ void	executor(char **envp, t_data *data)
 		wait_cmd(nb_process, exit_process);
 	if (data->token_list)
 		free_toklist(&data->token_list);
+	set_signal(DEFAULT);
 }

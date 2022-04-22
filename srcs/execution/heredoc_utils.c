@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:28:15 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/08 16:32:23 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/22 13:23:47 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,29 +31,38 @@ bool	heredoc_expand_exception(t_token *elem)
 	return (false);
 }
 
+static void	warning_eof(char *delim)
+{
+	if (g_status == 130)
+		return ;
+	ft_putstr_fd("MiniShell: warning: here-document ", STDERR_FILENO);
+	ft_putstr_fd("delimited by end-of-file (wanted `", STDERR_FILENO);
+	ft_putstr_fd(delim, STDERR_FILENO);
+	ft_putendl_fd("')", STDERR_FILENO);
+}
+
 static char	*heredoc_prompt(char *delim)
 {
 	char	*line;
+	char	*tmp;
 	char	*buffer;
-	char	*to_free;
 
 	buffer = ft_strdup("");
-	while (1)
+	line = readline("> ");
+	while (line)
 	{
-		line = readline("> ");
-		to_free = buffer;
-		if (ft_strcmp(buffer, ""))
-		{
-			buffer = ft_strjoin(to_free, "\n");
-			free(to_free);
-		}
 		if (ft_strcmp(line, delim) == 0)
 			break ;
-		to_free = buffer;
-		buffer = ft_strjoin(to_free, line);
-		free(to_free);
+		tmp = buffer;
+		buffer = ft_strjoin(tmp, line);
+		free(tmp);
+		tmp = buffer;
+		buffer = ft_strjoin(tmp, "\n");
 		free(line);
+		line = readline("> ");
 	}
+	if (line == NULL)
+		warning_eof(delim);
 	free(line);
 	return (buffer);
 }
@@ -62,6 +71,7 @@ void	child_prompt(char *delim, t_token **tmp, t_data *data)
 {
 	char	*buffer;
 
+	set_signal(HEREDOC);
 	close((*tmp)->pipefd[0]);
 	buffer = heredoc_prompt(delim);
 	if ((*tmp)->heredoc_expand == true)
