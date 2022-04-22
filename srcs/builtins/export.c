@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 12:11:03 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/04/22 17:10:25 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/22 17:18:09 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,17 @@ static void	export_var(char *arg, t_data *data)
 	char	**tmp;
 
 	tmp = ft_split(arg, '=');
-	if (ft_strncmp(tmp[0], "PATH", 5) == 0)
-		data->newpath = true;
-	if (is_new_var(tmp[0], data))
-		ft_lstadd_back(&data->env, ft_lstnew(arg, tmp[0], tmp[1]));
+	if (valid_var(tmp[0]))
+	{
+		if (ft_strncmp(tmp[0], "PATH", 5) == 0)
+			data->newpath = true;
+		if (is_new_var(tmp[0], data))
+			ft_lstadd_back(&data->env, ft_lstnew(arg, tmp[0], tmp[1]));
+		else
+			change_var(arg, tmp, data);
+	}
 	else
-		change_var(arg, tmp, data);
+		g_status = 1;
 	free_tab(tmp);
 }
 
@@ -68,13 +73,7 @@ void	export(char **arg, t_data *data)
 	if (arg[i])
 	{
 		while (arg[i])
-		{
-			if (valid_var(arg[i]))
-				export_var(arg[i], data);
-			else
-				g_status = 1;
-			++i;
-		}
+			export_var(arg[i++], data);
 		update_env(data);
 	}
 	else
