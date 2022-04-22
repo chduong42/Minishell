@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 13:40:03 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/22 12:51:54 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/22 13:01:17 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,11 @@ void	reparse_envar(t_token **elem, t_data *data)
 	end = envar_split(elem);
 	if ((*elem)->previous == NULL)
 		data->token_list = *elem;
-	if (end != NULL)
+	if (end != NULL && end != *elem)
 	{
 		glue_to_prev(elem, &data->token_list);
 		glue_to_next(&end, &data->token_list);
 	}
+	else if (end != NULL && end == *elem)
+		glue_together(elem, &data->token_list);
 }
