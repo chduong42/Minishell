@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 12:00:24 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/04 17:00:41 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/20 17:05:08 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	pop_first_cmd_aux(t_token **elem, char **str, size_t i)
 		return ;
 	}
 	i = 0;
-	while ((*elem)->cmd && (*elem)->cmd[i] && (*elem)->cmd[i][0])
+	while ((*elem)->cmd && (*elem)->cmd[i])
 	{
 		if ((*elem)->cmd[i + 1] == NULL)
 		{

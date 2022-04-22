@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:40:24 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/22 13:23:37 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/20 17:36:32 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	matriochka(char **str, t_data *data)
 	}
 }
 
-void	heredoc_aux(t_token **tmp)
+static void	heredoc_aux(t_token **tmp)
 {
 	if ((*tmp)->previous)
 	{
@@ -74,8 +74,7 @@ void	heredoc(char *delim, t_token **tmp, t_data *data)
 		return (perror("MiniShell: Bad Heredoc"));
 	if (pipe((*tmp)->pipefd) == -1)
 		return (perror("MiniShell: Pipe failed"));
-	else
-		heredoc_aux(tmp);
+	heredoc_aux(tmp);
 	pid = fork();
 	if (pid < 0)
 		return (perror("MiniShell: Error"));

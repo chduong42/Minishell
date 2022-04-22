@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 18:55:04 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/01 14:27:50 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/20 17:22:09 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	categ_2(t_input *input, t_token **token_list)
 }
 
 /*
-Quotes and spaces category.
+Quotes category.
 */
 int	categ_3(t_input *input, t_token **token_list)
 {
@@ -82,24 +82,24 @@ int	categ_3(t_input *input, t_token **token_list)
 		++input->index;
 		return (0);
 	}
-	else if (input->str[input->index] == ' ')
+	return (1);
+}
+
+/*
+Space and environment variables category.
+*/
+int	categ_4(t_input *input, t_token **token_list)
+{
+	char	*word_data;
+
+	if (input->str[input->index] == ' ')
 	{
 		if (create_token(WORD, ft_strdup(" "), token_list) == false)
 			return (free_toklist(token_list));
 		++input->index;
 		return (0);
 	}
-	return (1);
-}
-
-/*
-Environment variables.
-*/
-int	categ_4(t_input *input, t_token **token_list)
-{
-	char	*word_data;
-
-	if (input->str[input->index] == '$')
+	else if (input->str[input->index] == '$')
 	{
 		word_data = ft_substr(input->str, input->index,
 				ft_envarlen(input->str + input->index));

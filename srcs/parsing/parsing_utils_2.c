@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:46:59 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/18 14:18:48 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/22 12:50:43 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ int	free_toklist(t_token **list)
 
 bool	is_legit(t_token *elem)
 {
+	if (elem == NULL)
+		return (false);
 	if (elem->type == WORD && ft_strlen(elem->data) == 1
 		&& elem->data[0] == ' ')
 	{
@@ -74,15 +76,15 @@ bool	is_legit(t_token *elem)
 
 void	glue_together(t_token **tmp, t_token **token_list)
 {
-	if ((*tmp)->previous && (*tmp)->previous->type == WORD
-		&& is_legit((*tmp)->previous) == true)
+	if (is_legit((*tmp)->previous) == true && (*tmp)->previous
+		&& (*tmp)->previous->type == WORD)
 	{
 		*tmp = (*tmp)->previous;
 		(*tmp)->data = my_strcat((*tmp)->data, (*tmp)->next->data);
 		lst_pop((*tmp)->next, token_list);
 	}
-	if ((*tmp)->next && (*tmp)->next->type == WORD
-		&& is_legit((*tmp)->next) == true)
+	if (is_legit((*tmp)->next) == true && (*tmp)->next
+		&& (*tmp)->next->type == WORD)
 	{
 		(*tmp)->data = my_strcat((*tmp)->data, (*tmp)->next->data);
 		lst_pop((*tmp)->next, token_list);
@@ -99,10 +101,15 @@ void	expand_remaining_envar(t_data *data)
 		if (tmp->type == VAR)
 		{
 			if (ft_strlen(tmp->data) == 1)
+			{
 				tmp->type = WORD;
+				glue_together(&tmp, &data->token_list);
+			}
 			else
+			{
 				expand(tmp, data);
-			glue_together(&tmp, &data->token_list);
+				reparse_envar(&tmp, data);
+			}
 		}
 		tmp = tmp->next;
 	}

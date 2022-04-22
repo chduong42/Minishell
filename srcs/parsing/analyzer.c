@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   analyzer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 18:42:02 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/12 12:20:48 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/22 13:44:41 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ Displays an optional syntax error message "str", and delete token_list.
 */
 static void	synerror(char *str, t_data *data)
 {
-	ft_putstr_fd("MiniShell : Syntax Error", 2);
+	ft_putstr_fd("MiniShell: Syntax Error", 2);
 	if (str != NULL)
 		ft_putstr_fd(str, 2);
 	ft_putstr_fd("\n", 2);
@@ -51,14 +51,27 @@ static void	last_check(t_data *data)
 void	analyzer(t_data *data)
 {
 	if (checker_quotes(data->token_list, data) == false)
-		synerror(" : Near token quote.", data);
+	{
+		synerror(": Near token quote.", data);
+		return ;
+	}
 	expand_remaining_envar(data);
 	suppress_spaces(&data->token_list);
 	if (data->token_list == NULL)
-		synerror(" : Bad input.", data);
+	{
+		synerror(": Bad input.", data);
+		g_status = 0;
+		return ;
+	}
 	if (checker_words(data->token_list) == false)
-		synerror(" : Near token word.", data);
+	{
+		synerror(": Near token word.", data);
+		return ;
+	}
 	if (checker_redir(data->token_list) == false)
-		synerror(" : Near redirection token.", data);
+	{
+		synerror(": Near redirection token.", data);
+		return ;
+	}
 	last_check(data);
 }

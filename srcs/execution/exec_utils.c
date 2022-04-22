@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 17:50:54 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/19 15:42:32 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/20 16:13:57 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	exec_cmd(char **arg, char **envp, t_data *data)
 	char	*cmd;
 
 	cmd = get_binpath(arg[0], data);
-	if (access(cmd, X_OK) == 0)
+	if (cmd != NULL && access(cmd, X_OK) == 0)
 		execve(cmd, arg, envp);
 	ft_putstr_fd("MiniShell: ", 2);
 	ft_putstr_fd(arg[0], 2);
