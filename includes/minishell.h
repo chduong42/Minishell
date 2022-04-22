@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/22 17:57:30 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/22 22:13:37 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char	*var_join(char *var, char *value);
 
 bool	valid_var(char *varname);
 bool	ft_is_in_charset(char c, char *charset);
-bool	ft_checkint(char *nb);
+bool	ft_checkllint(char *nb);
 
 size_t	find_char_set(const char *str, char *charset);
 t_list	*grep(char *varname, t_data *data);
@@ -182,6 +182,7 @@ void	standalone_builtin(t_token *elem, t_data *data);
 void	close_unused_fd(t_token *elem, t_data *data);
 void	exec_cmd(char **arg, char **envp, t_data *data);
 void	check_exit_status(void);
+void	less_fail(int fd, t_token **elem);
 
 int		count_cmd(t_data *data);
 

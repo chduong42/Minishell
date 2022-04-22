@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:40:24 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/22 14:16:56 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/22 22:40:51 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,13 @@ static void	heredoc_aux(t_token **tmp)
 {
 	if ((*tmp)->previous)
 	{
-		if ((*tmp)->previous->in != -1)
+		if ((*tmp)->previous->in > -1)
 			close((*tmp)->previous->in);
 		(*tmp)->previous->in = (*tmp)->pipefd[0];
 	}
 	else if ((*tmp)->next)
 	{
-		if ((*tmp)->next->in != -1)
+		if ((*tmp)->next->in > -1)
 			close((*tmp)->next->in);
 		(*tmp)->next->in = (*tmp)->pipefd[0];
 	}

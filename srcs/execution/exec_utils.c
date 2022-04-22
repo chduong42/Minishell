@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 17:50:54 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/22 15:20:48 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/22 22:40:51 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,9 @@ void	close_unused_fd(t_token *elem, t_data *data)
 	tmp = data->token_list;
 	while (tmp)
 	{
-		if (tmp->type == WORD && tmp != elem && tmp->in != -1)
+		if (tmp->type == WORD && tmp != elem && tmp->in > -1)
 			close(tmp->in);
-		if (tmp->type == WORD && tmp != elem && tmp->out != -1)
+		if (tmp->type == WORD && tmp != elem && tmp->out > -1)
 			close(tmp->out);
 		tmp = tmp->next;
 	}
