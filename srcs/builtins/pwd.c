@@ -6,16 +6,22 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:51:32 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/04/22 15:58:49 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/22 16:29:47 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	pwd(void)
+void	pwd(char **cmd)
 {
 	char	*pwd;
 
+	if (cmd && cmd[1] && cmd[1][0] == '-')
+	{
+		ft_putstr_fd("Minishell: pwd: no options taken\n", 2);
+		g_status = 2;
+		return ;
+	}
 	pwd = getcwd(NULL, 0);
 	if (pwd == NULL)
 	{
