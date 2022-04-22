@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/22 14:22:22 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/22 16:43:39 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,9 @@ char	*my_strcat(char *dest, char *str);
 char	*path_join(char *path, char *cmd);
 char	*var_join(char *var, char *value);
 
+bool	valid_varname(char *varname);
 bool	ft_is_in_charset(char c, char *charset);
+
 size_t	find_char_set(const char *str, char *charset);
 t_list	*grep(char *varname, t_data *data);
 
@@ -107,7 +109,6 @@ void	free_exit(t_data *data, int opt);
 
 //	DATA FUNCTIONS
 char	**cpy_env(t_list *env);
-
 void	data_init(t_data *data, char **envp);
 void	sort_export(char **sort);
 void	update_env(t_data *data);
@@ -193,7 +194,6 @@ void	pwd(void);
 void	unset(char **arg, t_data *data);
 
 //	SIGNAL
-// void	sigctrl(int signo, siginfo_t *info, void *context);
 void	set_signal(int mode);
 
 #endif
