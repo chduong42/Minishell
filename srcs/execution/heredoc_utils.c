@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:28:15 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/22 13:23:47 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/22 15:09:29 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,10 @@ static char	*heredoc_prompt(char *delim)
 		tmp = buffer;
 		buffer = ft_strjoin(tmp, line);
 		free(tmp);
+		free(line);
 		tmp = buffer;
 		buffer = ft_strjoin(tmp, "\n");
-		free(line);
+		free(tmp);
 		line = readline("> ");
 	}
 	if (line == NULL)
@@ -74,9 +75,12 @@ void	child_prompt(char *delim, t_token **tmp, t_data *data)
 	set_signal(HEREDOC);
 	close((*tmp)->pipefd[0]);
 	buffer = heredoc_prompt(delim);
-	if ((*tmp)->heredoc_expand == true)
-		matriochka(&buffer, data);
-	ft_putstr_fd(buffer, (*tmp)->pipefd[1]);
+	if (g_status != 130)
+	{
+		if ((*tmp)->heredoc_expand == true)
+			matriochka(&buffer, data);
+		ft_putstr_fd(buffer, (*tmp)->pipefd[1]);
+	}
 	close((*tmp)->pipefd[1]);
 	free(buffer);
 	free_exit(data, EXIT_SUCCESS);

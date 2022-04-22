@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 15:37:56 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/03/31 20:20:10 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/22 14:11:10 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	data_init(t_data *data, char **envp)
 	data->env = NULL;
 	data->path = ft_split(getenv("PATH"), ':');
 	data->newpath = 0;
+	data->buffer = NULL;
 	data->status = 0;
 	if (*envp)
 		init_env(data, envp);
