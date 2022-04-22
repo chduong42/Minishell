@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:51:15 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/04/12 12:20:48 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/22 16:31:20 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,17 @@ void	go_home(t_data *data)
 	}
 }
 
-void	cd(char *path, t_data *data)
+void	cd(char **arg, t_data *data)
 {
+	char *path;
+
+	if (arg && arg[1] && arg[2])
+	{
+		ft_putstr_fd("Minishell: cd: too many arguments\n", 2);
+		g_status = 1;
+		return ;
+	}
+	path = arg[1];
 	update_oldpwd(data);
 	if (!path)
 		go_home(data);
