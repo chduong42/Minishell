@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 10:31:59 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/04/22 17:00:55 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/22 17:11:37 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 static bool	print_error(char *varname)
 {
-	ft_putstr_fd("export: `", 2);
+	ft_putstr_fd("MiniShell: export: `", 2);
 	ft_putstr_fd(varname, 2);
 	ft_putstr_fd("': not a valid identifier\n", 2);
 	return (false);
 }
 
-bool	valid_varname(char *varname)
+bool	valid_var(char *varname)
 {
 	int	i;
 

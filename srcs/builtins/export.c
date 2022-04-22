@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 12:11:03 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/04/22 17:03:21 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/22 17:10:25 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	export(char **arg, t_data *data)
 	{
 		while (arg[i])
 		{
-			if (valid_varname(arg[i]))
+			if (valid_var(arg[i]))
 				export_var(arg[i], data);
 			else
 				g_status = 1;
