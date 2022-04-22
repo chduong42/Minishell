@@ -3,74 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 10:31:59 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/03/28 15:23:22 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/22 17:11:37 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**cpy_env(t_list *env)
+static bool	print_error(char *varname)
 {
-	char	**sort;
-	int		i;
+	ft_putstr_fd("MiniShell: export: `", 2);
+	ft_putstr_fd(varname, 2);
+	ft_putstr_fd("': not a valid identifier\n", 2);
+	return (false);
+}
 
-	sort = malloc(sizeof(char *) * (ft_lstsize(env) + 1));
-	i = 0;
-	while (env)
+bool	valid_var(char *varname)
+{
+	int	i;
+
+	if (varname[0] != '_' && !ft_isalpha(varname[0]))
+		return (print_error(varname));
+	i = 1;
+	while (varname[i])
 	{
-		sort[i] = env->line;
-		env = env->next;
+		if (varname[i] != '_' && !ft_isalnum(varname[i]))
+			return (print_error(varname));
 		++i;
 	}
-	sort[i] = 0;
-	return (sort);
-}
-
-void	sort_export(char **sort)
-{
-	char	*tmp;
-	int		i;
-	int		j;
-
-	i = 0;
-	while (sort[i])
-	{
-		j = i + 1;
-		while (sort[j])
-		{
-			if (ft_strcmp(sort[i], sort[j]) > 0)
-			{
-				tmp = sort[i];
-				sort[i] = sort[j];
-				sort[j] = tmp;
-			}
-			++j;
-		}
-		++i;
-	}
-}
-
-void	new_export(t_data *data)
-{
-	if (data->newenv)
-	{
-		free_tab(data->export);
-		data->export = NULL;
-		data->export = cpy_env(data->env);
-		data->newenv = false;
-	}
-}
-
-void	new_path(t_data *data)
-{
-	if (data->newpath)
-	{
-		free_tab(data->path);
-		data->path = NULL;
-		data->path = ft_split(getenv("PATH"), ':');
-		data->newpath = false;
-	}
+	return (true);
 }

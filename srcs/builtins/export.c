@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 12:11:03 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/04/20 15:27:09 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/22 17:10:25 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,29 +46,37 @@ static void	print_export(t_data *data)
 		printf("%s\n", data->export[i++]);
 }
 
+static void	export_var(char *arg, t_data *data)
+{
+	char	**tmp;
+
+	tmp = ft_split(arg, '=');
+	if (ft_strncmp(tmp[0], "PATH", 5) == 0)
+		data->newpath = true;
+	if (is_new_var(tmp[0], data))
+		ft_lstadd_back(&data->env, ft_lstnew(arg, tmp[0], tmp[1]));
+	else
+		change_var(arg, tmp, data);
+	free_tab(tmp);
+}
+
 void	export(char **arg, t_data *data)
 {
 	int		i;
-	char	**tmp;
 
-	if (arg[1])
+	i = 1;
+	if (arg[i])
 	{
-		i = 1;
 		while (arg[i])
 		{
-			tmp = ft_split(arg[i], '=');
-			if (ft_strncmp(tmp[0], "PATH", 5) == 0)
-				data->newpath = true;
-			if (is_new_var(tmp[0], data))
-				ft_lstadd_back(&data->env, ft_lstnew(arg[i], tmp[0], tmp[1]));
+			if (valid_var(arg[i]))
+				export_var(arg[i], data);
 			else
-				change_var(arg[i], tmp, data);
-			free_tab(tmp);
+				g_status = 1;
 			++i;
 		}
 		update_env(data);
 	}
 	else
 		print_export(data);
-	g_status = 0;
 }
