@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:28:15 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/21 19:01:38 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/22 13:23:47 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	child_prompt(char *delim, t_token **tmp, t_data *data)
 {
 	char	*buffer;
 
+	set_signal(HEREDOC);
 	close((*tmp)->pipefd[0]);
 	buffer = heredoc_prompt(delim);
 	if ((*tmp)->heredoc_expand == true)

@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:40:24 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/21 17:00:29 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/22 13:23:37 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void	heredoc(char *delim, t_token **tmp, t_data *data)
 		return (perror("MiniShell: Pipe failed"));
 	else
 		heredoc_aux(tmp);
-	set_signal(HEREDOC);
 	pid = fork();
 	if (pid < 0)
 		return (perror("MiniShell: Error"));
