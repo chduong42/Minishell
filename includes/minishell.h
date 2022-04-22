@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/22 11:54:47 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/22 12:44:24 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ void	suppress_spaces(t_token **token_list);
 void	glue_together(t_token **tmp, t_token **token_list);
 void	glue_to_prev(t_token **tmp, t_token **token_list);
 void	glue_to_next(t_token **tmp, t_token **token_list);
+void	reparse_envar(t_token **elem, t_data *data);
 
 //	EXEC
 bool	in_pipeline(t_token *elem);

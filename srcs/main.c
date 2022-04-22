@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:51 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/22 12:04:01 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/22 12:41:33 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,9 @@ static void	prompt(t_data *data)
 			data->line = NULL;
 			if (data->token_list != NULL)
 			{
-				printf("\nLexer Output :\n");
-				display_toklist(data->token_list);
 				analyzer(data);
 				if (data->token_list != NULL)
-				{
-					printf("\nAnalyzer Output :\n");
-					display_toklist(data->token_list);
 					executor(data->export, data);
-				}
 			}
 		}
 		else
