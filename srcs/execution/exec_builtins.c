@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:36:06 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/12 12:58:48 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/22 16:27:39 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,17 @@ bool	exec_builtins(t_token *elem, t_data *data)
 	if (is_builtin(elem->cmd[0]) == false)
 		return (false);
 	if (ft_strncmp(elem->cmd[0], "cd", 3) == 0)
-		cd(elem->cmd[1], data);
+		cd(elem->cmd, data);
 	else if (ft_strncmp(elem->cmd[0], "echo", 5) == 0)
 		echo(elem->cmd);
 	else if (ft_strncmp(elem->cmd[0], "env", 4) == 0)
-		env(data->env);
+		env(elem->cmd, data->env);
 	else if (ft_strncmp(elem->cmd[0], "exit", 5) == 0)
 		exit_ms(elem->cmd, data);
 	else if (ft_strncmp(elem->cmd[0], "export", 7) == 0)
 		export(elem->cmd, data);
 	else if (ft_strncmp(elem->cmd[0], "pwd", 4) == 0)
-		pwd();
+		pwd(elem->cmd);
 	else if (ft_strncmp(elem->cmd[0], "unset", 6) == 0)
 		unset(elem->cmd, data);
 	return (true);

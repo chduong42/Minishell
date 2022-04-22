@@ -185,12 +185,12 @@ void	check_exit_status(void);
 int		count_cmd(t_data *data);
 
 //	BUILTINS
-void	cd(char *path, t_data *data);
+void	cd(char **argpath, t_data *data);
 void	echo(char **arg);
 void	exit_ms(char **arg, t_data *data);
 void	export(char **arg, t_data *data);
-void	env(t_list *env);
-void	pwd(void);
+void	env(char **cmd, t_list *env);
+void	pwd(char **cmd);
 void	unset(char **arg, t_data *data);
 
 //	SIGNAL
