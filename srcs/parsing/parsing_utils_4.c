@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 18:10:45 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/22 12:50:27 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/24 21:03:53 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,41 @@ void	glue_to_next(t_token **tmp, t_token **token_list)
 	}
 }
 
-static t_token	*envar_split_aux(t_token **elem, t_token *tmp_list,
+static t_token	*envar_split_aux(t_token **elem)
+{
+	t_token	*tmp_list;
+	char	**tab;
+	int		i;
+
+	tmp_list = NULL;
+	if ((*elem)->data[0] == ' ')
+	{
+		if (create_token(WORD, ft_strdup(""), &tmp_list) == false)
+			return (NULL);
+	}
+	tab = ft_split((*elem)->data, ' ');
+	i = 0;
+	while (tab[i])
+	{
+		if (create_token(WORD, ft_strdup(tab[i++]), &tmp_list) == false)
+		{
+			free_tab(tab);
+			return (NULL);
+		}
+	}
+	free_tab(tab);
+	return (tmp_list);
+}
+
+static t_token	*envar_split_aux2(t_token **elem, t_token *tmp_list,
 								t_token *tmp)
 {
 	if (ft_strlen((*elem)->data) > 0
 		&& (*elem)->data[ft_strlen((*elem)->data) - 1] == ' ')
-		create_token(WORD, ft_strdup(""), &tmp_list);
+	{
+		if (create_token(WORD, ft_strdup(""), &tmp_list) == false)
+			return (NULL);
+	}
 	if ((*elem)->previous)
 		(*elem)->previous->next = tmp_list;
 	tmp_list->previous = (*elem)->previous;
@@ -65,9 +94,7 @@ It does it only when there are no redirection before itself.
 t_token	*envar_split(t_token **elem)
 {
 	t_token	*tmp;
-	char	**tab;
 	t_token	*tmp_list;
-	int		i;
 
 	tmp = (*elem)->previous;
 	while (tmp && is_legit(tmp) == false)
@@ -76,16 +103,9 @@ t_token	*envar_split(t_token **elem)
 		return (*elem);
 	else
 	{
-		tmp_list = NULL;
-		tab = ft_split((*elem)->data, ' ');
-		if ((*elem)->data[0] == ' ')
-			create_token(WORD, ft_strdup(""), &tmp_list);
-		i = 0;
-		while (tab[i])
-			create_token(WORD, ft_strdup(tab[i++]), &tmp_list);
-		free_tab(tab);
+		tmp_list = envar_split_aux(elem);
 		if (tmp_list == NULL)
 			return (*elem);
-		return (envar_split_aux(elem, tmp_list, tmp));
+		return (envar_split_aux2(elem, tmp_list, tmp));
 	}
 }

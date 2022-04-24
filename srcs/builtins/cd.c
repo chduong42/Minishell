@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:51:15 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/04/22 16:31:20 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/24 21:04:31 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	go_home(t_data *data)
 
 void	cd(char **arg, t_data *data)
 {
-	char *path;
+	char	*path;
 
 	if (arg && arg[1] && arg[2])
 	{

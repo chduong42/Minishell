@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:40:24 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/22 22:40:51 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/24 20:41:31 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,5 @@ void	heredoc(char *delim, t_token **tmp, t_data *data)
 		child_prompt(delim, tmp, data);
 	close((*tmp)->pipefd[1]);
 	waitpid(pid, NULL, 0);
+	end_handlers(NULL, tmp, data);
 }

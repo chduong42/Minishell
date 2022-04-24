@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 15:37:56 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/04/22 14:11:10 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/24 21:05:04 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ void	data_init(t_data *data, char **envp)
 
 void	update_env(t_data *data)
 {
-	t_list *path;
-	
+	t_list	*path;
+
 	if (data->newenv == true)
 	{
 		free_tab(data->export);
@@ -97,7 +97,7 @@ void	update_env(t_data *data)
 		path = grep("PATH", data);
 		free_tab(data->path);
 		data->path = NULL;
-		data->path = ft_split(path->value,':');
+		data->path = ft_split(path->value, ':');
 		data->newpath = false;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 12:47:56 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/22 22:40:51 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/24 20:42:59 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ void	file_handler(t_data *data)
 			heredoc(tmp->cmd[0], &tmp, data);
 		else if (tmp->type == DGREAT && tmp->cmd != NULL)
 			dgreat_handler(get_filepath(&tmp->cmd[0]), &tmp, data);
-		tmp = tmp->next;
+		else
+			tmp = tmp->next;
 	}
 }
 

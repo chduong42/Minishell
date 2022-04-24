@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/22 22:13:37 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/24 20:41:01 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,6 +183,7 @@ void	close_unused_fd(t_token *elem, t_data *data);
 void	exec_cmd(char **arg, char **envp, t_data *data);
 void	check_exit_status(void);
 void	less_fail(int fd, t_token **elem);
+void	end_handlers(char *filepath, t_token **tmp, t_data *data);
 
 int		count_cmd(t_data *data);
 

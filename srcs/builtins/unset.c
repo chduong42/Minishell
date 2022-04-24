@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 18:42:25 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/04/22 17:27:59 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/24 21:05:21 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static bool	valid_varname(char *varname)
 	}
 	return (true);
 }
-
 
 static int	del_var(char *var, t_data *data)
 {

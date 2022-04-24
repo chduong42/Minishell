@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 12:00:24 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/20 17:05:08 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/24 20:31:02 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ char	*pop_first_cmd(t_token **elem, t_data *data)
 	char	*str;
 	size_t	i;
 
-	if (*elem == NULL || (*elem)->type != WORD || (*elem)->cmd == NULL)
+	if (elem == NULL || *elem == NULL
+		|| (*elem)->type != WORD || (*elem)->cmd == NULL)
 		return (NULL);
 	str = ft_strdup((*elem)->cmd[0]);
 	i = ft_tablen((*elem)->cmd);
