@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline_utils_2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:37:46 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/20 16:37:58 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/24 19:44:44 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	count_cmd(t_data *data)
 	tmp = data->token_list;
 	while (tmp)
 	{
-		if (tmp->type == WORD && tmp->cmd != NULL)
+		if (tmp->type == WORD && tmp->cmd && tmp->cmd[0])
 			++count;
 		tmp = tmp->next;
 	}
@@ -57,4 +57,21 @@ void	check_exit_status(void)
 			STDERR_FILENO);
 	else if (g_status == (128 | SIGINT))
 		ft_putchar_fd('\n', STDERR_FILENO);
+}
+
+void	less_fail(int fd, t_token **elem)
+{
+	perror("MiniShell: Error");
+	if ((*elem)->previous == NULL && (*elem)->next)
+	{
+		if ((*elem)->next->in > -1)
+			close((*elem)->next->in);
+		(*elem)->next->in = fd;
+	}
+	else if ((*elem)->previous)
+	{
+		if ((*elem)->previous->in > -1)
+			close((*elem)->previous->in);
+		(*elem)->previous->in = fd;
+	}
 }

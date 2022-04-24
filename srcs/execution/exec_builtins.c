@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:36:06 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/22 16:27:39 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/22 22:40:51 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,13 @@ bool	exec_builtins(t_token *elem, t_data *data)
 static void	standalone_builtin_aux(t_token *elem, t_data *data,
 									int *stdin_save, int *stdout_save)
 {
-	if (elem->in != -1)
+	if (elem->in > -1)
 	{
 		*stdin_save = dup(0);
 		if (*stdin_save == -1 || dup2(elem->in, 0) == -1)
 			return (perror("MiniShell: Error"));
 	}
-	if (elem->out != -1)
+	if (elem->out > -1)
 	{
 		*stdout_save = dup(1);
 		if (*stdout_save == -1 || dup2(elem->out, 1) == -1)
@@ -77,7 +77,7 @@ void	standalone_builtin(t_token *elem, t_data *data)
 	int		stdout_save;
 
 	standalone_builtin_aux(elem, data, &stdin_save, &stdout_save);
-	if (elem->in != -1)
+	if (elem->in > -1)
 	{
 		if (dup2(stdin_save, 0) == -1)
 			return (perror("MiniShell: Error"));
@@ -85,7 +85,7 @@ void	standalone_builtin(t_token *elem, t_data *data)
 		close(stdin_save);
 		elem->in = -1;
 	}
-	if (elem->out != -1)
+	if (elem->out > -1)
 	{
 		if (dup2(stdout_save, 1) == -1)
 			return (perror("MiniShell: Error"));

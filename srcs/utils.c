@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:09:54 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/22 18:03:05 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/22 21:01:44 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char	*var_join(char *var, char *value)
 	return (p);
 }
 
-bool	ft_checkint(char *nb)
+bool	ft_checkllint(char *nb)
 {
 	char	*int_extremum;
 	int		i;
@@ -94,11 +94,11 @@ bool	ft_checkint(char *nb)
 		while (nb[i])
 		{
 			if (nb[i] > int_extremum[i] || !ft_isdigit(nb[i]))
-				return (true);
+				return (false);
 			++i;
 		}
-		return (false);
+		return (true);
 	}
 	else
-		return (false);
+		return (true);
 }

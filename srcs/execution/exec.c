@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/20 17:43:47 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/22 22:40:51 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,15 @@
 static void	for_child(t_token *elem, t_data *data, char **envp)
 {
 	close_unused_fd(elem, data);
-	if (elem->in != -1)
+	if (elem->in == -2)
+		free_exit(data, 1);
+	if (elem->in > -1)
 	{
 		if (dup2(elem->in, 0) == -1)
 			return (perror("MiniShell: Error"));
 		close(elem->in);
 	}
-	if (elem->out != -1)
+	if (elem->out > -1)
 	{
 		if (dup2(elem->out, 1) == -1)
 			return (perror("MiniShell: Error"));
@@ -34,14 +36,14 @@ static void	for_child(t_token *elem, t_data *data, char **envp)
 
 static void	fork_exec_aux(t_token *elem)
 {
-	if (elem->in != -1)
+	if (elem->in > -1)
 	{
 		close(elem->in);
 		elem->in = -1;
 		if (elem->previous && elem->previous->type == PIPE)
 			close(elem->previous->pipefd[0]);
 	}
-	if (elem->out != -1)
+	if (elem->out > -1)
 	{
 		close(elem->out);
 		elem->out = -1;

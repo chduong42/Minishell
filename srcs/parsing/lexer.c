@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:48:39 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/08 17:43:43 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/24 20:49:37 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ bool	create_token(t_token_type type, char *data, t_token **list)
 {
 	t_token	*token;
 
-	if ((data == NULL || data[0] == '\0') && type != NONE)
+	if (data == NULL || type == NONE)
 		return (false);
 	token = (t_token *)malloc(sizeof(t_token));
 	if (token == NULL)

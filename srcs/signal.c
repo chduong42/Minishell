@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 17:08:28 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/22 13:22:40 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/22 21:58:38 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	set_signal(int mode)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
-		signal(SIGPIPE, SIG_DFL);
+		signal(SIGPIPE, SIG_IGN);
 	}
 	else if (mode == HEREDOC)
 		signal(SIGINT, heredoc_hdl);
