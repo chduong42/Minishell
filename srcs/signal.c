@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 17:08:28 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/22 21:58:38 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/25 18:46:17 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,17 @@ void	set_signal(int mode)
 	{
 		signal(SIGINT, default_hdl);
 		signal(SIGQUIT, SIG_IGN);
-		signal(SIGPIPE, SIG_IGN);
 		signal(SIGTERM, SIG_IGN);
 	}
 	else if (mode == MUTE)
 	{
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_IGN);
-		signal(SIGPIPE, SIG_IGN);
 	}
 	else if (mode == RESET)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
-		signal(SIGPIPE, SIG_IGN);
 	}
 	else if (mode == HEREDOC)
 		signal(SIGINT, heredoc_hdl);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:09:54 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/22 21:01:44 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/25 18:37:55 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,29 +76,14 @@ char	*var_join(char *var, char *value)
 	return (p);
 }
 
-bool	ft_checkllint(char *nb)
+int	count_str(char **str)
 {
-	char	*int_extremum;
-	int		i;
+	int	i;
 
 	i = 0;
-	if (nb[0] == '-')
-	{
-		int_extremum = "-9223372036854775808";
-		i = 1;
-	}
-	else
-		int_extremum = "9223372036854775807";
-	if (ft_strlen(nb) >= ft_strlen(int_extremum))
-	{
-		while (nb[i])
-		{
-			if (nb[i] > int_extremum[i] || !ft_isdigit(nb[i]))
-				return (false);
-			++i;
-		}
-		return (true);
-	}
-	else
-		return (true);
+	if (!str)
+		return (0);
+	while (str[i])
+		++i;
+	return (i);
 }

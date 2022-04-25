@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 18:42:25 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/04/24 21:05:21 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/25 20:13:24 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,20 @@
 
 static bool	print_error(char *varname)
 {
-	ft_putstr_fd("MiniShell: unset: `", 2);
-	ft_putstr_fd(varname, 2);
-	ft_putstr_fd("': not a valid identifier\n", 2);
+	if (varname[0] == '-')
+	{
+		ft_putstr_fd("MiniShell: unset: ", 2);
+		ft_putstr_fd(varname, 2);
+		ft_putstr_fd("': invalid option\n", 2);
+		g_status = 2;
+	}
+	else
+	{
+		ft_putstr_fd("MiniShell: unset: `", 2);
+		ft_putstr_fd(varname, 2);
+		ft_putstr_fd("': not a valid identifier\n", 2);
+		g_status = 1;
+	}
 	return (false);
 }
 
@@ -38,10 +49,12 @@ static bool	valid_varname(char *varname)
 
 static int	del_var(char *var, t_data *data)
 {
+	bool	valid;
 	t_list	*env;
 
+	valid = valid_varname(var);
 	env = grep(var, data);
-	if (env && valid_varname(env->var))
+	if (env && valid)
 	{
 		if (ft_strncmp(env->var, "PATH", 5) == 0)
 		{
@@ -51,7 +64,6 @@ static int	del_var(char *var, t_data *data)
 		ft_lstdelone(env, free);
 		return (1);
 	}
-	g_status = 1;
 	return (0);
 }
 

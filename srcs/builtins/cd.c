@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:51:15 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/04/24 21:04:31 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/25 18:39:15 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,13 @@ void	update_pwd(char *path, t_data *data)
 		free(newpwd);
 	}
 	else
-		printf("Minishell: cd: %s: %s\n", path, strerror(errno));
+	{
+		ft_putstr_fd("Minishell: cd: ", STDERR_FILENO);
+		ft_putstr_fd(path, STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
+		ft_putstr_fd(strerror(errno), STDERR_FILENO);
+		ft_putchar_fd('\n', STDERR_FILENO);
+	}
 }
 
 void	go_home(t_data *data)
@@ -66,7 +72,7 @@ void	go_home(t_data *data)
 	}
 	else
 	{
-		printf("Minishell: cd: HOME not set\n");
+		ft_putstr_fd("Minishell: cd: HOME not set\n", STDERR_FILENO);
 		g_status = 1;
 	}
 }
@@ -75,7 +81,7 @@ void	cd(char **arg, t_data *data)
 {
 	char	*path;
 
-	if (arg && arg[1] && arg[2])
+	if (count_str(arg) > 2)
 	{
 		ft_putstr_fd("Minishell: cd: too many arguments\n", 2);
 		g_status = 1;

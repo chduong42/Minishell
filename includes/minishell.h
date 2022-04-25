@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/24 20:41:01 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/25 18:38:13 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,14 @@ typedef struct s_data
 }			t_data;
 
 //	UTILS
+int		count_str(char **str);
+
 char	*my_strcat(char *dest, char *str);
 char	*path_join(char *path, char *cmd);
 char	*var_join(char *var, char *value);
 
 bool	valid_var(char *varname);
 bool	ft_is_in_charset(char c, char *charset);
-bool	ft_checkllint(char *nb);
 
 size_t	find_char_set(const char *str, char *charset);
 t_list	*grep(char *varname, t_data *data);
