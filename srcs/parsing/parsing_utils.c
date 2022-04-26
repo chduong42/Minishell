@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 15:26:15 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/12 12:21:04 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/26 12:38:18 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,19 @@ size_t	ft_envarlen(const char *str)
 {
 	size_t	i;
 
-	if (str[0] == '$')
+	i = 0;
+	if (str && str[0] == '$')
+	{
+		if (ft_isdigit(str[1]))
+			return (2);
 		i = 1;
+	}
 	else
-		i = 0;
-	while (str[i] && (ft_isalpha(str[i]) || ft_isdigit(str[i])
+	{
+		if (str && ft_isdigit(str[0]))
+			return (1);
+	}
+	while (str && str[i] && (ft_isalpha(str[i]) || ft_isdigit(str[i])
 			|| ft_is_in_charset(str[i], "_?")))
 	{
 		if (str[i] == '?')

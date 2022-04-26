@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 18:42:02 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/22 13:44:41 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/26 12:24:00 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 /*
 Displays an optional syntax error message "str", and delete token_list.
 */
-static void	synerror(char *str, t_data *data)
+bool	synerror(char *str, t_data *data)
 {
-	ft_putstr_fd("MiniShell: Syntax Error", 2);
+	ft_putstr_fd("MiniShell: syntax error", 2);
 	if (str != NULL)
 		ft_putstr_fd(str, 2);
 	ft_putstr_fd("\n", 2);
@@ -27,6 +27,7 @@ static void	synerror(char *str, t_data *data)
 		free_toklist(&data->token_list);
 		data->token_list = NULL;
 	}
+	return (false);
 }
 
 static void	last_check(t_data *data)
@@ -52,7 +53,7 @@ void	analyzer(t_data *data)
 {
 	if (checker_quotes(data->token_list, data) == false)
 	{
-		synerror(": Near token quote.", data);
+		synerror(" near token quote.", data);
 		return ;
 	}
 	expand_remaining_envar(data);
@@ -65,13 +66,10 @@ void	analyzer(t_data *data)
 	}
 	if (checker_words(data->token_list) == false)
 	{
-		synerror(": Near token word.", data);
+		synerror(" near token word.", data);
 		return ;
 	}
-	if (checker_redir(data->token_list) == false)
-	{
-		synerror(": Near redirection token.", data);
+	if (checker_redir(data->token_list, data) == false)
 		return ;
-	}
 	last_check(data);
 }

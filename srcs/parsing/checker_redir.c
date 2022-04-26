@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 15:15:08 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/22 17:58:12 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/26 12:26:07 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static bool	is_valid_great(t_token *elem)
 	return (false);
 }
 
-bool	checker_redir(t_token *token_list)
+bool	checker_redir(t_token *token_list, t_data *data)
 {
 	t_token	*tmp;
 
@@ -57,17 +57,17 @@ bool	checker_redir(t_token *token_list)
 		if (tmp->type == PIPE)
 		{
 			if (is_valid_pipe(tmp) == false)
-				return (false);
+				return (synerror(" near unexpected token `|'", data));
 		}
 		else if (tmp->type == LESS || tmp->type == DLESS)
 		{
 			if (is_valid_less(tmp) == false)
-				return (false);
+				return (synerror(" near unexpected token `newline'", data));
 		}
 		else if (tmp->type == GREAT || tmp->type == DGREAT)
 		{
 			if (is_valid_great(tmp) == false)
-				return (false);
+				return (synerror(" near unexpected token `newline'", data));
 		}
 		tmp = tmp->next;
 	}

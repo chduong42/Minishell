@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 18:06:47 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/25 18:38:13 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/26 12:23:44 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,11 +135,12 @@ size_t	is_closed(t_token *elem, t_token_type elem_type);
 bool	categorizer(t_input *input, t_token **token_list);
 bool	create_token(t_token_type type, char *data, t_token **list);
 bool	checker_quotes(t_token *token_list, t_data *env_data);
-bool	checker_redir(t_token *token_list);
+bool	checker_redir(t_token *token_list, t_data *data);
 bool	checker_words(t_token *token_list);
 bool	reduce_words(t_token *elem, size_t end, t_token **token_list);
 bool	is_legit(t_token *elem);
 bool	heredoc_expand_exception(t_token *elem);
+bool	synerror(char *str, t_data *data);
 
 void	analyzer(t_data *data);
 void	display_toklist(t_token *token_list);
