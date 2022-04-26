@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 12:11:03 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/04/25 19:46:03 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/26 16:30:24 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static void	print_export(t_data *data)
 		tmp = ft_split(data->export[i++], '=');
 		env = grep(tmp[0], data);
 		printf("declare -x %s=\"%s\"\n", env->var, env->value);
+		free_tab(tmp);
 	}
 }
 

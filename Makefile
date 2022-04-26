@@ -6,7 +6,7 @@
 #    By: chduong <chduong@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/04/22 16:56:23 by chduong          ###   ########.fr        #
+#    Updated: 2022/04/26 16:35:29 by chduong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -127,10 +127,22 @@ re: fclean all
 norm:
 	@norminette ${SRC_DIR} ${INC_DIR} | grep 'Error' ; true
 
-leak:
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=ignorereadline ./${NAME}
+# leak:
+# 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=ignorereadline ./${NAME}
 
-fds:
-	valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=ignorereadline ./${NAME}
+#fds:
+# 	valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=ignorereadline ./${NAME}
+# {
+#     leak readline
+#     Memcheck:Leak 
+#     ...
+#     fun:readline
+# }
+# {
+#     leak add_history
+#     Memcheck:Leak
+#     ...
+#     fun:add_history
+# }
 
 .PHONY: all clean fclean re

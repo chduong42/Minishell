@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:51:15 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/04/25 18:39:15 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/26 15:42:25 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	cd(char **arg, t_data *data)
 	}
 	path = arg[1];
 	update_oldpwd(data);
-	if (!path)
+	if (ft_strncmp(arg[0], "cd", 3) == 0 && !path)
 		go_home(data);
 	else
 	{
