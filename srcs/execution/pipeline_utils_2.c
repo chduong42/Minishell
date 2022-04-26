@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:37:46 by smagdela          #+#    #+#             */
-/*   Updated: 2022/04/24 19:44:44 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/26 11:51:07 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*get_filepath(char **filename)
 	if (filename == NULL || *filename == NULL)
 		return (NULL);
 	if (*filename[0] == '/')
-		return (*filename);
+		return (ft_strdup(*filename));
 	pwd = getcwd(NULL, 0);
 	filepath = path_join(pwd, *filename);
 	free(pwd);
