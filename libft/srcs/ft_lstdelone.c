@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 15:54:00 by chduong           #+#    #+#             */
-/*   Updated: 2022/04/20 15:34:08 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/04/27 11:49:31 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	t_list *prev;
-	t_list *next;
+	t_list	*prev;
+	t_list	*next;
 
 	if (!lst || !del)
 		return ;
