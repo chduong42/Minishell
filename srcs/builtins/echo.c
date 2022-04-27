@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:51:21 by kennyduong        #+#    #+#             */
-/*   Updated: 2022/04/26 16:25:39 by chduong          ###   ########.fr       */
+/*   Updated: 2022/04/27 15:50:30 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ void	print_echo(char **arg, int nl)
 	i = 0;
 	while (arg[i])
 	{
-		printf("%s", arg[i]);
+		ft_putstr_fd(arg[i], 1);
 		if (arg[i] && arg[i + 1])
-			printf(" ");
+			ft_putstr_fd(" ", 1);
 		++i;
 	}
 	if (nl)
-		printf("\n");
+		ft_putstr_fd("\n", 1);
 }
 
 int	check_nflag(char *str)
