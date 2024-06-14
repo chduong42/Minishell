@@ -1,6 +1,8 @@
 # 42-minishell Summary
 42's project that aims at recreating a little shell from scratch, in C, reproducing the behavior of bash.
 
+![preview](minishell_example.png)
+
 # Mandatory Instructions
 We add to implement the following features:
  - Display a prompt when waiting for a new command.
@@ -45,9 +47,6 @@ You can also use the -c option in order to bypass the prompt and get minishell's
 ./minishell -c '<your_command_here>'
 ```
 Enjoy!
-
-# Example
-![preview](minishell_example.png)
 
 # Special Thanks
 I'd like to thank every single one of my fellow workmate who greatly supported me, starting with my teammate [smaugdela](https://github.com/smaugdela)
