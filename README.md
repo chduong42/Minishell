@@ -47,7 +47,7 @@ You can also use the -c option in order to bypass the prompt and get minishell's
 Enjoy!
 
 # Example
-![My Image](misc/minishell_example.png)
+![preview](minishell_example.png)
 
 # Special Thanks
 I'd like to thank every single one of my fellow coworkers who greatly supported me, starting with my teammate [chduong](https://github.com/smaugdela) (sorry if I forgot some...):
