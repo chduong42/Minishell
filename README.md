@@ -51,5 +51,3 @@ Enjoy!
 
 # Special Thanks
 I'd like to thank every single one of my fellow workmate who greatly supported me, starting with my teammate [smaugdela](https://github.com/smaugdela)
-
-May the Force be with them, always.
