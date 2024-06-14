@@ -50,16 +50,6 @@ Enjoy!
 ![preview](minishell_example.png)
 
 # Special Thanks
-I'd like to thank every single one of my fellow coworkers who greatly supported me, starting with my teammate [chduong](https://github.com/smaugdela) (sorry if I forgot some...):
- - [ajealcat](https://github.com/ajealcat)
- - [fahima8897](https://github.com/fahima8897)
- - [vietdu91](https://github.com/vietdu91)
- - [tmanolis](https://github.com/tmanolis)
- - [marineks](https://github.com/marineks)
- - [Batche-Hub](https://github.com/Batche-Hub)
- - [benjaminbrassart](https://github.com/benjaminbrassart)
- - [ethan0905](https://github.com/ethan0905)
- - [mderome](https://github.com/mderome)
- - [JonathanDUFOUR](https://github.com/JonathanDUFOUR)
+I'd like to thank every single one of my fellow workmate who greatly supported me, starting with my teammate [smaugdela](https://github.com/smaugdela)
 
 May the Force be with them, always.
